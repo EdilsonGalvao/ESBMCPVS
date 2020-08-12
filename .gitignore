@@ -2,6 +2,8 @@
 *.d
 
 # Object files
+*.slo
+*.lo
 *.o
 *.ko
 *.obj
@@ -21,6 +23,11 @@
 *.a
 *.la
 *.lo
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
 
 # Shared objects (inc. Windows DLLs)
 *.dll
@@ -50,3 +57,14 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Visual Studio Settings
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
