@@ -45,7 +45,7 @@ enum Order { ASC, DESC };
 std::time_t start;
 std::string executable = "./esbmc";
 std::string filename;
-std::string esbmc_parameters = "--fixed-bv --boolector --quiet";
+std::string esbmc_parameters = "--incremental-bmc --boolector --fixedbv";
 
 pid_t popen2(const char *command, int *infp, int *outfp) {
 	int p_stdin[2], p_stdout[2];
@@ -192,8 +192,6 @@ void execute_binary_search(int hmin, int hmax, int cores) {
 			writeLog(thread, "Started Step " + std::to_string(step));
 
 			std::string command_line = executable + " " + filename + " " + esbmc_parameters + " -Dvalordeh=" + std::to_string(step);
-			std::cout << command_line <<std::endl;
-
 			std::string result = execute_cmd_with_abort(&controller, thread, step, command_line);
 
 			std::size_t verification_failed = result.find("VERIFICATION FAILED");

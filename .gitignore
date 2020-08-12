@@ -68,3 +68,7 @@ dkms.conf
 
 # Local History for Visual Studio Code
 .history/
+
+#ESBMC Build
+esmbc
+ESBMCParallel
