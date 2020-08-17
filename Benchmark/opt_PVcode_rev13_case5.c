@@ -241,7 +241,7 @@ DODmax = (100-SOClimit)*2;
 autonomy = 2; // (48/24)
 //checking batteries
 //Eb = (autonomy/24) * Ecorrected/((float)(DODmax/100));
-Eb = autonomy * Ecorrected*100/DODmax;
+Eb = autonomy * Ecorrected*2;
 //Eb = autonomy * Ecorrected*100/(24*(float)((100-SOClimit)*2));
 
 DODdaycalc = Ecorrected * 100/Eb;
