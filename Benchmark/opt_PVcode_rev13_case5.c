@@ -241,7 +241,7 @@ DODmax = (100-SOClimit)*2;
 autonomy = 2; // (48/24)
 //checking batteries
 //Eb = (autonomy/24) * Ecorrected/((float)(DODmax/100));
-Eb = autonomy * Ecorrected*100/DODmax;
+Eb = autonomy * Ecorrected*2;
 //Eb = autonomy * Ecorrected*100/(24*(float)((100-SOClimit)*2));
 
 DODdaycalc = Ecorrected * 100/Eb;
@@ -291,11 +291,12 @@ __VERIFIER_assume ((VCmax* IC * nc) >= PACref);
 
 /* ----------- MAIN FUNCTION --------- */
 int main() {
-	int HintCost, step=500;
-//	HintCost = FHintCost()+500;
-	HintCost = FHintCost();
-	for (; HintCost <= MaxCost; HintCost=HintCost+step){
+	int HintCost= 3193 ; //, step=500;
+	//	HintCost = FHintCost()+500;
+	//HintCost = FHintCost();
+	for (; HintCost <= 3694; HintCost++){		
 		Faux(HintCost);
 	}
+
 	return 0;
 }

@@ -39,7 +39,7 @@ float InverterData[5][6] = {{0.93, 48, 110, 700, 1600, 400.00},
 
 int getLowestCost(int num_rows, int num_cols, float arr[num_rows][num_cols])
 {
-    return 461;
+    return 477;
     // int totalCost = INT_MAX;
 
     // int cost_column = num_cols - 1;
@@ -189,7 +189,7 @@ int main()
 {
     // int total = getTotalCost();
 
-    for (int i = 461; i < 461 * 5; i++)
+    for (int i = 2901; i < 3000; i++)
     {
         optimizeCost(i);
     }    
