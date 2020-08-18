@@ -45,7 +45,7 @@ enum Order { ASC, DESC };
 std::time_t start;
 std::string executable = "./esbmc";
 std::string filename;
-std::string esbmc_parameters = "--incremental-bmc --boolector --fixedbv";
+std::string esbmc_parameters = "--incremental-bmc --boolector";
 
 pid_t popen2(const char *command, int *infp, int *outfp) {
 	int p_stdin[2], p_stdout[2];
