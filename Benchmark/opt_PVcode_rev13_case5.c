@@ -291,12 +291,16 @@ __VERIFIER_assume ((VCmax* IC * nc) >= PACref);
 
 /* ----------- MAIN FUNCTION --------- */
 int main() {
-	//int HintCost= 3193 ; //, step=500;
-	//	HintCost = FHintCost()+500;
-	//HintCost = FHintCost();
-	// for (; HintCost <= 3694; HintCost++){		
-		Faux(valordeh);
-	// }
+
+	int HintCost= 3193;
+	int costTarget =  0;
+
+	for (; HintCost <= 3694; HintCost++)
+	{
+		costTarget = HintCost;
+
+		Faux(HintCost);
+	}
 
 	return 0;
 }
