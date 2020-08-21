@@ -142,7 +142,7 @@ int Faux (int cost){
 float Pminpanels, ItotalPVpanels, VtotalPVpanels, Eb, DODdaycalc, IminDCbus, equipcost, DODmax;
 	unsigned char PanelChoice, BatteryChoice, ControllerChoice, InverterChoice;
 
-	PanelChoice = nondet_uchar();
+	PanelChoice =nondet_uchar();
         __VERIFIER_assume(PanelChoice <= (PanelQuant-1));
 //	__VERIFIER_assume((PanelChoice >= 0) && (PanelChoice <= PanelQuant));
 
@@ -292,15 +292,19 @@ __VERIFIER_assume ((VCmax* IC * nc) >= PACref);
 /* ----------- MAIN FUNCTION --------- */
 int main() {
 
-	int HintCost= 3193;
+	//int HintCost= 3193;
 	int costTarget =  0;
 
-	for (; HintCost <= 3694; HintCost++)
-	{
-		costTarget = HintCost;
+	// for (; HintCost <= 3694; HintCost++)
+	// {
+	 	//costTarget = 2000;
 
-		Faux(HintCost);
-	}
+	 	//Faux(3185);
+	// }
+
+	 costTarget = valordeh;
+
+	 Faux(valordeh);
 
 	return 0;
 }
