@@ -302,9 +302,9 @@ int main() {
 	 	//Faux(3185);
 	// }
 
-	 costTarget = valordeh;
+	//  costTarget = valordeh;
 
-	 Faux(valordeh);
+	 Faux(2994);
 
 	return 0;
 }
