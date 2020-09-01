@@ -22,7 +22,7 @@ int maxSolarIrrad [24] = {0,0,0,0,0,4,87,295,487,648,751,852,817,742,610,418,128
 int minTemp [12] = {23,23,23,23,23,23,23,23,23,24,24,23};
 int maxTemp [12] = {30,30,30,30,30,30,30,31,32,32,31,30};
 float Insol = 3.80; //(kWh/m2/day CRESESB 2016)
-int Gref = 1000; //reference irradiance is 1000 W/m²
+int Gref = 1000; //reference irradiance is 1000 W/mB2
 int G = 800;
 float Tref = 298.15; //reference temperature is 25oC or 298.15K
 
@@ -139,15 +139,15 @@ int Faux (int cost){
 	int NTP, NPP, NPS, NBtotal, NBS, NBP, NPPmin, ICmin;
 	int arrang, NPmin;
 	float Ecorrected, Ep, NTPmin, NPSmin1, NPSmin2, Cbank, Iscamb, NBSmin, NBPmin, Fobj;
-float Pminpanels, ItotalPVpanels, VtotalPVpanels, Eb, DODdaycalc, IminDCbus, equipcost, DODmax;
+	float Pminpanels, ItotalPVpanels, VtotalPVpanels, Eb, DODdaycalc, IminDCbus, equipcost, DODmax;
 	unsigned char PanelChoice, BatteryChoice, ControllerChoice, InverterChoice;
 
-	PanelChoice =nondet_uchar();
-        __VERIFIER_assume(PanelChoice <= (PanelQuant-1));
+	PanelChoice = nondet_uchar();
+    __VERIFIER_assume(PanelChoice <= (PanelQuant-1));
 //	__VERIFIER_assume((PanelChoice >= 0) && (PanelChoice <= PanelQuant));
 
 	BatteryChoice = nondet_uchar();
-        __VERIFIER_assume(BatteryChoice <= (BatteryQuant-1));
+    __VERIFIER_assume(BatteryChoice <= (BatteryQuant-1));
 
 	ControllerChoice = nondet_uchar();
 	__VERIFIER_assume(ControllerChoice <= (ControllerQuant-1));
@@ -159,7 +159,7 @@ float Pminpanels, ItotalPVpanels, VtotalPVpanels, Eb, DODdaycalc, IminDCbus, equ
 	float Ap = PanelData[PanelChoice][0];
 	float np = PanelData[PanelChoice][1];
 	int N = (int)PanelData[PanelChoice][2];    //N=number of series-connected cells
-	int NOCT = (int)PanelData[PanelChoice][3]; //Nominal Operating Cell Temperature=45°C +-2 at G=800 W/m2, light spectrum AM 1.5G, windspeed=1m/s, air temp at 20°C
+	int NOCT = (int)PanelData[PanelChoice][3]; //Nominal Operating Cell Temperature=45B0C +-2 at G=800 W/m2, light spectrum AM 1.5G, windspeed=1m/s, air temp at 20B0C
 	float mii = PanelData[PanelChoice][4]; //short-circuit current temperature coefficient (A/K)
 	float miv = PanelData[PanelChoice][5]; //open-circuit voltage temperature coefficient (V/K)
 	float Iscref = PanelData[PanelChoice][6];
@@ -199,7 +199,7 @@ float Pminpanels, ItotalPVpanels, VtotalPVpanels, Eb, DODdaycalc, IminDCbus, equ
 
 	Pminpanels = 1.25 * Ecorrected / Insol;
 
-////definir arranjos de painéis solares para tentativa de projeto ótimo NPS, NPP
+////definir arranjos de painC)is solares para tentativa de projeto C3timo NPS, NPP
 
 //arrang = nondet_uint();
 
@@ -291,20 +291,11 @@ __VERIFIER_assume ((VCmax* IC * nc) >= PACref);
 
 /* ----------- MAIN FUNCTION --------- */
 int main() {
-
-	//int HintCost= 3193;
-	int costTarget =  0;
-
-	// for (; HintCost <= 3694; HintCost++)
-	// {
-	 	//costTarget = 2000;
-
-	 	//Faux(3185);
-	// }
-
-	//  costTarget = valordeh;
-
-	 Faux(2994);
-
+	int HintCost, step=500;
+//	HintCost = FHintCost()+500;
+	HintCost = FHintCost();
+	for (; HintCost <= MaxCost; HintCost=HintCost+step){
+		Faux(HintCost);
+	}
 	return 0;
 }
