@@ -276,6 +276,11 @@ namespace PVS
             seq.LCC = (float)(Fobj + Fobj * 0.05 + 20 * 289.64);
             seq.VinDC = VinDC;
             seq.PACref = PACref;
+            seq.NTP = NTP;
+            seq.NPS = NPS;
+            seq.NPP = NPP;
+            seq.NBS = NBS;
+            seq.NBP = NBP;
 
             if (opt.Check() == Status.SATISFIABLE)
             {
@@ -307,11 +312,16 @@ namespace PVS
         public float LCC { get; set; }
         public int VinDC { get; set; }
         public float PACref { get; set; }
-        
+        public int NTP { get; set; }
+        public int NPS { get; set; }
+        public int NPP { get; set; }
+        public int NBS { get; set; }
+        public int NBP { get; set; }
         public override string ToString()
         {
             return $"Panel: {Panel} | Battery:{Battery} | Controller:{Controller} | Inverter:{Inverter} |" +
-                $" NTP | NBT: {NBtotal} x | Controller: | Inverter: {PACref} / {VinDC} | LCC: US$ {LCC} | Cost: {Cost}";
+                $" NTP : {NTP} | NBT: {NBtotal} x | NPS: {NPS} | NPP: {NPP} | NBS: {NBS} | NBP: {NBP} " +
+                $"| Controller: | Inverter: {PACref} / {VinDC} | LCC: US$ {LCC} | Cost: {Cost}";
         }
     }
 }
