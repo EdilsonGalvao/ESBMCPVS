@@ -213,7 +213,7 @@ int main()
     }
   }
   
-  __VERIFIER_error();
+  assert(0);
 
    return 0;
  }
