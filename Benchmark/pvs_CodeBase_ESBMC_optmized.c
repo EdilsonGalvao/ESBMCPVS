@@ -61,6 +61,7 @@ int Phouse = 263, Psurge = 732, Econsumption = 2500;
 float Insol = 3.80; 
 float LCC;
 
+
 int getLowestCost(int panel, int battery, int controller, int inverter)
 {
     int NTP, NPP, NPS, NBtotal, NBS, NBP, NPPmin, ICmin;
@@ -124,8 +125,10 @@ int getLowestCost(int panel, int battery, int controller, int inverter)
     ItotalPVpanels = NPP * Imref;
     VtotalPVpanels = NPS * Vmref;
 
-    __VERIFIER_assume((IC >= ItotalPVpanels));   
-    __VERIFIER_assume((VCmax >= VtotalPVpanels));
+    if(!(IC >= ItotalPVpanels && VCmax >= VtotalPVpanels))
+        return MAX_INTEGER;
+    // __VERIFIER_assume((IC >= ItotalPVpanels));   
+    // __VERIFIER_assume((VCmax >= VtotalPVpanels));
 
     DODmax = (100-SOClimit)*2;
     autonomy = 2; // (48/24)
@@ -137,10 +140,17 @@ int getLowestCost(int panel, int battery, int controller, int inverter)
     NBP = ((IminDCbus -1)/ capacity)+1; //calculando e arredondando
     NBtotal = NBS * NBP;
 
-    __VERIFIER_assume((VCmax* IC * nc) >= PACref);
-    __VERIFIER_assume((VinDC >= Vsystem )); //if inverter supports 48V, then it supports 12 and 24 as well
-    __VERIFIER_assume((VoutAC >= (VAC-VAC*15/100)) && (VoutAC <= (VAC+VAC*15/100))); 
-    __VERIFIER_assume((Phouse <= PACref) && (Psurge <= MAXACref)); 
+    if(!((VCmax* IC * nc) >= PACref))
+        return MAX_INTEGER;
+
+    if(!(VinDC >= Vsystem ))
+        return MAX_INTEGER;
+        
+    if(!(VoutAC >= (VAC-VAC*15/100)))
+        return MAX_INTEGER;
+    
+    if(!((Phouse <= PACref) && (Psurge <= MAXACref)))
+        return MAX_INTEGER;
     
     Fobj= NTP*PanelCost + NBtotal*BatteryCost + ControllerCost + InverterCost;
     
