@@ -96,9 +96,9 @@ namespace PVS
                 }
             }
             else
-            { }
-
-            Console.ReadLine();
+            { 
+                Console.WriteLine($"Invalid");
+            }
         }
 
         /// <summary>
