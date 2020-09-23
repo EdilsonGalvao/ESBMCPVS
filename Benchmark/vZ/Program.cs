@@ -2,14 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Z3;
 
 namespace PVS
 {
-    class Program
+    public partial class Program
     {
+        #region Matrix of values
         //area, efficiency, num cells, NOCT, mii, miv, Iscref, Vocref, Pmref, Imref, Vmref, VmpNOCT, cost
-        public static float[,] _panelData = {
+        private static float[,] _panelData = {
             {1.94432f, 0.1620f, 72f, 45f, 0.00053f,   -0.0031f,  9.18f, 45.1f,  315f, 8.16f, 36.6f,  33.4f,  268.40f},
             {1.94432f, 0.1646f, 72f, 45f, 0.00053f,   -0.0031f,  9.26f, 45.3f,  320f, 8.69f, 36.8f,  33.6f,  190.00f},
             {1.94432f, 0.1672f, 72f, 45f, 0.00053f,   -0.0031f,  9.34f, 45.5f,  325f, 8.78f, 37.0f,  33.7f,  216.67f},
@@ -22,7 +26,7 @@ namespace PVS
             {0.99960f, 0.1500f, 36f, 46f, 0.00060f,   -0.0037f,  8.61f, 22.90f, 150f, 8.12f, 18.50f, 14.61f, 108.50f}};
 
         //efficiency, voltage, capacityC20, Vbulk, Vfloat, cost
-        public static float[,] _batteryData = {
+        private static float[,] _batteryData = {
             {0.85f, 12f, 80f,  14.4f, 13.8f, 131.00f},
             {0.85f, 12f, 105f, 14.4f, 13.8f, 150.00f},
             {0.85f, 12f, 150f, 14.4f, 13.8f, 324.75f},
@@ -35,7 +39,7 @@ namespace PVS
             {0.85f, 12f, 220f, 14.4f, 13.2f, 330.73f}};
 
         //efficiency, nominal current, voltage  output, Vmpptmin=vbat+1, Vcmax, cost
-        public static float[,] _controllerData = {
+        private static float[,] _controllerData = {
             {0.98f, 35f, 24f, 13f, 145f, 294.95f},
             {0.98f, 15f, 24f, 13f,  75f, 88.40f},
             {0.98f, 15f, 24f, 13f, 100f, 137.70f},
@@ -50,7 +54,7 @@ namespace PVS
             {0.96f, 60f, 60f, 13f, 140f, 1072.50f}};
 
         //efficiency, VinDC, VoutAC, PACref, MAXACref, cost
-        public static float[,] _inverterData = {
+        private static float[,] _inverterData = {
             {0.93f, 48f, 110f, 700f, 1600f, 400.00f},
             {0.93f, 48f, 110f, 1200f, 2400f, 750.00f},
             {0.93f, 24f, 120f, 1200f, 2400f, 450.00f},
@@ -61,111 +65,83 @@ namespace PVS
             {0.90f, 12f, 120f, 900f, 2000f, 649.75f},
             {0.82f, 12f, 120f, 1000f, 2000f, 1122.25f},
             {0.90f, 24f, 125f, 1800f, 2900f, 1669.75f}};
+        #endregion
 
-        private static int Phouse = 263, Psurge = 732, Econsumption = 2500;
+        //Basic input to calculate the best combination of equipments.
+        private static int Phouse = int.MaxValue, Psurge = int.MaxValue, Econsumption = int.MaxValue;
+
+        //The list of minimum values found locally.
+        //The lowest value in this list is the best option based on cost.
+        private static List<Equipaments> Equipaments = new List<Equipaments>();
 
         static void Main(string[] args)
         {
-            Microsoft.Z3.Global.ToggleWarningMessages(true);
-            Log.Open("test.log");
-
-            Dictionary<string, string> cfg = new Dictionary<string, string>()
-            {{ "AUTO_CONFIG", "true" }, { "MODEL", "true" }};
-
-            for (int i = 1; i <= 7; i++)
+            if (args.Length > 0)
             {
-                SetCase(i);
-                using (Context ctx = new Context(cfg))
-                {
-                    Init(ctx, int.MaxValue, i);
+                Microsoft.Z3.Global.ToggleWarningMessages(true);
+                Log.Open("test.log");
 
-                    ctx.Dispose();
+                int cValue;
+                int.TryParse(args.FirstOrDefault(), out cValue);
+
+                if (cValue != 0)
+                {
+                    SetCase(cValue);
+
+                    var startedAt = DateTime.Now;
+                    var lowest = Solve(int.MaxValue, cValue);
+
+                    Console.WriteLine($"TC 0{cValue} - Solved Time: ({(DateTime.Now - startedAt).TotalSeconds}) Seconds.");
+                    Console.WriteLine($"{lowest}\r\n");
                 }
             }
+            else
+            { }
 
             Console.ReadLine();
         }
 
-        private static void SetCase(int showcase)
+        /// <summary>
+        /// Found the best equipament
+        /// </summary>
+        /// <param name="maxCost">Maximum possible cost</param>
+        /// <param name="tcNumber">TC number</param>
+        /// <returns>The best equipament to TC</returns>
+        private static Equipaments Solve(float maxCost, int tcNumber)
         {
-            switch (showcase)
+            Dictionary<string, string> cfg = new Dictionary<string, string>()
+                {{ "AUTO_CONFIG", "true" }, { "MODEL", "true" }};
+
+            Equipaments.Clear();
+
+            Parallel.ForEach(GenerateSet(), c =>
             {
-                case 1:
-                    Phouse = 342; Psurge = 342; Econsumption = 3900;
-                    break;
-                case 2:
-                    Phouse = 814; Psurge = 980; Econsumption = 4800;
-                    break;
-                case 3:
-                    Phouse = 815; Psurge = 980; Econsumption = 4880;
-                    break;
-                case 4:
-                    Phouse = 253; Psurge = 722; Econsumption = 3600;
-                    break;
-                case 5:
-                    Phouse = 263; Psurge = 732; Econsumption = 2500;
-                    break;
-                case 6:
-                    Phouse = 322; Psurge = 896; Econsumption = 4300;
-                    break;
-                case 7:
-                    Phouse = 1586; Psurge = 2900; Econsumption = 14400;
-                    break;
+                var isLowest = GetLowestCost(c, new Context(), maxCost);
 
-                default:
-                    Phouse = int.MaxValue; Psurge = int.MaxValue; Econsumption = int.MaxValue;
-                    break;
-            }
-        }
-        private static bool Init(Context ctx, float maxCost, int tcNumber)
-        {
-            var start = DateTime.Now;
-            Console.WriteLine($"----- CASE {tcNumber} -----");
-
-            var pEquip = new List<Equipaments>();
-
-            foreach (var seq in GenerateSet())
-            {
-                var floor = GetLowCost(seq, ctx, maxCost);
-
-                if (floor)
+                if (isLowest)
                 {
-                    maxCost = seq.Cost;
-
-                    pEquip.Add(seq);
+                    lock (c)
+                    {
+                        maxCost = c.Cost;
+                        Equipaments.Add(c);
+                    }
                 }
-            }
+            });
 
-            var lowestCost = pEquip.OrderBy(x => x.Cost)
-                                   .FirstOrDefault();
-
-            if (lowestCost != null)            
-                Console.WriteLine($"({(DateTime.Now - start).TotalSeconds} Sec) {lowestCost.ToString()}");
-            else            
-                Console.WriteLine($"UNSAT ({(DateTime.Now - start).TotalSeconds})");
-
-            Console.WriteLine("");
-
-            return true;
+            return Equipaments
+                .Where(x => x != null)
+                .OrderBy(x => x.Cost)
+                .FirstOrDefault();
         }
-        private static List<Equipaments> GenerateSet()
-        {
-            List<Equipaments> eq = new List<Equipaments>();
 
-            for (int p = 0; p < GetArraySize(_panelData); p++)
-                for (int b = 0; b < GetArraySize(_batteryData); b++)
-                    for (int c = 0; c < GetArraySize(_controllerData); c++)
-                        for (int i = 0; i < GetArraySize(_inverterData); i++)
-                            eq.Add(new Equipaments()
-                            {
-                                Panel = p,
-                                Battery = b,
-                                Controller = c,
-                                Inverter = i
-                            });
-            return eq;
-        }
-        private static bool GetLowCost(Equipaments seq, Context ctx, float cost)
+        /// <summary>
+        /// PVS Base equation.
+        /// </summary>
+        /// <param name="seq">Equipament</param>
+        /// <param name="ctx">Context of Z3</param>
+        /// <param name="cost">Lowest Cost that was found previously</param>
+        /// <returns></returns>
+        private static bool GetLowestCost(Equipaments seq, Context ctx, float cost)
         {
             var opt = ctx.MkOptimize();
 
@@ -230,6 +206,8 @@ namespace PVS
             //VCmax >= VtotalPVpanels
             var vcmax = ctx.MkFP(VCmax, ctx.MkFPSort32());
             var vtotalPV = ctx.MkFP(VtotalPVpanels, ctx.MkFPSort32());
+
+
             opt.Assert(ctx.MkFPGEq(vcmax, vtotalPV));
 
             DODmax = (100 - SOClimit) * 2;
@@ -243,6 +221,7 @@ namespace PVS
 
             //controller vs inverter check
             var cic = VCmax * IC * nc;
+
             opt.Assert(ctx.MkFPGEq(ctx.MkFP(cic, s32b), ctx.MkFP(PACref, s32b)));
             opt.Assert(ctx.MkFPGEq(ctx.MkFP(VinDC, s32b), ctx.MkFP(Vsystem, s32b)));
 
@@ -251,24 +230,15 @@ namespace PVS
 
             //(VoutAC >= (VAC - VAC * 15 / 100))
             opt.Assert(ctx.MkFPGEq(ctx.MkFP(VoutAC, s32b), ctx.MkFP(minus, s32b)));
-
             //(VoutAC <= (VAC + VAC * 15 / 100))
             opt.Assert(ctx.MkFPLEq(ctx.MkFP(VoutAC, s32b), ctx.MkFP(plus, s32b)));
-
             //(Phouse <= PACref)
-            var _phouse = ctx.MkInt(Phouse);
-            var _pacref = ctx.MkInt(PACref);
-            var _psurge = ctx.MkInt(Psurge);
-            var _maxacref = ctx.MkInt(MAXACref);
-
-            var lefteq = (ctx.MkLe(_phouse, _pacref));
-            var righteq = (ctx.MkLe(_psurge, _maxacref));
-
-            opt.Assert(ctx.MkEq(lefteq, ctx.MkTrue()));
-            opt.Assert(ctx.MkEq(righteq, ctx.MkTrue()));
-            opt.Assert(ctx.MkAnd(lefteq, righteq));
+            opt.Assert(ctx.MkFPLEq(ctx.MkFP(Phouse, s32b), ctx.MkFP(PACref, s32b)));
+            //(Psurge <= MAXACref)
+            opt.Assert(ctx.MkFPLEq(ctx.MkFP(Psurge, s32b), ctx.MkFP(MAXACref, s32b)));
 
             Fobj = NTP * PanelCost + NBtotal * BatteryCost + ControllerCost + InverterCost;
+
             opt.Assert(ctx.MkFPLEq(ctx.MkFP(Fobj, s32b), ctx.MkFP(cost, s32b)));
 
             seq.Cost = Fobj;
@@ -291,10 +261,74 @@ namespace PVS
             else
                 return false;
         }
-        private static int GetArraySize(float[,] panelData)
+
+        /// <summary>
+        /// Set case to test
+        /// </summary>
+        /// <param name="showcase">TC Number</param>
+        private static void SetCase(int showcase)
         {
-            if (panelData.Length > 0)
-                return panelData.GetLength(0);
+            switch (showcase)
+            {
+                case 1:
+                    Phouse = 342; Psurge = 342; Econsumption = 3900;
+                    break;
+                case 2:
+                    Phouse = 814; Psurge = 980; Econsumption = 4800;
+                    break;
+                case 3:
+                    Phouse = 815; Psurge = 980; Econsumption = 4880;
+                    break;
+                case 4:
+                    Phouse = 253; Psurge = 722; Econsumption = 3600;
+                    break;
+                case 5:
+                    Phouse = 263; Psurge = 732; Econsumption = 2500;
+                    break;
+                case 6:
+                    Phouse = 322; Psurge = 896; Econsumption = 4300;
+                    break;
+                case 7:
+                    Phouse = 1586; Psurge = 2900; Econsumption = 14400;
+                    break;
+
+                default:
+                    Phouse = int.MaxValue; Psurge = int.MaxValue; Econsumption = int.MaxValue;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Generate all possible combinations of values into matrix database
+        /// </summary>
+        /// <returns>List of possible equipaments</returns>
+        private static List<Equipaments> GenerateSet()
+        {
+            List<Equipaments> eq = new List<Equipaments>();
+
+            for (int p = 0; p < GetArraySize(_panelData); p++)
+                for (int b = 0; b < GetArraySize(_batteryData); b++)
+                    for (int c = 0; c < GetArraySize(_controllerData); c++)
+                        for (int i = 0; i < GetArraySize(_inverterData); i++)
+                            eq.Add(new Equipaments()
+                            {
+                                Panel = p,
+                                Battery = b,
+                                Controller = c,
+                                Inverter = i
+                            });
+            return eq;
+        }
+
+        /// <summary>
+        /// Get Size of Equipament List
+        /// </summary>
+        /// <param name="arr">Set of Equipament</param>
+        /// <returns></returns>
+        private static int GetArraySize(float[,] arr)
+        {
+            if (arr.Length > 0)
+                return arr.GetLength(0);
             else
                 return -1;
         }
