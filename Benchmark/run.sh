@@ -1,13 +1,8 @@
 #!/bin/bash
 TM=36000
-echo ----------------- Z3 -----------------
+
+echo ----------------- ESBMC -----------------
 echo --------------------------------------
-timeout $TM dotnet run --project ./Benchmark/vZ/ 1
-#timeout $TM dotnet run --project ./Benchmark/vZ/ 2
-#timeout $TM dotnet run --project ./Benchmark/vZ/ 3
-#timeout $TM dotnet run --project ./Benchmark/vZ/ 4
-#timeout $TM dotnet run --project ./Benchmark/vZ/ 5
-#timeout $TM dotnet run --project ./Benchmark/vZ/ 6
-#timeout $TM dotnet run --project ./Benchmark/vZ/ 7
+timeout $TM ./esbmc ./Benchmark/opt_PVcode_rev13_case5.c --incremental-bmc -dMycase=1 > case5.txt
 echo
 echo 

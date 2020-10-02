@@ -10,7 +10,8 @@
 //case studies
 //case1       int Phouse = 342, Psurge = 342, Econsumption = 3900, VAC = 127;
 //case2       int Phouse = 814, Psurge = 980, Econsumption = 4800, VAC = 127;
-//case3       int Phouse = 815, Psurge = 980, Econsumption = 4880, VAC = 127;
+//case3       
+int Phouse = 815, Psurge = 980, Econsumption = 4880, VAC = 127;
 //case4       int Phouse = 253, Psurge = 722, Econsumption = 3600, VAC = 127;
 //case5       int Phouse = 263, Psurge = 732, Econsumption = 2500, VAC = 127;
 //case6       int Phouse = 322, Psurge = 896, Econsumption = 4300, VAC = 127;
@@ -25,9 +26,6 @@ float Insol = 3.89; //(kWh/m2/day CRESESB corrigido)
 int Gref = 1000; //reference irradiance is 1000 W/mB2
 int G = 800;
 float Tref = 298.15; //reference temperature is 25oC or 298.15K
-
-//data from the house
-int Phouse = -1, Psurge = -1, Econsumption = -1; VAC = 127;
 
 //must define
 int MaxCost=10000; //10 million maximum cost just to control the loop of main function
