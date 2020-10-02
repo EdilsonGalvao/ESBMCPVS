@@ -72,7 +72,9 @@ namespace PVS
             {0.98f, 40f, 24f, 13f, 150f, 281.39f},
             {0.98f, 50f, 24f, 13f, 150f, 356.43f},
             {0.98f, 60f, 24f, 13f, 150f, 530.70f},
-            {0.98f, 45f, 24f, 13f, 150f, 506.50f}};
+            {0.98f, 45f, 24f, 13f, 150f, 506.50f},
+            {0.95f, 100f, 48f, 13f, 400f, 1800f},
+            {0.95f, 250f, 48f, 13f, 384f, 2300f}};
 
         //efficiency, VinDC, VoutAC, PACref, MAXACref, cost
         private static float[,] _inverterData = {
@@ -96,7 +98,10 @@ namespace PVS
         #endregion
 
         //Basic input to calculate the best combination of equipments.
-        private static int Phouse = int.MaxValue, Psurge = int.MaxValue, Econsumption = int.MaxValue;
+        private static int Phouse = int.MaxValue;
+        private static int Psurge = int.MaxValue;
+        private static int Econsumption = int.MaxValue;
+        private static int VAC = int.MaxValue;
 
         //The list of minimum values found locally.
         //The lowest value in this list is the best option based on cost.
@@ -191,11 +196,10 @@ namespace PVS
             int NTP, NPP, NPS, NBtotal, NBS, NBP, NPmin;
             float Ecorrected, Fobj, Pminpanels, ItotalPVpanels, VtotalPVpanels, Eb, DODdaycalc, IminDCbus, DODmax;
 
-            float Insol = 3.80f; //(kWh/m2/day CRESESB 2016)
+            float Insol = 3.89f; //(kWh/m2/day CRESESB 2016)
             int SOClimit = 75;
             int autonomy = 48; //autonomy in hours
             int Vsystem = 24;
-            int VAC = 127;
             int Vbat = 12;
 
             opt.Add(ctx.MkGe(ctx.MkIntConst("Panel"), ctx.MkInt(seq.Panel)));
@@ -309,6 +313,9 @@ namespace PVS
         /// <param name="showcase">TC Number</param>
         private static void SetCase(int showcase)
         {
+            //Default Value
+            VAC = 127;
+
             switch (showcase)
             {
                 case 1:
@@ -330,7 +337,7 @@ namespace PVS
                     Phouse = 322; Psurge = 896; Econsumption = 4300;
                     break;
                 case 7:
-                    Phouse = 1586; Psurge = 2900; Econsumption = 14400;
+                    Phouse = 1586; Psurge = 2900; Econsumption = 14400; VAC = 220;
                     break;
 
                 default:
