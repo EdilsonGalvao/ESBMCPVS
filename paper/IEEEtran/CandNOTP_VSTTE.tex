@@ -1,0 +1,98 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{algorithm,algorithmic}
+\usepackage{xcolor}
+%\documentclass[runningheads]{llncs}
+
+\begin{document}
+
+\begin{center}
+\textbf{Synthesis of Solar Photovoltaic Systems: Optimal Sizing Comparison} \\
+
+VSTTE 2020 - 12th Working Conference on Verified Software: Theories, Tools, and Experiments\\
+
+Alessandro Trindade and Lucas Cordeiro \\
+\end{center}
+
+$C \wedge \neg P$
+
+%\author{Alessandro Trindade\inst{1} \and Lucas Cordeiro\inst{2}} %\orcidID{0000-0001-8262-2919}  \orcidID{0000-0002-6235-4272}
+%
+%\authorrunning{A. Trindade and L. Cordeiro}
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+%\institute{Federal University of Amazonas, Brazil, \email{alessandrotrindade@ufam.edu.br} \and
+%University of Manchester, UK, \email{lucas.cordeiro@manchester.ac.uk}}
+%\maketitle              % typeset the header of the contribution
+
+\begin{equation}
+\label{eq:quant_free_formulae_c}
+\begin{scriptsize}
+C := \left [ \begin{array}{ll} 
+	panelchoice = nd\_uchar \\
+	\wedge \, \, batterychoice = nd\_uchar \\
+	\wedge \, \, controllerchoice = nd\_uchar \\
+	\wedge \, \, inverterchoice = nd\_uchar \\
+	\wedge \, \, P_{m,ref} = select \, (PanelData \, [panelchoice][8]) \\
+	\wedge \, \, I_{m,ref} = select \, (PanelData \, [panelchoice][9]) \\
+	\wedge \, \, V_{m,ref} = select \, (PanelData \, [panelchoice][10]) \\
+	\wedge \, \, Panel_{Cost} = select \, (PanelData \, [panelchoice][12]) \\
+	\wedge \, \, \eta_{b} = select \, (BatteryData \, [batterychoice][0]) \\
+	\wedge \, \, Vbat = select \, (BatteryData \, [batterychoice][1]) \\
+	\wedge \, \, Capacity = select \, (BatteryData \, [batterychoice][2]) \\
+	\wedge \, \, Battery_{Cost} = select \, (BatteryData \, [batterychoice][5]) \\
+	\wedge \, \, \eta_{c} = select \, (ControllerData \, [controllerchoice][0]) \\
+	\wedge \, \, I_{c} = select \, (ControllerData \, [controllerchoice][1]) \\
+	\wedge \, \, V_{c,max} = select \, (ControllerData \, [controllerchoice][4]) \\
+	\wedge \, \, Controller_{Cost} = select \, (ControllerData \, [controllerchoice][5]) \\
+	\wedge \, \, \eta_{i} = select \, (InverterData \, [inverterchoice][0]) \\
+	\wedge \, \, V_{in,DC} = select \, (InverterData \, [inverterchoice][1]) \\
+	\wedge \, \, V_{out,AC} = select \, (InverterData \, [inverterchoice][2]) \\
+	\wedge \, \, P_{AC,ref} = select \, (InverterData \, [inverterchoice][3]) \\
+	\wedge \, \, MAX_{AC,ref} = select \, (InverterData \, [inverterchoice][4]) \\
+	\wedge \, \, Inverter_{Cost} = select \, (InverterData \, [inverterchoice][5]) \\
+	\wedge \, \, E_{corrected} = E_{consumption} / (\eta_{b} \times \eta_{c} \times \eta_{i}) \\
+	\wedge \, \, P_{min,panels} = 1.25 \times E_{corrected} / Insolation \\
+	\wedge \, \, N_{Pmin} = (int)(P_{min,panels} -1) / P{m,ref} + 1 \\
+	\wedge \, \, N_{PP} = 2 \\
+	\wedge \, \, N_{PS} = ite ( ((N_{Pmin} \% 2) == 0), (N_{Pmin}/2), ((N_{Pmin}+1) / 2) ) \\
+	\wedge \, \, N_{TP} = N_{PP} \times N_{PS} \\
+	\wedge \, \, I_{total,PVpanels} = 2 \times I_{m,ref} \\
+	\wedge \, \, V_{total,PVpanels} = N_{PS} \times V_{m,ref} \\
+	\wedge \, \, DOD_{max} = (100-SOC_{min}) \times 2 \\
+	\wedge \, \, E_{b} = (autonomy/24) \times E_{corrected} \times 100/ DOD_{max} \\
+	\wedge \, \, I_{min,DCbus} = E_{b}/(float)V_{system} \\
+	\wedge \, \, N_{BS} = 24 / Vbat \\
+	\wedge \, \, N_{BP} = ((I_{min,DCbus} - 1) / Capacity + 1) \\
+	\wedge \, \, N_{Btotal} = N_{BS} \times N_{BP} \\
+	\wedge \, \, F_{obj} = N_{TP} \times Panel_{Cost} + N_{Btotal} \times Battery_{Cost} + Controller_{Cost} + Inverter_{Cost} + O\&M_{Cost} + Inst_{Cost} \\
+              \end{array} \right ]  \\ 
+\end{scriptsize}
+\end{equation}
+
+\begin{equation}              
+\label{eq:quant_free_formulae_p}
+\begin{scriptsize}
+P := \left [ \begin{array}{ll} 
+	((panelchoice \geq 0) \, \, \wedge \, \, (panelchoice \leq 9)) \\
+	\wedge \, \, ((batterychoice \geq 0) \, \, \wedge \, \, (batterychoice \leq 9)) \\
+	\wedge \, \, ((controllerchoice \geq 0) \, \, \wedge \, \, (controllerchoice \leq 9)) \\
+	\wedge \, \, ((inverterchoice \geq 0) \, \, \wedge \, \, (inverterchoice \leq 9)) \\
+	\wedge \, \, (I_{c} \geq I_{total,PVpanels}) \\
+	\wedge \, \, (V_{c,max} \geq V_{total,PVpanels}) \\
+	\wedge \, \, ((V_{c,max} \times I_{C} \times \eta_{c}) \geq P_{AC,ref}) \\
+	\wedge \, \, (V_{in,DC} \geq 24)  \\
+	\wedge \, \, ((V_{out,AC} \geq OutletVoltage-10\%) \, \, \wedge \, \, (V_{out,AC} <= OutletVoltage+10\%)) \\
+	\wedge \, \, ((MaximumLoadPower \leq P_{AC,ref}) \, \, \wedge \, \, (SurgeLoadPower \leq MAX_{AC,ref})) \\
+	\wedge \, \, (F_{ob} > Value_{Iterative,optimal}) \\
+              \end{array} \right ]  \\
+\end{scriptsize}
+\end{equation}
+
+\end{document}
