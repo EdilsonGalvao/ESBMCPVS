@@ -291,16 +291,29 @@ Formal synthesis, software verification, model checking, solar photovoltaic syst
 % Here we have the typical use of a "T" for an initial drop letter
 % and "HIS" in caps to complete the first word.
 --------------------
-\color{blue} \IEEEPARstart{L}{ack} of access to clean and affordable energy is considered a core dimension of poverty~\cite{Hussein2012}. The recent studies about global energy indicate that 789 million people have no access to electricity, which is 10\%  of the world population. From 2010 until 2018 the effort to reduce the number of people without access to electrical increased and the result was positive. The general result was a decrease from 1.2 billion to 0.84 billion of people.~\cite{Energyprogressreport}. There exists a close relationship between the lack of energy and the low HDI (Human Development Index) of those localities~\cite{Coelho}. It follows that increased access to energy allows economic growth and poverty alleviation \cite{Karekesi}. To provide electricity for all, decentralized systems led by solar photovoltaic (PV) in off-grid and mini-grid systems will be the lowest-cost solution for three-quarters of the connections needed~\cite{Hussein2012}. Thus, this can be ratified by analyzing the result of renewable energy reported by global bank, where 17.3\%  of global energy is based on wind and solar energy~\cite{Energyprogressreport}.
+\color{blue} 
+\IEEEPARstart{T}{he} recent studies about global energy indicate that 789 million people have no access to electricity, which is 10\% of the world population~\cite{Energyprogressreport}. From 2010 until 2018 the effort to reduce the number of people without access to electricity increased and the result was positive. Quantitatively the result was a decrease from 1.2 billion to 0.84 billion people without electrical energy, of this total, renewable energy solutions are responsible for 136 million people receiving basic energy service~\cite{Energyprogressreport}. Unfortunately, lack of access to clean and affordable energy is considered a core dimension of poverty~\cite{Hussein2012} and this has a direct impact on the low HDI (Human Development Index) of different localities~\cite{Coelho}. It follows that increased access to energy allows economic growth and poverty alleviation\cite{Karekesi}. 
 
-To quantify renewable energy, there are some tools available in the market, a part of them is create to general purpose like MATLAB~\cite{Benatiallah2017} and others for specific energy study  like RETScreen, and HOMER~\cite{Pradhan,Swarnkar}. However, the industry demands the design solution to be the optimum, considering equipment manufacturers and models available on the market and not just minimum or maximum values of current or power for the optimized items. We need to evaluate the electrical compatibility among the equipment, which can only be achieved with specialized PV optimization software. Therefore, the optimal solution is the lowest cost from a list of equipment that meets the house's electrical demands. Our analysis is based on Life Cycle Cost (LCC)~\cite{Alsadi2018}, where the acquisition and replacement cost are considered over a specific period.
+To provide electricity for all, decentralized systems led by solar photovoltaic (PV) in off-grid and mini-grid systems will be the lowest-cost solution for three-quarters of the connections needed~\cite{Hussein2012}. Thus, this can be ratified by analyzing the result of renewable energy reported by global bank, where 17.3\%  of global energy is based on wind and solar energy~\cite{Energyprogressreport}.
+
+In front of world changes to improve the electrical energy uses, The more precise the dimensioning for electrical networks, the more effective the use of renewable energies. For this purpose, there are some software available in the market, a part of them is created to general purpose like MATLAB~\cite{Benatiallah2017} and others for specific energy study like RETScreen, and HOMER~\cite{Pradhan,Swarnkar}. However, the
+industry demands the design solution to be the optimum, considering equipment manufacturers and models available on the market and not just minimum or maximum
+values of current or power for the optimized items. We need to evaluate the electrical compatibility among the equipment, which can only be achieved with specialized PV optimization software. Therefore, the optimal solution is the
+lowest cost from a list of equipment that meets the house’s electrical demands.
 \color{black}
 
-Here, we have developed a variant of counterexample guided inductive synthesis (CEGIS)~\cite{AbateCAV2018} for synthesizing optimal sizing of stand-alone PV systems using commercial equipment data. If the user gives a correctness specification $\sigma$, our method uses that as a starting point and then iteratively produces a sequence of candidate solutions that satisfy $\sigma$, related to power reliability. In particular, in each iteration, we synthesize the sizing of stand-alone PV systems, but that may not achieve the lowest cost. The candidate solution is then verified via symbolic model checking with a lower bound that serves as the minimum cost of reference; if the verification step does not fail, the lower bound is adjusted. If it fails, then a counterexample is provided with an optimal sizing that meets both power reliability and system cost. Here our focus is not on new criteria or even optimization objectives. Our novelty relies on a practical approach to the pursuit of the optimal solution of PV systems using formal methods. 
+Here, we have developed a variant of counterexample guided inductive synthesis (CEGIS)~\cite{AbateCAV2018} for synthesizing optimal sizing of stand-alone PV systems using commercial equipment data. If the user gives a correctness specification $\sigma$, our method uses that as a starting point and then iteratively produces a sequence of candidate solutions that satisfy $\sigma$, related to power reliability.
 
+
+\color{blue} 
+In this tool, we used a solver called Z3. Internally, the Z3 tool contains a module to include optimization objectives, this module is named vZ and integrates state-of-the-art algorithms for optimization and extra tools to solve linear restrictions problems. In particular, the vZ features match our problem and will help us to optimize PV systems~\cite{BjornerPF15}.
+In particular, in each iteration, we synthesize the sizing of stand-alone PV systems, but that may not achieve the lowest cost. Thus, the candidate solution passes through an SMT solver to reduce the number of possible states, a lower bound is provided by our candidate solution, which serves as the minimum cost of reference will help our engine in restrictions verification; Note, each iteration can be cost lower or higher than current reference, once found a value lower than the current reference, and it respects the user constraints, the reference is updated globally. 
+If the verification step does not fail, all content produced is saved as a counterexample with an optimal sizing that meets both power reliability and system cost. If the verification step does fail, the content produced is ignored. Our novelty relies on a practical approach to the pursuit of the optimal solution of PV systems using formal methods. 
+
+\color{red} aqui precisas mudar este parágrafo para que reflita a nova técnica que estamos usando, citando paralelismo multi-core e o solver vZ que é dedicado para otimização\color{black}
 %Our work makes two major contributions. \textbf{First}, the use of automated symbolic verification methods in electrical systems was rare in recent prior studies~\cite{abs-1811-09438}, and specifically their use in synthesizing optimal PV sizing is unprecedented. Here, a list of PV components (i.e., PV panels, charge controllers, inverters, and batteries) can be fed to our proposed synthesis method together with user requirements and environment constraints, and our synthesis algorithm based on symbolic model checking can find the optimal solution in technical and economical terms. \textbf{Second}, %our experimental results show that our synthesis method is an effective and efficient approach on the pursuit of the optimal solution of PV systems using formal methods, which outperforms existing state-of-the-art simulation tool. As a result, 
 
-\color{blue} In summary, this paper makes the following original contributions. It is an update, that improves radically the speed of computation of the first application [Adicionar na bib o artigo do professor alessandro], which provides accurate results of optimal sizing of stand-alone PVsystems. (ii) We propose a variant CEGIS method with striking differences of how the SYNTHESIZE and VERIFY phases work together, with the suppression of the feasible solution candidate vector and the use of a parallel loop to reach the optimal cost solution of the system. (iii) Experimental results with seven case studies show that the formal synthesis approach qualitatively outperforms an existing state-of-the-art optimization tool. Our solution is completely detailed and closer to commercial reality (real PV systems). The results are validated with accurate commercial design software called PVsyst
+\color{blue} In summary, this paper makes the following original contributions: (i) It is an radical improvement in terms of performance of the first use of formal synthesis for stand-alone PV systems  application~\cite{VSTTE2020}, which provides accurate and detailed results of optimal sizing of stand-alone PV systems. (ii) We propose a variant CEGIS method with striking differences of how the SYNTHESIZE and VERIFY phases work together, with the suppression of the feasible solution candidate vector and the use of a parallel loop to reach the optimal cost solution of the system. (iii) Experimental results with seven case studies show that the formal synthesis approach qualitatively outperforms an existing state-of-the-art optimization tool. Our solution is completely detailed and closer to commercial reality (real PV systems). The results are validated with accurate commercial design software called PVsyst
 \color{black}
 
 %\textit{Contribution}. Our study marks the first application of a sound and automated formal synthesis approach that can provide accurate results of optimal sizing of stand-alone PV systems, which outperforms an existing state-of-the-art simulation tool used in a comparative with seven case studies. In particular, the methodological research with automated synthesis produces more detailed and complete optimization when compared with the simulation tool, besides the fact that the sizing is closer to real PV systems deployed at isolated communities in the Amazon area of Brazil. Considering other studies carried out in the last two decades, we considerably advance the state-of-the-art in applied energy to optimally design PV systems.
@@ -311,20 +324,24 @@ Here, we have developed a variant of counterexample guided inductive synthesis (
 \label{sec:AutomatedVerification}
 %-----------------------------------------------------------
 \vspace{-1ex}\color{blue}
+Fig.~\ref{fig:optimization} illustrates how to obtain the optimal sizing of a stand-alone PV system using two different modes, the first one is the traditional model called \textit{\textbf{traditional sizing}} that include manual verification, which means calculus about electrical equipment capacity and installation for validation. Allied to the first mode, there are still commercial tools like MATLAB~\cite{Benatiallah2017} and Homer~\cite{Pradhan,Swarnkar} to try to simulate the real electrical system. The second and on the opposite side, the model well-knows as \textbf{\textit{Automated Synthesis}} that encompasses BMC engines. This option proves to be more powerful since it generates more complex and accurate data than the traditional way described previously.
+Both modes described here use the same input and theoretically tend to produce the same output, it is noteworthy that variables such as electrification, support for different categories of equipment and different forms of electrical dimensioning, impact on the expected output.
 
-Fig.~\ref{fig:optimization} illustrates how to obtain the optimal sizing of a stand-alone PV system using two different models, the first one is the traditional model called "optimizal sizing" that include manual verification and commercial tools, the second and in the opposite side , the model well-knows as "Automated Synthesis" that encompasses BMC engines. Both choices uses the same input and produce the same output. 
-\textbf{Input}: weather data, price information, design requirements, as load curve and power demand, and design assumptions.
-\textbf{Output}: return SAT(Pass) when system respect the price and system hardware composition, otherwise, the answer of system is UNSAT (Fail).
+For \textbf{Input} data, we can consider weather data, price information about each equipment, design requirements, load curve, power demand, and design assumptions. This information is converted programmatically into a matrix of data and exposed as global content to the software. For \textbf{Output} data, the major information denotes that renewable energy systems can be combined(price and system hardware composition), when it occurs, the answer of the system need be SAT. Otherwise, the answer of the system is UNSAT.
 %
 \begin{figure}[h]
-\fbox{\includegraphics[width=0.28\textwidth]{paper/IEEEtran/images/TraditonalVsAutoFlow.png}}
+\fbox{\includegraphics[width=0.38\textwidth]{TraditonalVsAutoFlow.png}}
 \centering
 \caption{Comparative image of the traditional method versus the proposed method.}
 \label{fig:optimization}
 \end{figure}
 
+\color{blue}
 The automated synthesis technique is mathematical reasoning about a model, where the result is a rich counterexample that has detailed information on the optimal solution, thus, the answer can guide the software or client to choose the best combination of electrical machines. Contrariwise, the traditional way don't offer the quantity of necessary data about the system and internal modes. Another special topic that needs to hightlighted is about coverage of each model, models that use automated kernel can to assurance a complete coverage overall state space, instead of, locals states as a traditional model. 
+
 \color{black}
+
+
 %-----------------------------------------------------------
 \subsection{Program Synthesis}
 \label{sec:ProgramSynthesis}
@@ -399,9 +416,12 @@ LCC = C_{PV} + C_{bat} + C_{charger} + C_{inv} + C_{installation} + C_{batrep} +
 
 \color{blue} In this section, we will describe a couple of pseudo-code that embassy our tool and how model checking was used as a backend verification engine~\cite{DBLP:journals/corr/abs-1909-13139}. The Algorithm~\ref{base_opt_code} describes how to save and expose the correct solutions and the optimal solution, and Algorithm~\ref{base_opt_code2} is responsible to verify the mathematical assertion over electrical equipaments.\\
 
-\begin{algorithm}[H]
+\color{red} à partir daqui tu usas várias vezes a palavra \textbf{node}, mas em nenhum lugar tu explicas o que é. Se é uma árvore de busca então creio que precisas explicar o que é (na seção background) para poder falar agora no algoritmo em si\color{blue}
+
+\begin{algorithm}[h]
 \SetAlgoLined
-\KwResult{returns the lowest possible cost with the best configuration of photovoltaic equipment.}
+\KwResult{returns a feasible sizing of PV system with the lowest cost}
+%returns the lowest possible cost with the best configuration of photovoltaic equipment.}
 Initialize arrays and variables\;
 Create Satisfable List called \textit{NodeSatList}\;
 Create maximumCost as a long variable\;
@@ -416,14 +436,14 @@ Create maximumCost as a long variable\;
         unlock(this)\\
     }
 }
-\textbf{return} NodeSatList.OrderBy(x.Cost).FirstOrDefault()
+\textbf {return} NodeSatList.OrderBy(x.Cost).FirstOrDefault()
 \caption{Find by the optimal solution}
 \label{base_opt_code}
 \end{algorithm}
 
 Algorithm~\ref{base_opt_code} is started based in input described on Fig.~\ref{fig:optimization}, it contemplate manufacturer’s data, prices of PV panels, batteries, charge controllers, and inverters. Programmatically this set of data are represented in arrays and global variables, which have the purpose of assisting the storage of counterexamples and the maximum possible cost. Moreover, we define design (house) requirements and design assumptions to help backend solvers. The parallel loop is used to process each node separately, the function \textit{solve} that will described in Algorithm~\ref{base_opt_code2} returns true when the node is a possible solution and the cost is lower than global maximum cost. Therefore, to assure the correct storage of result processed by many threads at same time, the lock function was added. After the internal loop ends, the last action returns the optimal solution found in the list that contains all possible solutions.\\
 
-\begin{algorithm}[H]
+\begin{algorithm}[h]
 \SetAlgoLined
 \KwResult{Verify if the node is satisfactory for restrictions and equipment.}
 Initialize internal arrays and variables\;
@@ -450,7 +470,7 @@ $F_{obj} \leftarrow N_{TP}*Panel_{Cost} \, + \, N_{TB}*Battery_{Cost} \, + Contr
 \end{algorithm}
 
 To choose the best option, the system uses as input a
-list of forty equipment from ten different manufacturers, where each technical information required was found in a datasheet provided by the equipment factory). To calculate equation~\ref{eq:LCC} value it was necessary to convert the amounts to US dollars based on the exchange rate of the day. To simplify understanding about this type of data, a report has created that condensates general information required to perform tests over this tool, and it is available online.\footnote{\url{https://tinyurl.com/ycgbsgkp}}
+list of \textbf{seventy} equipment from \textbf{twelve} different manufacturers, where each technical information required was found in a datasheet provided by the equipment factory). To calculate equation~\ref{eq:LCC} value it was necessary to convert the amounts to US dollars based on the exchange rate of the day. To simplify understanding about this type of data, a report has created that condensates general information required to perform tests over this tool, and it is available online.\footnote{\url{https://tinyurl.com/ycgbsgkp}}
 
 The Algorithm 2 recover the information described above based on arguments provided by ”solve” function and creates an internal context. This context is responsible to check if all equation is satiable, at this moment all ”assume” marks that contain the constraints are added.
 
@@ -514,24 +534,49 @@ The results are presented in Table~\ref{tab1}.
 \begin{tabular}{c|c|c|c|c}
 \hline
 \hline
-Tools & \makecell{CBMC 5.11 \\(MiniSat 2.2.1)}& \makecell{ESBMC 6.0.0 \\(Boolector 3.0.1)}& \makecell{CPAchecker 1.8\\(MathSAT 5.5.3)}& HOMER Pro 3.13.1\\
+Tools & \makecell{Microsoft Z3 \\(vZ 4.8.9)}& \makecell{ESBMC 6.0.0 \\(Boolector 3.0.1)}& \makecell{CPAchecker 1.8\\(MathSAT 5.5.3)}& HOMER Pro 3.13.1\\
 \hline
 \hline
 Specification & Result & Result & Result & Result \\
 \hline
-\makecell{\textbf{Case Study 1}\\Peak:342W\\Surge:342W \\E:3,900Wh/day\\Autonomy:48h} & OM & \makecell{SAT (620 min) \\NTP:6$\times$330W (2P-3S)\\NBT:16$\times$105Ah (2S-8P)\\Controller 35A/145V\\Inverter 700W/48V\\LCC: US\$ 10,214.04} & \makecell{SAT (548 min) \\NTP:6$\times$330W (2P-3S)\\NBT:16$\times$105Ah (2S-8P)\\Controller 35A/145V\\Inverter 700W/1600W/48V\\LCC: US\$ 10,214.04} & \makecell{(Time: 0.33 min)\\2.53 kW of PV\\NBT:12$\times$83.4Ah (2S-6P)\\0.351kW inverter\\LCC: US\$ 7,808.04}\\
+\makecell{\textbf{Case Study 1}\\Peak:342W\\Surge:342W \\E:3,900Wh/day\\Autonomy:48h}&
+\makecell{SAT (0,93 min) \\NTP:4$\times$()w\\NBT:8$\times$()Ah\\Controller 00A/000V\\Inverter 000W/0V\\LCC: US\$ 8,992.58} &
+\makecell{SAT (620 min) \\NTP:6$\times$330W (2P-3S)\\NBT:16$\times$105Ah (2S-8P)\\Controller 35A/145V\\Inverter 700W/48V\\LCC: US\$ 10,214.04} & 
+\makecell{SAT (548 min) \\NTP:6$\times$330W (2P-3S)\\NBT:16$\times$105Ah (2S-8P)\\Controller 35A/145V\\Inverter 700W/1600W/48V\\LCC: US\$ 10,214.04} & 
+\makecell{(Time: 0.33 min)\\2.53 kW of PV\\NBT:12$\times$83.4Ah (2S-6P)\\0.351kW inverter\\LCC: US\$ 7,808.04}\\
+
 \hline
-\makecell{\textbf{Case Study 2}\\Peak:814W\\Surge:980W\\E:4,880Wh/day\\Autonomy:48h} & OM & TO & TO & \makecell{(Time: 0.18 min)\\3.71 kW of PV\\NBT:20$\times$83.4Ah (2S-10P)\\0.817kW inverter\\LCC: US\$ 12,861.75} \\
+\makecell{\textbf{Case Study 2}\\Peak:814W\\Surge:980W\\E:4,880Wh/day\\Autonomy:48h} & \makecell{SAT (0,42 min) \\NTP:6$\times$()w\\NBT:10$\times$()Ah\\Controller 00A/000V\\Inverter 000W/0V\\LCC: US\$ 10,028.34} &
+TO &
+TO &
+\makecell{(Time: 0.18 min)\\3.71 kW of PV\\NBT:20$\times$83.4Ah (2S-10P)\\0.817kW inverter\\LCC: US\$ 12,861.75} \\
+
 \hline
-\makecell{\textbf{Case Study 3}\\Peak:815W\\Surge:980W\\E:4,880Wh/day\\Autonomy:12h} & OM & \makecell{SAT (63 min) \\NTP:14$\times$150W (7P-2S)\\NBT:6$\times$105Ah (2S-3P)\\Controller 35A/145V\\Inverter 1,200W/48V\\LCC: US\$ 9,274.07} & TO & Not possible \\
+\makecell{\textbf{Case Study 3}\\Peak:815W\\Surge:980W\\E:4,880Wh/day\\Autonomy:12h} & \makecell{SAT (0,41 min) \\NTP:6$\times$()w\\NBT:10$\times$()Ah\\Controller 00A/000V\\Inverter 000W/0V\\LCC: US\$ 10,028.348} & 
+\makecell{SAT (63 min) \\NTP:14$\times$150W (7P-2S)\\NBT:6$\times$105Ah (2S-3P)\\Controller 35A/145V\\Inverter 1,200W/48V\\LCC: US\$ 9,274.07} & TO & Not possible \\
+
 \hline
-\makecell{\textbf{Case Study 4}\\Peak:253W\\Surge:722W\\E:3,600Wh/day\\Autonomy:48h} & OM & \makecell{SAT (147 min) \\NTP:6$\times$330W (2P-3S)\\NBT:16$\times$105Ah (2S-8P)\\Controller 35A/145V\\Inverter 280W/48V\\LCC: US\$ 9,678.63} & \makecell{SAT (605 min) \\NTP:6$\times$330W (2P-3S)\\NBT:16$\times$105Ah (2S-8P)\\Controller 35A/145V\\Inverter 280W/48V\\LCC: US\$ 9,678.63} & \makecell{(Time: 0.23 min)\\2.42 kW of PV\\NBT:12$\times$83.4Ah (2S-6P)\\0.254kW inverter\\LCC: US\$ 7,677.95}\\
+\makecell{\textbf{Case Study 4}\\Peak:253W\\Surge:722W\\E:3,600Wh/day\\Autonomy:48h} & 
+\makecell{SAT (0,72 min) \\NTP:4$\times$()w\\NBT:8$\times$()Ah\\Controller 00A/000V\\Inverter 000W/0V\\LCC: US\$ 8,883.62} &
+\makecell{SAT (147 min) \\NTP:6$\times$330W (2P-3S)\\NBT:16$\times$105Ah (2S-8P)\\Controller 35A/145V\\Inverter 280W/48V\\LCC: US\$ 9,678.63} &
+\makecell{SAT (605 min) \\NTP:6$\times$330W (2P-3S)\\NBT:16$\times$105Ah (2S-8P)\\Controller 35A/145V\\Inverter 280W/48V\\LCC: US\$ 9,678.63} &
+\makecell{(Time: 0.23 min)\\2.42 kW of PV\\NBT:12$\times$83.4Ah (2S-6P)\\0.254kW inverter\\LCC: US\$ 7,677.95}\\
+
 \hline
-\makecell{\textbf{Case Study 5}\\Peak:263W\\Surge:732W\\E:2,500Wh/day\\Autonomy:48h} & OM & \makecell {SAT (36.70 min) \\NTP:4$\times$330W (2S-2P)\\NBT:14$\times$80Ah (2S-7P)\\Controller 35A/145V\\Inverter 280W/24V \\LCC: US\$ 8,900.70} & \makecell {SAT (254.25 min) \\NTP:4$\times$330W (2S-2P)\\NBT:14$\times$80Ah (2S-7P)\\Controller 35A/145V\\Inverter 280W/24V \\LCC: US\$ 8,900.70} & \makecell{(Time: 0.18 min)\\1.59 kW of PV\\NBT:10$\times$83.4Ah (2S-5P)\\0.268kW inverter\\LCC: US\$ 6,175.57} \\
+\makecell{\textbf{Case Study 5}\\Peak:263W\\Surge:732W\\E:2,500Wh/day\\Autonomy:48h} & 
+\makecell{SAT (0,84 min) \\NTP:4$\times$()w\\NBT:6$\times$()Ah\\Controller 00A/000V\\Inverter 000W/0V\\LCC: US\$ 8,119.74} &
+\makecell {SAT (36.70 min) \\NTP:4$\times$330W (2S-2P)\\NBT:14$\times$80Ah (2S-7P)\\Controller 35A/145V\\Inverter 280W/24V \\LCC: US\$ 8,900.70}
+& \makecell {SAT (254.25 min) \\NTP:4$\times$330W (2S-2P)\\NBT:14$\times$80Ah (2S-7P)\\Controller 35A/145V\\Inverter 280W/24V \\LCC: US\$ 8,900.70} 
+& \makecell{(Time: 0.18 min)\\1.59 kW of PV\\NBT:10$\times$83.4Ah (2S-5P)\\0.268kW inverter\\LCC: US\$ 6,175.57} \\
+
 \hline
-\makecell{\textbf{Case Study 6}\\Peak:322W\\Surge:896W\\E:4,300Wh/day\\Autonomy:48h} & OM & \makecell {SAT (380.93 min) \\NTP:6$\times$320W (2P-3S)\\NBT:18$\times$105Ah (2S-9P)\\Controller 35A/145V\\Inverter 400W/24V \\LCC: US\$ 10,136.61} & TO & \makecell{(Time: 0.22 min)\\3.15 kW of PV\\NBT:14$\times$83.4Ah (2S-7P)\\0.328kW inverter\\LCC: US\$ 9,112.45} \\
+\makecell{\textbf{Case Study 6}\\Peak:322W\\Surge:896W\\E:4,300Wh/day\\Autonomy:48h} & 
+\makecell{SAT (0,69 min) \\NTP:6$\times$()w\\NBT:10$\times$()Ah\\Controller 00A/000V\\Inverter 000W/0V\\LCC: US\$ 9,587.01} &
+\makecell {SAT (380.93 min) \\NTP:6$\times$320W (2P-3S)\\NBT:18$\times$105Ah (2S-9P)\\Controller 35A/145V\\Inverter 400W/24V \\LCC: US\$ 10,136.61} & TO & \makecell{(Time: 0.22 min)\\3.15 kW of PV\\NBT:14$\times$83.4Ah (2S-7P)\\0.328kW inverter\\LCC: US\$ 9,112.45} \\
+
 \hline
-\makecell{\textbf{Case Study 7}\\Peak:1,586W\\Surge:2,900W\\E:14,000Wh/day\\Autonomy:48h} & OM & UNSAT (0.48 min) & TO & \makecell{(Time: 0.20 min)\\12.5 kW of PV\\NBT:66$\times$83.4Ah (2S-33P)\\1.60kW inverter\\LCC: US\$ 41,878.11} \\
+\makecell{\textbf{Case Study 7}\\Peak:1,586W\\Surge:2,900W\\E:14,000Wh/day\\Autonomy:48h} & \makecell{SAT (0,44 min) \\NTP:20$\times$()w\\NBT:30$\times$()Ah\\Controller 00A/000V\\Inverter 000W/0V\\LCC: US\$ 18,408.27}  &
+UNSAT (0.48 min) & TO & \makecell{(Time: 0.20 min)\\12.5 kW of PV\\NBT:66$\times$83.4Ah (2S-33P)\\1.60kW inverter\\LCC: US\$ 41,878.11} \\
 \hline
 \hline
 \end{tabular}
