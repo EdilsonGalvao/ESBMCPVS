@@ -98,9 +98,7 @@ namespace PVS
         #endregion
 
         //Basic input to calculate the best combination of equipments.
-        private static int Phouse = int.MaxValue;
-        private static int Psurge = int.MaxValue;
-        private static int Econsumption = int.MaxValue;
+        private static int Phouse = int.MaxValue, Psurge = int.MaxValue, Econsumption = int.MaxValue;
         private static int VAC = int.MaxValue;
 
         //The list of minimum values found locally.
@@ -202,32 +200,32 @@ namespace PVS
             int Vsystem = 24;
             int Vbat = 12;
 
-            opt.Add(ctx.MkGe(ctx.MkIntConst("Panel"), ctx.MkInt(seq.Panel)));
-            opt.Add(ctx.MkGe(ctx.MkIntConst("Inverter"), ctx.MkInt(seq.Inverter)));
-            opt.Add(ctx.MkGe(ctx.MkIntConst("Controller"), ctx.MkInt(seq.Controller)));
-            opt.Add(ctx.MkGe(ctx.MkIntConst("Battery"), ctx.MkInt(seq.Battery)));
+            opt.Add(ctx.MkGe(ctx.MkIntConst("Panel"), ctx.MkInt(seq.IdxPanel)));
+            opt.Add(ctx.MkGe(ctx.MkIntConst("Inverter"), ctx.MkInt(seq.IdxInverter)));
+            opt.Add(ctx.MkGe(ctx.MkIntConst("Controller"), ctx.MkInt(seq.IdxController)));
+            opt.Add(ctx.MkGe(ctx.MkIntConst("Battery"), ctx.MkInt(seq.IdxBattery)));
 
             #region Values
-            float nb = _batteryData[seq.Battery, 0];
-            int capacity = (int)_batteryData[seq.Battery, 2];
-            float BatteryCost = _batteryData[seq.Battery, 5];
+            float nb = _batteryData[seq.IdxBattery, 0];
+            int capacity = (int)_batteryData[seq.IdxBattery, 2];
+            float BatteryCost = _batteryData[seq.IdxBattery, 5];
 
-            float ControllerCost = _controllerData[seq.Controller, 5];
-            float VCmax = _controllerData[seq.Controller, 4];
-            int IC = (int)_controllerData[seq.Controller, 1];
-            float nc = _controllerData[seq.Controller, 0];
+            float ControllerCost = _controllerData[seq.IdxController, 5];
+            float VCmax = _controllerData[seq.IdxController, 4];
+            int IC = (int)_controllerData[seq.IdxController, 1];
+            float nc = _controllerData[seq.IdxController, 0];
 
-            float InverterCost = _inverterData[seq.Inverter, 5];
-            int PACref = (int)_inverterData[seq.Inverter, 3];
-            int VinDC = (int)_inverterData[seq.Inverter, 1];
-            int VoutAC = (int)_inverterData[seq.Inverter, 2];
-            int MAXACref = (int)_inverterData[seq.Inverter, 4];
-            float ni = _inverterData[seq.Inverter, 0];
+            float InverterCost = _inverterData[seq.IdxInverter, 5];
+            int PACref = (int)_inverterData[seq.IdxInverter, 3];
+            int VinDC = (int)_inverterData[seq.IdxInverter, 1];
+            int VoutAC = (int)_inverterData[seq.IdxInverter, 2];
+            int MAXACref = (int)_inverterData[seq.IdxInverter, 4];
+            float ni = _inverterData[seq.IdxInverter, 0];
 
-            float Pmref = _panelData[seq.Panel, 8];
-            float Imref = _panelData[seq.Panel, 9];
-            float Vmref = _panelData[seq.Panel, 10];
-            float PanelCost = _panelData[seq.Panel, 12];
+            float Pmref = _panelData[seq.IdxPanel, 8];
+            float Imref = _panelData[seq.IdxPanel, 9];
+            float Vmref = _panelData[seq.IdxPanel, 10];
+            float PanelCost = _panelData[seq.IdxPanel, 12];
             #endregion
 
             Ecorrected = Econsumption / (nb * nc * ni);
@@ -282,7 +280,7 @@ namespace PVS
             //(Psurge <= MAXACref)
             opt.Assert(ctx.MkFPLEq(ctx.MkFP(Psurge, s32b), ctx.MkFP(MAXACref, s32b)));
 
-            Fobj = NTP * PanelCost + NBtotal * BatteryCost + ControllerCost + InverterCost;
+            Fobj = ControllerCost + InverterCost + (NTP * PanelCost) + (NBtotal * BatteryCost);
 
             //opt.Assert(ctx.MkFPLEq(ctx.MkFP(Fobj, s32b), ctx.MkFP(cost, s32b)));
 
@@ -296,6 +294,11 @@ namespace PVS
             seq.NPP = NPP;
             seq.NBS = NBS;
             seq.NBP = NBP;
+            seq.PmRef = Pmref;
+            seq.IC = IC;
+            seq.VCMax = VCmax;
+            seq.BatteryCapacity = capacity;
+
 
             if (opt.Check() == Status.SATISFIABLE)
             {
@@ -313,31 +316,35 @@ namespace PVS
         /// <param name="showcase">TC Number</param>
         private static void SetCase(int showcase)
         {
-            //Default Value
-            VAC = 127;
-
             switch (showcase)
             {
                 case 1:
                     Phouse = 342; Psurge = 342; Econsumption = 3900;
+                    VAC = 127;
                     break;
                 case 2:
                     Phouse = 814; Psurge = 980; Econsumption = 4800;
+                    VAC = 127;
                     break;
                 case 3:
                     Phouse = 815; Psurge = 980; Econsumption = 4880;
+                    VAC = 127;
                     break;
                 case 4:
                     Phouse = 253; Psurge = 722; Econsumption = 3600;
+                    VAC = 127;
                     break;
                 case 5:
                     Phouse = 263; Psurge = 732; Econsumption = 2500;
+                    VAC = 127;
                     break;
                 case 6:
                     Phouse = 322; Psurge = 896; Econsumption = 4300;
+                    VAC = 127;
                     break;
                 case 7:
-                    Phouse = 1586; Psurge = 2900; Econsumption = 14400; VAC = 220;
+                    Phouse = 1586; Psurge = 2900; Econsumption = 14400;
+                    VAC = 220;
                     break;
 
                 default:
@@ -360,10 +367,10 @@ namespace PVS
                         for (int i = 0; i < GetArraySize(_inverterData); i++)
                             eq.Add(new Equipaments()
                             {
-                                Panel = p,
-                                Battery = b,
-                                Controller = c,
-                                Inverter = i
+                                IdxPanel = p,
+                                IdxBattery = b,
+                                IdxController = c,
+                                IdxInverter = i
                             });
             return eq;
         }
@@ -384,10 +391,10 @@ namespace PVS
 
     public class Equipaments
     {
-        public int Panel { get; set; }
-        public int Battery { get; set; }
-        public int Controller { get; set; }
-        public int Inverter { get; set; }
+        public int IdxPanel { get; set; }
+        public int IdxBattery { get; set; }
+        public int IdxController { get; set; }
+        public int IdxInverter { get; set; }
         public float Cost { get; set; }
         public Model Model { get; set; }
         public int NBtotal { get; set; }
@@ -399,11 +406,21 @@ namespace PVS
         public int NPP { get; set; }
         public int NBS { get; set; }
         public int NBP { get; set; }
+        public float PmRef { get; set; }
+        public int IC { get; set; }
+        public float VCMax { get; set; }
+        public int BatteryCapacity { get; set; }
+
         public override string ToString()
         {
-            return $"Panel: {Panel} | Battery:{Battery} | Controller:{Controller} | Inverter:{Inverter} |" +
-                $" NTP : {NTP} | NBT: {NBtotal} x | NPS: {NPS} | NPP: {NPP} | NBS: {NBS} | NBP: {NBP} " +
-                $"| Controller: | Inverter: {PACref} / {VinDC} | LCC: US$ {LCC} | Cost: {Cost}";
+            return
+                $"LCC: US$ {LCC} \r\n" +
+                $"COST: US$ {Cost} \r\n" +
+                $"NTP: {NTP}x{PmRef}w \r\n" +
+                $"NBT: {NBtotal}x{BatteryCapacity}Ah \r\n" +
+                $"Controller: {IC}A x {VCMax}V \r\n" +
+                $"Inverter: {PACref}W x {VinDC}v \r\n" +
+                $"Index: P[{IdxPanel}]; B[{IdxBattery}]; C[{IdxController}]; I[{IdxInverter}]  ";
         }
     }
 }
