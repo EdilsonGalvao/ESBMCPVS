@@ -492,15 +492,15 @@ to index four matrices with complete datasheet information from an equipment ite
 The proposed synthesis approach was evaluated in seven stand-alone PV system case studies.
 These case studies were defined based on the usual electrical load found in riverside communities in the Amazonas State, Brazil~\cite{TrindadeCordeiro19,Agrener2013}, except for case 7, which was idealized to support a few lamps and a 12k BTUs air-conditioner solution. 
 Here we report each case study as a 4-tuple \textit{\{power peak (W); power surge (W); energy consumption (Wh/day); battery autonomy (hours)\}} as follows:
-\textbf{1:} \{342; 342; 3,900; 48\}; \textbf{2:} \{814; 980; 4,880; 48\}; \textbf{3:} \{815; 980; 4,880; 12\}; \textbf{4:} \{253; 722; 3,600; 48\}; \textbf{5:} \{263; 732; 2,500; 48\}; \textbf{6:} \{322; 896; 4,300; 48\}; \textbf{7:} \{1,586; 2,900; 14,000; 48\}. This 4-tuple represents the Algorithm~\ref{base_opt_code2} inputs. For all cases, an estimated load curve (kWh) was defined based on the electronics consumers in each house. Our synthesis algorithm was fed with data and costs of seventy equipment items from twelve different manufacturers of PV systems. 
+\color{blue}\textbf{1:} \{342; 342; 3,900; 48\}; \textbf{2:} \{814; 980; 4,880; 48\}; \textbf{3:} \{815; 980; 4,880; 12\}; \textbf{4:} \{253; 722; 3,600; 48\}; \textbf{5:} \{263; 732; 2,500; 48\}; \textbf{6:} \{322; 896; 4,300; 48\}; \textbf{7:} \{1,586; 2,900; 14,000; 48\}. This 4-tuple represents the Algorithm~\ref{base_opt_code2} inputs. For all cases, an estimated load curve (kWh) was defined based on the electronics consumers in each house. Our synthesis algorithm was fed with data and costs of seventy equipment items from twelve different manufacturers of PV systems. 
 %
-Three state-of-the-art verifiers, Z3 \footnote{Command-line: \$ dotnet run TestCaseID} version 4.8.9 with vZ as optimization engine, ESBMC\footnote{Command-line: \$ esbmc filename.c -\phantom{}-incremental-bmc -\phantom{}-boolector} v6.0.0~\cite{esbmc2018} with the Boolector 3.0.1 solver~\cite{Brummayer}, and CPAchecker\footnote{Command-line: \$ scripts/cpa.sh -heap 64000m -config config/bmc-incremental.properties -spec config/specification/sv-comp-reachability.spc file.c} v1.8~\cite{Beyer2011} with MathSAT 5.5.3~\cite{mathsat5}, were used as verification engines to compare the proposed approach effectiveness and efficiency. 
+Three state-of-the-art verifiers, Z3 \footnote{Command-line: \$ dotnet run TestCaseID} version 4.8.9 with vZ as optimization engine, ESBMC\footnote{Command-line: \$ esbmc filename.c -\phantom{}-incremental-bmc -\phantom{}-boolector} v6.0.0~\cite{esbmc2018} with the Boolector 3.0.1 solver~\cite{Brummayer}, and CPAchecker\footnote{Command-line: \$ scripts/cpa.sh -heap 64000m -config config/bmc-incremental.properties -spec config/specification/sv-comp-reachability.spc file.c} v1.8~\cite{Beyer2011} with MathSAT 5.5.3~\cite{mathsat5}, were used as verification engines to compare the proposed approach effectiveness and efficiency.  \color{black}
 
 %---------------------------------------------------------------------------
 \subsection{Optimization/Simulation Tools and Assumptions}
 %---------------------------------------------------------------------------
 Concerning the off-the-shelf optimization/simulation tools, only HOMER Pro performs an off-grid system with battery backup analysis and includes economical analysis. Here we used HOMER Pro version $3.13.1$ as a state-of-the-art optimization tool for comparison purposes. In particular, HOMER Pro has the following characteristics:
-(a) it is available only for MS-Windows, its annual standard subscription costs US\$ $1500.00$ using Expert Package~\cite{HOMER}; 
+\color{blue}(a) it is available only for MS-Windows, its annual standard subscription costs US\$ $1500.00$ using Expert Package~\cite{HOMER}; \color{black}
 (b) it has two optimization algorithms: one algorithm simulates all of the feasible system configurations defined by the search space, and additionally, a proprietary derivative-free algorithm to search for the least-costly system;
 (c) it does not have LCC cost in its reports, only Net Present Cost (NPC); however, we can obtain LCC from NPC; 
 (d) the optimization analysis defines a load curve and temperature according to data collected from online databases. However, to allow a correct comparison, the curve load and the temperature were defined the same as our synthesis approach; 
@@ -517,7 +517,7 @@ To validate and compare the optimal sizing solution produced by our approach and
 
 Our evaluation aims to answer three experimental goals: [EG1] \textbf{(soundness)} Does our automated synthesis approach provide correct results?; [EG2] \textbf{(performance)} How do the software verifiers compare to each other for synthesizing PV systems?; and [EG3] \textbf{(state-of-the-art)} how does our formal synthesis tool compare to a specialized simulation tool?
 
-All experiments regarding the verification tools were conducted on an otherwise idle AMD Ryzen 2 CPU 2700X ($8$-cores and 16 Threads) with $3.70$ GHz and $16$ GB RAM, running Ubuntu $20.04$ LTS $64$-bits. For HOMER Pro, we have used an Intel Core i5-$4210$ ($4$-cores) with $1.7$ GHz and $4$ GB RAM running Windows 10. The ideal scenario would be to use the same hardware configuration for the experiments. However, This setup has an impact on performance, which is less favorable to HOMER Pro. PVsyst used the same configuration as HOMER Pro. We perform the experiments with a predefined \textit{time out} of $600$ minutes (ten hours).
+\color{blue}All experiments regarding the verification tools were conducted on an otherwise idle AMD Ryzen 2 CPU 2700X ($8$-cores and 16 Threads) with $3.70$ GHz and $16$ GB RAM, running Ubuntu $20.04$ LTS $64$-bits. For HOMER Pro, we have used an Intel Core i5-$4210$ ($4$-cores) with $1.7$ GHz and $4$ GB RAM running Windows 10. The ideal scenario would be to use the same hardware configuration for the experiments. However, This setup has an impact on performance, which is less favorable to HOMER Pro. PVsyst used the same configuration as HOMER Pro. We perform the experiments with a predefined \textit{time out} of $600$ minutes (ten hours).\color{black}
 
 %---------------------------------------------------------------------------
 \subsection{Results}
@@ -538,43 +538,47 @@ Tools & \makecell{Microsoft Z3 \\(vZ 4.8.9)}& \makecell{ESBMC 6.0.0 \\(Boolector
 Specification & Result & Result & Result & Result \\
 \hline
 \makecell{\textbf{Case Study 1}\\Peak:342W\\Surge:342W \\E:3,900Wh/day\\Autonomy:48h}&
-\makecell{SAT (0,93 min) \\NTP:4$\times$425w\\NBT:8$\times$()Ah\\Controller 00A/000V\\Inverter 000W/0V\\LCC: US\$ 8,992.58} &
-\makecell{SAT (620 min) \\NTP:6$\times$330W (2P-3S)\\NBT:16$\times$105Ah (2S-8P)\\Controller 35A/145V\\Inverter 700W/48V\\LCC: US\$ 10,214.04} & 
+\makecell{SAT (0,93 min) \\NTP:4$\times$425w\\NBT:8$\times$220 Ah\\Controller 30A x 100V\\Inverter 400W x 24v\\LCC: US\$ 8,992.58} &
+TO & 
 \makecell{SAT (548 min) \\NTP:6$\times$330W (2P-3S)\\NBT:16$\times$105Ah (2S-8P)\\Controller 35A/145V\\Inverter 700W/1600W/48V\\LCC: US\$ 10,214.04} & 
 \makecell{(Time: 0.33 min)\\2.53 kW of PV\\NBT:12$\times$83.4Ah (2S-6P)\\0.351kW inverter\\LCC: US\$ 7,808.04}\\
 
 \hline
-\makecell{\textbf{Case Study 2}\\Peak:814W\\Surge:980W\\E:4,880Wh/day\\Autonomy:48h} & \makecell{SAT (0,42 min) \\NTP:6$\times$()w\\NBT:10$\times$()Ah\\Controller 00A/000V\\Inverter 000W/0V\\LCC: US\$ 10,028.34} &
+\makecell{\textbf{Case Study 2}\\Peak:814W\\Surge:980W\\E:4,880Wh/day\\Autonomy:48h} & \makecell{SAT (0,42 min) \\NTP:6$\times$355w\\NBT:10$\times$220Ah\\Controller 40A x 150V\\Inverter 1200W x 24v\\LCC: US\$ 10,028.34} &
 TO &
 TO &
 \makecell{(Time: 0.18 min)\\3.71 kW of PV\\NBT:20$\times$83.4Ah (2S-10P)\\0.817kW inverter\\LCC: US\$ 12,861.75} \\
 
 \hline
-\makecell{\textbf{Case Study 3}\\Peak:815W\\Surge:980W\\E:4,880Wh/day\\Autonomy:12h} & \makecell{SAT (0,41 min) \\NTP:6$\times$()w\\NBT:10$\times$()Ah\\Controller 00A/000V\\Inverter 000W/0V\\LCC: US\$ 10,028.348} & 
-\makecell{SAT (63 min) \\NTP:14$\times$150W (7P-2S)\\NBT:6$\times$105Ah (2S-3P)\\Controller 35A/145V\\Inverter 1,200W/48V\\LCC: US\$ 9,274.07} & TO & Not possible \\
+\makecell{\textbf{Case Study 3}\\Peak:815W\\Surge:980W\\E:4,880Wh/day\\Autonomy:12h} & \makecell{SAT (0,41 min) \\NNTP:6$\times$355w\\NBT:10$\times$220Ah\\Controller 40A x 150V\\Inverter 1200W x 24v\\LCC: US\$ 10,028.34} &
+TO &
+TO &
+Not possible \\
 
 \hline
 \makecell{\textbf{Case Study 4}\\Peak:253W\\Surge:722W\\E:3,600Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,72 min) \\NTP:4$\times$()w\\NBT:8$\times$()Ah\\Controller 00A/000V\\Inverter 000W/0V\\LCC: US\$ 8,883.62} &
-\makecell{SAT (147 min) \\NTP:6$\times$330W (2P-3S)\\NBT:16$\times$105Ah (2S-8P)\\Controller 35A/145V\\Inverter 280W/48V\\LCC: US\$ 9,678.63} &
+\makecell{SAT (0,72 min) \\NTP:4$\times$395w\\NBT:8$\times$220Ah\\Controller 20A x 100V\\Inverter 80W x 24v\\LCC: US\$ 8,883.62} &
+TO &
 \makecell{SAT (605 min) \\NTP:6$\times$330W (2P-3S)\\NBT:16$\times$105Ah (2S-8P)\\Controller 35A/145V\\Inverter 280W/48V\\LCC: US\$ 9,678.63} &
 \makecell{(Time: 0.23 min)\\2.42 kW of PV\\NBT:12$\times$83.4Ah (2S-6P)\\0.254kW inverter\\LCC: US\$ 7,677.95}\\
 
 \hline
 \makecell{\textbf{Case Study 5}\\Peak:263W\\Surge:732W\\E:2,500Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,84 min) \\NTP:4$\times$()w\\NBT:6$\times$()Ah\\Controller 00A/000V\\Inverter 000W/0V\\LCC: US\$ 8,119.74} &
-\makecell {SAT (36.70 min) \\NTP:4$\times$330W (2S-2P)\\NBT:14$\times$80Ah (2S-7P)\\Controller 35A/145V\\Inverter 280W/24V \\LCC: US\$ 8,900.70}
-& \makecell {SAT (254.25 min) \\NTP:4$\times$330W (2S-2P)\\NBT:14$\times$80Ah (2S-7P)\\Controller 35A/145V\\Inverter 280W/24V \\LCC: US\$ 8,900.70} 
+\makecell{SAT (0,84 min) \\NTP:4$\times$330w\\NBT:6$\times$220Ah\\Controller 20A x 100V\\Inverter 280W x 24v\\LCC: US\$ 8,119.74} &
+TO &
+\makecell {SAT (254.25 min) \\NTP:4$\times$330W (2S-2P)\\NBT:14$\times$80Ah (2S-7P)\\Controller 35A/145V\\Inverter 280W/24V \\LCC: US\$ 8,900.70} 
 & \makecell{(Time: 0.18 min)\\1.59 kW of PV\\NBT:10$\times$83.4Ah (2S-5P)\\0.268kW inverter\\LCC: US\$ 6,175.57} \\
 
 \hline
 \makecell{\textbf{Case Study 6}\\Peak:322W\\Surge:896W\\E:4,300Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,69 min) \\NTP:6$\times$()w\\NBT:10$\times$()Ah\\Controller 00A/000V\\Inverter 000W/0V\\LCC: US\$ 9,587.01} &
-\makecell {SAT (380.93 min) \\NTP:6$\times$320W (2P-3S)\\NBT:18$\times$105Ah (2S-9P)\\Controller 35A/145V\\Inverter 400W/24V \\LCC: US\$ 10,136.61} & TO & \makecell{(Time: 0.22 min)\\3.15 kW of PV\\NBT:14$\times$83.4Ah (2S-7P)\\0.328kW inverter\\LCC: US\$ 9,112.45} \\
+\makecell{SAT (0,69 min) \\NTP:6$\times$330w\\NBT:10$\times$220Ah\\Controller 40A x 150V\\Inverter 400W x 24v\\LCC: US\$ 9,587.01} &
+TO &
+TO & \makecell{(Time: 0.22 min)\\3.15 kW of PV\\NBT:14$\times$83.4Ah (2S-7P)\\0.328kW inverter\\LCC: US\$ 9,112.45} \\
 
 \hline
-\makecell{\textbf{Case Study 7}\\Peak:1,586W\\Surge:2,900W\\E:14,000Wh/day\\Autonomy:48h} & \makecell{SAT (0,44 min) \\NTP:20$\times$()w\\NBT:30$\times$()Ah\\Controller 00A/000V\\Inverter 000W/0V\\LCC: US\$ 18,408.27}  &
-UNSAT (0.48 min) & TO & \makecell{(Time: 0.20 min)\\12.5 kW of PV\\NBT:66$\times$83.4Ah (2S-33P)\\1.60kW inverter\\LCC: US\$ 41,878.11} \\
+\makecell{\textbf{Case Study 7}\\Peak:1,586W\\Surge:2,900W\\E:14,000Wh/day\\Autonomy:48h} & \makecell{SAT (0,44 min) \\NTP:20$\times$330w\\NBT:30$\times$220Ah\\Controller 100A x 400V\\Inverter 1600W x 24v\\LCC: US\$ 18,408.27}  &
+TO &
+TO & \makecell{(Time: 0.20 min)\\12.5 kW of PV\\NBT:66$\times$83.4Ah (2S-33P)\\1.60kW inverter\\LCC: US\$ 41,878.11} \\
 \hline
 \hline
 \end{tabular}
@@ -582,15 +586,11 @@ UNSAT (0.48 min) & TO & \makecell{(Time: 0.20 min)\\12.5 kW of PV\\NBT:66$\times
 \end{scriptsize}
 \end{table*}
 %
-The comparision results of tools are presented in TTable~\ref{tab1}, that is resulting of Algorithm\ref{base_opt_code2} and suggests that an optimal solution was
-found(SAT) or not (UNSAT). Here, ESBMC (incremental mode with
-Boolector) was unable to
-produce any conclusive result; out of memory situations
-occurred in all case studies.
+\color{blue}The comparision results of tools are presented in TTable~\ref{tab1}, that is resulting of Algorithm\ref{base_opt_code2} and suggests that an optimal solution was found(SAT) or not (UNSAT). Here, ESBMC (incremental mode with Boolector) was unable to produce any conclusive result; out of memory situations occurred in all case studies.\color{black}
 
 CPAchecker was able to synthesize optimal sizing in three out of the seven case studies (cases $1$, $4$, and $5$): the result was produced within the time limit, which varied from $4$ to $9$ hours. 
 Fig.~\ref{fig:CPAoptc1} illustrates the result of case $5$ with the optimal sizing appearing on the left side as the integer $3$ for the solar panel (which is the Canadian CS6U-330P model of $330$ W from the manufacturer Victron Energy), battery $0$ refers to the model 12MF80 of $80$ Ah from Moura, charge controller $0$ refers to the model 35A-145V MPPT from Victron Energy. The inverter number $2$ refers to the Epever model IP350-11 of $280$ W (nominal power) and $750$ W of surge power. The variables NTP, NPS, NPP, NBS, NBP, and NBTotal, also presented in the counterexample, shows the number of panels and batteries and how they are connected.
-Case studies $2$, $3$, $6$, and $7$ led to a \textit{time out} result in CPAchecker, i.e., it was not solved within $10$ hours.  
+\color{blue}Case studies $2$, $3$, $6$, and $7$ led to a \textit{time out} result in CPAchecker, i.e., it was not solved within $10$ hours.  \color{black}
 %
 \begin{figure}[h]
 \fbox{\includegraphics[width=0.47\textwidth]{CPA_opt_c5.png}}
@@ -599,21 +599,22 @@ Case studies $2$, $3$, $6$, and $7$ led to a \textit{time out} result in CPAchec
 \label{fig:CPAoptc1}
 \end{figure}
 
-HOMER Pro was able to evaluate six case studies (cases $1$, $2$, $4$, $5$, $6$, and $7$) under $30$ seconds; The test case $3$ could not be simulated since HOMER Pro does
-not have the battery autonomy adjustment feature, i.e., the tool always tries to feed the given load with electricity $365$ days/year. Some HOMER Pro drawbacks were also noted. (1) System equipment does not include an explicit charge controller. HOMER Pro includes a controller automatically to simulate the charge/discharge of batteries and to meet the load requirement. However, without costs or even with electrical characteristics such as maximum current and voltage, which are common during PV sizing. (2) HOMER Pro requires the inclusion of some battery specification to initiate optimization; however, it does not change the electrical specifications during simulation; the results presented are multiples of the original battery type suggested by the user. For example, it was started with an $83.4$ Ah lead-acid battery, and during simulation, HOMER Pro did not try to use other capacities or types. (3) HOMER Pro does not present the optimal solution in terms of connections of PV panel arrays, just the total in terms of power, i.e., it presents neither the models and the power of each PV panel nor the total of panels in series or parallel. The cost of every equipment item used in HOMER Pro is a US-based cost, without adaptation regardless of where the equipment is installed.
+
+\color{blue}HOMER Pro was able to evaluate six case studies (cases $1$, $2$, $4$, $5$, $6$, and $7$) under $30$ seconds; The test case $3$ could not be simulated since HOMER Pro does
+not have the battery autonomy adjustment feature, i.e., the tool always tries to feed the given load with electricity $365$ days/year. Some HOMER Pro drawbacks were also noted. (1) System equipment does not include an explicit charge controller. HOMER Pro includes a controller automatically to simulate the charge/discharge of batteries and to meet the load requirement. However, without costs or even with electrical characteristics such as maximum current and voltage, which are common during PV sizing. (2) HOMER Pro requires the inclusion of some battery specification to initiate optimization; however, it does not change the electrical specifications during simulation; the results presented are multiples of the original battery type suggested by the user. For example, it was started with an $83.4$ Ah lead-acid battery, and during simulation, HOMER Pro did not try to use other capacities or types. (3) HOMER Pro does not present the optimal solution in terms of connections of PV panel arrays, just the total in terms of power, i.e., it presents neither the models and the power of each PV panel nor the total of panels in series or parallel. The cost of every equipment item used in HOMER Pro is a US-based cost, without adaptation regardless of where the equipment is installed. \color{black}
 
 We have real PV systems deployed since June $2018$ in a riverside community in the State of Amazonas, Brazil, GPS coordinates 2$^{o}$44'50.0"S 60$^{o}$25'47.8"W, with demands of case studies $1$, $4$, $5$, and $6$, always with a $3$ $\times$ $325$ W ($3$S, total $975$ W) panels and $4$ $\times$ $220$ Ah ($2$S-$2$P $= 440$ Ah) lead-acid batteries.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comparison Between Formal Synthesis and HOMER Pro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\color{blue}
 If we compare the formal synthesis results against those of
 HOMER Pro, and considering that the cost of individual items of each database used to compose the optimal design is not the same among the tools, it is plausible to obtain distinct results. thus, we observed some distinct effects in terms of the technical solution and cost (cf. Table~\ref{tab1}). Concerning the performance, the difference between each test case is less then one minute, in others words, the performance is equal when the major metric is LCC (cost), when we analyzed the processing time, HOMER Pro executed the cases on average three times faster. Particularly in the case of LCC, removing the maximum and minimum difference of price reported by each tool and the test case 3 that HOMER Pro don't resolved, the cost average variation of each equipament set by each test case is around US\$ 450 dollars. This monetary difference represent 4,9\% total cost when formal synthesis is used, instead of, 5.2\% used by HOMER Pro. In other words, both tools calculate a satisfactory system with a variation of only 5\% in cost. 
 
 %On the one hand, concerning the PV panels sizing, the results presented by the automated synthesis were smaller in terms of power than the ones produced by the simulation tool. The difference varied from $19$\% to $65$\%. On the other hand, concerning the battery bank, the results were smaller in terms of HOMER Pro capacity. The difference was between $34$\% to $68$\%. The mathematical models are different and particular parameters can be tuned for each technique, and that can justify the difference, which was presented in all the case studies.
 
-Those discrepancies are not easy to address without some real systems validation. However, we use the simulation software PVsyst to validate the optimal sizing produced, as shown in Table~\ref{tab2}. Note that PVsyst has a pre-sizing feature, which presents a minimum recommended sizing of PV panels and batteries (only) without using manufacturers' data or models for it. This feature was used as reference mainly with HOMER Pro, where there exists no equipment brands or models (only power and capacities specification). PVsyst was used with the field-deployed and the formal synthesis sizing solutions, where brands and models were simulated in PVsyst according to the sized system. Each simulation with PVsyst took $4$ seconds. We were unable to validate the case study $3$ using PVsyst. The battery autonomy is less than 24 hours, and only the proposed synthesis technique can perform the optimal sizing (PVsyst and HOMER Pro are limited for a $24$ h minimum). 
+Those discrepancies are not easy to address without some real systems validation. However, we use the simulation software PVsyst to validate the optimal sizing produced, as shown in Table~\ref{tab2}. Note that PVsyst has a pre-sizing feature, which presents a minimum recommended sizing of PV panels and batteries (only) without using manufacturers' data or models for it. This feature was used as reference mainly with HOMER Pro, where there exists no equipment brands or models (only power and capacities specification). PVsyst was used with the field-deployed and the formal synthesis sizing solutions, where brands and models were simulated in PVsyst according to the sized system. Each simulation with PVsyst took $4$ seconds. We were unable to validate the case study $3$ using PVsyst. The battery autonomy is less than 24 hours, and only the proposed synthesis technique can perform the optimal sizing (PVsyst and HOMER Pro are limited for a $24$ h minimum).  \color{black}
 %
 \begin{table*}
 \centering
@@ -648,8 +649,7 @@ CS 7 & \makecell{P= 4,263 W\\B= 1,384 Ah\\(minimum)} & \makecell{NA\\There exist
 
 Overall, those comparisons with our approach, the optimization software, and the deployed systems, with validation through simulation tool, show that the synthesis solution is sound and complete, which answers \textit{EG1} and {EG3}.
 
-Concerning the cost (LCC) present by both tools, HOMER Pro does not use the real cost for PV systems deployed in Brazil; therefore, the optimal solution presented by HOMER Pro is tends to be cheaper than our technique. However, considering that the aim is to present an optimal
-PV sizing solution that is feasible and closer to the market prices, our technique is more indicated.
+\color{blue}Concerning the cost (LCC) present by both tools, HOMER Pro does not use the real cost for PV systems deployed in Brazil; therefore, the optimal solution presented by HOMER Pro is tends to be cheaper than our technique. However, considering that the aim is to present an optimal PV sizing solution that is feasible and closer to the market prices, our technique is more indicated. \color{black}
 
 Besides that, HOMER Pro suggests a value in kW for the inverters that are very close to the maximum load of every case study, but it is not commercial. The proposed synthesis tool, however, presents inverters that are commercial and can be obtained off-the-shelf. Moreover, our synthesis approach considers surge power demand from the house, which is not viewed by HOMER Pro or PVsyst. This feature is a definite advantage of the formal synthesis method. HOMER Pro does not include charge controllers as a specific item of equipment in its mathematical model; only the synthesis tool presents a commercial controller and includes it during the cost analysis. The formal synthesis method, therefore, presents more reliable results than HOMER Pro.
 
@@ -661,8 +661,7 @@ An optimal solution from a tool is not necessarily the same optimal from other t
 \subsection{Threats to validity} 
 %---------------------------------------------------------------------------
 
-We have reported a favorable assessment of the proposed
-method. Nevertheless, we have also identified five points in two topics to improve and validate in future work. 
+\color{blue}We have reported a favorable assessment of the proposed method. Nevertheless, we have also identified five points in two topics to improve and validate in future work. 
 \textbf{Eletrical System:} (i) Improvement of the power reliability analysis: to
 include loss of load probability or loss of power supply
 probability, which can make the study more accurate; (ii) Improvement of the system cost analysis by addingoperational and maintenance costs to the adopted LCC analysis; (iii) Increase the equipment and manufacturers database: this will increase the optimization complexity, but the result will also allow improved sizing. 
@@ -676,7 +675,7 @@ arithmetic, approximating the real one; (v) Experiment with alternatives for sha
 Our novelty relies on a practical approach to pursue 
 the optimal PV systems’ optimal solution using contemporary formal methods. Wwe show that our approach results, using seven case studies, are promising. Our synthesis tool can present a solution that is far more detailed and closer to commercial reality than the solution given by the commercial tool. The battery autonomy feature, together with the details of every component of a PV system solution, is advantageous for our synthesis approach; these details are essential for the PV system owner. The industry demands proximity between the result presented by optimization tools and the items of equipment for solar systems available on the market.
 
-In summary, our synthesis tool is capable of presenting a solution, which is far detailed and close to the commercial reality than the solution presented by HOMER Pro and our method can provide all the details of every component of a PV system solution, with complete electrical details from the datasheet of manufacturers, including the model of the component, nominal current, and voltage. The presented solution is sound and complete; Moreover, we extended the CEGIS synthesis method and implemented this extension within our proposed formal synthesis tool, which allows the optimization of stand-alone PV systems with the best compromise between power reliability and system cost analysis. For future work, we plan to improve the power reliability analysis to address the restriction to only allow automated synthesis of riverside communities in the Amazonas state (Brazil) and to validate some cases with the deployment of real PV systems in isolated communities.
+In summary, our synthesis tool is capable of presenting a solution, which is far detailed and close to the commercial reality than the solution presented by HOMER Pro and our method can provide all the details of every component of a PV system solution, with complete electrical details from the datasheet of manufacturers, including the model of the component, nominal current, and voltage. The presented solution is sound and complete; Moreover, we extended the CEGIS synthesis method and implemented this extension within our proposed formal synthesis tool, which allows the optimization of stand-alone PV systems with the best compromise between power reliability and system cost analysis. For future work, we plan to improve the power reliability analysis to address the restriction to only allow automated synthesis of riverside communities in the Amazonas state (Brazil) and to validate some cases with the deployment of real PV systems in isolated communities. \color{black}
 
 %
 %\appendices
