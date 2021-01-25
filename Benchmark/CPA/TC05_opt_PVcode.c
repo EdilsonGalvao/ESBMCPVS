@@ -314,7 +314,7 @@ __VERIFIER_assume ((VCmax* IC * nc) >= PACref);
 
 /* ----------- MAIN FUNCTION --------- */
 int main() {
-	int HintCost, step=1;
+	int HintCost, step=250;
 	HintCost = FHintCost();
 
 	for (; HintCost <= MaxCost; HintCost=HintCost+step){
