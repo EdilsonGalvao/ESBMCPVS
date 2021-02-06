@@ -12,7 +12,7 @@ namespace PVS
     public partial class Program
     {
         #region Matrix of values
-        //area, efficiency, num cells, NOCT, mii, miv, Iscref, Vocref, Pmref, Imref, Vmref, VmpNOCT, cost
+        //area, efficiency, num cells, NOCT, mii, miv, Iscref, Vocref, panelPowerRef, Imref, Vmref, VmpNOCT, cost
         private static float[,] _panelData = {
             {1.94432f, 0.1620f, 72f, 45f,  0.00053f,  -0.0031f,  9.18f, 45.1f,  315f, 8.16f, 36.6f,  33.4f,  268.40f},
             {1.94432f, 0.1646f, 72f, 45f,  0.00053f,  -0.0031f,  9.26f, 45.3f,  320f, 8.69f, 36.8f,  33.6f,  190.00f},
@@ -101,34 +101,41 @@ namespace PVS
         private static int Phouse = int.MaxValue, Psurge = int.MaxValue, Econsumption = int.MaxValue;
         private static int VAC = int.MaxValue;
 
-        //The list of minimum values found locally.
+        //The list of miinverterEfficiencymum values found locally.
         //The lowest value in this list is the best option based on cost.
         private static List<Equipaments> Equipaments = new List<Equipaments>();
 
         static void Main(string[] args)
         {
-            if (args.Length > 0)
+            try
             {
-                Microsoft.Z3.Global.ToggleWarningMessages(true);
-                Log.Open("test.log");
-
-                int cValue;
-                int.TryParse(args.FirstOrDefault(), out cValue);
-
-                if (cValue != 0)
+                if (args.Length > 0)
                 {
-                    SetCase(cValue);
+                    Microsoft.Z3.Global.ToggleWarningMessages(true);
+                    Log.Open("test.log");
 
-                    var startedAt = DateTime.Now;
-                    var lowest = Solve(int.MaxValue, cValue);
+                    int cValue;
+                    int.TryParse(args.FirstOrDefault(), out cValue);
 
-                    Console.WriteLine($"TC 0{cValue} - Solved Time: ({(DateTime.Now - startedAt).TotalSeconds}) Seconds.");
-                    Console.WriteLine($"{lowest}\r\n");
+                    if (cValue != 0)
+                    {
+                        SetCase(cValue);
+
+                        var startedAt = DateTime.Now;
+                        var lowest = Solve(int.MaxValue, cValue);
+
+                        Console.WriteLine($"TC 0{cValue} - Solved Time: ({(DateTime.Now - startedAt).TotalSeconds}) Seconds.");
+                        Console.WriteLine($"{lowest}\r\n");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Invalid");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine($"Invalid");
+                Console.WriteLine(ex);
             }
         }
 
@@ -147,7 +154,7 @@ namespace PVS
 
             Parallel.ForEach(GenerateSet(), c =>
             {
-                var isLowest = GetLowestCost(c, new Context(), maxCost);
+                var isLowest = GetLowestCost(c, maxCost);
 
                 if (isLowest)
                 {
@@ -185,129 +192,135 @@ namespace PVS
         /// <param name="ctx">Context of Z3</param>
         /// <param name="cost">Lowest Cost that was found previously</param>
         /// <returns></returns>
-        private static bool GetLowestCost(Equipaments seq, Context ctx, float cost)
+        private static bool GetLowestCost(Equipaments seq, float cost)
         {
-            var opt = ctx.MkOptimize();
-
-            var s32b = ctx.MkFPSort32();
-
-            int NTP, NPP, NPS, NBtotal, NBS, NBP, NPmin;
-            float Ecorrected, Fobj, Pminpanels, ItotalPVpanels, VtotalPVpanels, Eb, DODdaycalc, IminDCbus, DODmax;
-
-            float Insol = 3.89f; //(kWh/m2/day CRESESB 2016)
-            int SOClimit = 75;
-            int autonomy = 48; //autonomy in hours
-            int Vsystem = 24;
-            int Vbat = 12;
-
-            opt.Add(ctx.MkGe(ctx.MkIntConst("Panel"), ctx.MkInt(seq.IdxPanel)));
-            opt.Add(ctx.MkGe(ctx.MkIntConst("Inverter"), ctx.MkInt(seq.IdxInverter)));
-            opt.Add(ctx.MkGe(ctx.MkIntConst("Controller"), ctx.MkInt(seq.IdxController)));
-            opt.Add(ctx.MkGe(ctx.MkIntConst("Battery"), ctx.MkInt(seq.IdxBattery)));
-
-            #region Values
-            float nb = _batteryData[seq.IdxBattery, 0];
-            int capacity = (int)_batteryData[seq.IdxBattery, 2];
-            float BatteryCost = _batteryData[seq.IdxBattery, 5];
-
-            float ControllerCost = _controllerData[seq.IdxController, 5];
-            float VCmax = _controllerData[seq.IdxController, 4];
-            int IC = (int)_controllerData[seq.IdxController, 1];
-            float nc = _controllerData[seq.IdxController, 0];
-
-            float InverterCost = _inverterData[seq.IdxInverter, 5];
-            int PACref = (int)_inverterData[seq.IdxInverter, 3];
-            int VinDC = (int)_inverterData[seq.IdxInverter, 1];
-            int VoutAC = (int)_inverterData[seq.IdxInverter, 2];
-            int MAXACref = (int)_inverterData[seq.IdxInverter, 4];
-            float ni = _inverterData[seq.IdxInverter, 0];
-
-            float Pmref = _panelData[seq.IdxPanel, 8];
-            float Imref = _panelData[seq.IdxPanel, 9];
-            float Vmref = _panelData[seq.IdxPanel, 10];
-            float PanelCost = _panelData[seq.IdxPanel, 12];
-            #endregion
-
-            Ecorrected = Econsumption / (nb * nc * ni);
-            Pminpanels = (float)(1.25 * Ecorrected / Insol);
-            NPmin = (int)((Pminpanels - 1) / Pmref) + 1;
-
-            NPP = 2;
-            if ((NPmin % 2) == 0)
-                NPS = NPmin / 2; //even number
-            else
-                NPS = (NPmin + 1) / 2; //odd number
-
-            NTP = NPS * NPP;
-            ItotalPVpanels = NPP * Imref;
-
-            //IC >= ItotalPVpanels
-            opt.Assert(ctx.MkFPGEq(ctx.MkFP(IC, s32b), ctx.MkFP(ItotalPVpanels, s32b)));
-
-            VtotalPVpanels = NPS * Vmref;
-
-            //VCmax >= VtotalPVpanels
-            var vcmax = ctx.MkFP(VCmax, ctx.MkFPSort32());
-            var vtotalPV = ctx.MkFP(VtotalPVpanels, ctx.MkFPSort32());
-
-
-            opt.Assert(ctx.MkFPGEq(vcmax, vtotalPV));
-
-            DODmax = (100 - SOClimit) * 2;
-            autonomy = 2;
-            Eb = autonomy * Ecorrected * 2;
-            DODdaycalc = Ecorrected * 100 / Eb;
-            IminDCbus = Eb / (float)Vsystem;
-            NBS = Vsystem / Vbat; //fixed value 
-            NBP = (int)(((IminDCbus - 1) / capacity) + 1); //calculando e arredondando
-            NBtotal = NBS * NBP;
-
-            //controller vs inverter check
-            var cic = VCmax * IC * nc;
-
-            opt.Assert(ctx.MkFPGEq(ctx.MkFP(cic, s32b), ctx.MkFP(PACref, s32b)));
-            opt.Assert(ctx.MkFPGEq(ctx.MkFP(VinDC, s32b), ctx.MkFP(Vsystem, s32b)));
-
-            var minus = (VAC - VAC * 15 / 100);
-            var plus = (VAC + VAC * 15 / 100);
-
-            //(VoutAC >= (VAC - VAC * 15 / 100))
-            opt.Assert(ctx.MkFPGEq(ctx.MkFP(VoutAC, s32b), ctx.MkFP(minus, s32b)));
-            //(VoutAC <= (VAC + VAC * 15 / 100))
-            opt.Assert(ctx.MkFPLEq(ctx.MkFP(VoutAC, s32b), ctx.MkFP(plus, s32b)));
-            //(Phouse <= PACref)
-            opt.Assert(ctx.MkFPLEq(ctx.MkFP(Phouse, s32b), ctx.MkFP(PACref, s32b)));
-            //(Psurge <= MAXACref)
-            opt.Assert(ctx.MkFPLEq(ctx.MkFP(Psurge, s32b), ctx.MkFP(MAXACref, s32b)));
-
-            Fobj = ControllerCost + InverterCost + (NTP * PanelCost) + (NBtotal * BatteryCost);
-
-            //opt.Assert(ctx.MkFPLEq(ctx.MkFP(Fobj, s32b), ctx.MkFP(cost, s32b)));
-
-            seq.Cost = Fobj;
-            seq.NBtotal = NBtotal;
-            seq.LCC = (float)(Fobj + Fobj * 0.05 + 20 * 289.64);
-            seq.VinDC = VinDC;
-            seq.PACref = PACref;
-            seq.NTP = NTP;
-            seq.NPS = NPS;
-            seq.NPP = NPP;
-            seq.NBS = NBS;
-            seq.NBP = NBP;
-            seq.PmRef = Pmref;
-            seq.IC = IC;
-            seq.VCMax = VCmax;
-            seq.BatteryCapacity = capacity;
-
-
-            if (opt.Check() == Status.SATISFIABLE)
+            using (Context ctx = new Context())
             {
-                seq.Model = opt.Model;
+                var opt = ctx.MkOptimize();
 
-                return true;
+                var s32b = ctx.MkFPSort32();
+
+                int NTP, NPP, NPS, NBtotal, NBS, NBP, minQttPanels;
+                float Ecorrected, Fobj, minPanelPower, ItotalPVpanels, VtotalPVpanels, Eb, DODdaycalc, IminDCbus, DODmax;
+
+                float Insol = 3.89f; //(kWh/m2/day CRESESB 2016)
+                int SOClimit = 75;
+                int autonomyTimeDays = 48; //autonomyTimeDays in hours
+                int Vsystem = 24;
+                int Vbat = 12;
+
+                opt.Add(ctx.MkGe(ctx.MkIntConst("Panel"), ctx.MkInt(seq.IdxPanel)));
+                opt.Add(ctx.MkGe(ctx.MkIntConst("Inverter"), ctx.MkInt(seq.IdxInverter)));
+                opt.Add(ctx.MkGe(ctx.MkIntConst("Controller"), ctx.MkInt(seq.IdxController)));
+                opt.Add(ctx.MkGe(ctx.MkIntConst("Battery"), ctx.MkInt(seq.IdxBattery)));
+
+                #region Values
+                float batteryEfficiency = _batteryData[seq.IdxBattery, 0];
+                int capacity = (int)_batteryData[seq.IdxBattery, 2];
+                float BatteryCost = _batteryData[seq.IdxBattery, 5];
+
+                float ControllerCost = _controllerData[seq.IdxController, 5];
+                float VCmax = _controllerData[seq.IdxController, 4];
+                int IC = (int)_controllerData[seq.IdxController, 1];
+                float controllerEfficiency = _controllerData[seq.IdxController, 0];
+
+                float InverterCost = _inverterData[seq.IdxInverter, 5];
+                int PACref = (int)_inverterData[seq.IdxInverter, 3];
+                int VinDC = (int)_inverterData[seq.IdxInverter, 1];
+                int VoutAC = (int)_inverterData[seq.IdxInverter, 2];
+                int MAXACref = (int)_inverterData[seq.IdxInverter, 4];
+                float inverterEfficiency = _inverterData[seq.IdxInverter, 0];
+
+                float panelPowerRef = _panelData[seq.IdxPanel, 8]; //pmref (330 W)
+                float Imref = _panelData[seq.IdxPanel, 9];
+                float Vmref = _panelData[seq.IdxPanel, 10];
+                float PanelCost = _panelData[seq.IdxPanel, 12];
+                #endregion
+
+                //Equation 01
+                Ecorrected = Econsumption / (batteryEfficiency * controllerEfficiency * inverterEfficiency);
+                //Factor is 1.25 because the average of loss is around 20%.
+                double energyLossFactor = 1 / (1 - 0.20);
+
+                //Equation 02 (described in Watt)
+                minPanelPower = (float)(energyLossFactor * Ecorrected / Insol);
+                //Minimum number of possible panels
+                minQttPanels = (int)((minPanelPower - 1) / panelPowerRef) + 1;
+
+                NPP = 2;
+                NPS = (minQttPanels % 2) == 0 ? (minQttPanels / 2) : ((minQttPanels + 1) / 2);
+
+                NTP = NPS * NPP;
+                ItotalPVpanels = NPP * Imref;
+
+                //IC >= ItotalPVpanels
+                opt.Assert(ctx.MkFPGEq(ctx.MkFP(IC, s32b), ctx.MkFP(ItotalPVpanels, s32b)));
+
+                VtotalPVpanels = NPS * Vmref;
+
+                //VCmax >= VtotalPVpanels
+                var vcmax = ctx.MkFP(VCmax, ctx.MkFPSort32());
+                var vtotalPV = ctx.MkFP(VtotalPVpanels, ctx.MkFPSort32());
+
+
+                opt.Assert(ctx.MkFPGEq(vcmax, vtotalPV));
+
+                DODmax = (100 - SOClimit) * 2;
+                autonomyTimeDays = 2;
+                Eb = autonomyTimeDays * Ecorrected * 2;
+                DODdaycalc = Ecorrected * 100 / Eb;
+                IminDCbus = Eb / (float)Vsystem;
+                NBS = Vsystem / Vbat; //fixed value 
+                NBP = (int)(((IminDCbus - 1) / capacity) + 1); //calculando e arredondando
+                NBtotal = NBS * NBP;
+
+                //controller vs inverter check
+                var cic = VCmax * IC * controllerEfficiency;
+
+                opt.Assert(ctx.MkFPGEq(ctx.MkFP(cic, s32b), ctx.MkFP(PACref, s32b)));
+                opt.Assert(ctx.MkFPGEq(ctx.MkFP(VinDC, s32b), ctx.MkFP(Vsystem, s32b)));
+
+                var minus = (VAC - VAC * 15 / 100);
+                var plus = (VAC + VAC * 15 / 100);
+
+                //(VoutAC >= (VAC - VAC * 15 / 100))
+                opt.Assert(ctx.MkFPGEq(ctx.MkFP(VoutAC, s32b), ctx.MkFP(minus, s32b)));
+                //(VoutAC <= (VAC + VAC * 15 / 100))
+                opt.Assert(ctx.MkFPLEq(ctx.MkFP(VoutAC, s32b), ctx.MkFP(plus, s32b)));
+                //(Phouse <= PACref)
+                opt.Assert(ctx.MkFPLEq(ctx.MkFP(Phouse, s32b), ctx.MkFP(PACref, s32b)));
+                //(Psurge <= MAXACref)
+                opt.Assert(ctx.MkFPLEq(ctx.MkFP(Psurge, s32b), ctx.MkFP(MAXACref, s32b)));
+
+                Fobj = ControllerCost + InverterCost + (NTP * PanelCost) + (NBtotal * BatteryCost);
+
+                //opt.Assert(ctx.MkFPLEq(ctx.MkFP(Fobj, s32b), ctx.MkFP(cost, s32b)));
+
+                seq.Cost = Fobj;
+                seq.NBtotal = NBtotal;
+                seq.LCC = (float)(Fobj + Fobj * 0.05 + 20 * 289.64);
+                seq.VinDC = VinDC;
+                seq.PACref = PACref;
+                seq.NTP = NTP;
+                seq.NPS = NPS;
+                seq.NPP = NPP;
+                seq.NBS = NBS;
+                seq.NBP = NBP;
+                seq.PmRef = panelPowerRef;
+                seq.IC = IC;
+                seq.VCMax = VCmax;
+                seq.BatteryCapacity = capacity;
+
+
+                if (opt.Check() == Status.SATISFIABLE)
+                {
+                    seq.Model = opt.Model;
+
+                    return true;
+                }
+                else
+                    return false;
             }
-            else
-                return false;
         }
 
         /// <summary>
