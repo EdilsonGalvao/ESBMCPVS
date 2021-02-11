@@ -29,8 +29,8 @@ float _controllerSet[4][6] = {
 float _inverterSet[3][6] = {
     {0.93, 24, 120, 1200, 2400, 450.00},
     {0.91, 24, 120, 280, 750, 149.75},
-    {0.91, 24, 120, 400, 1000, 187.25}
-    // {0.95, 24, 220, 1600, 3200, 544.03}
+    //{0.91, 24, 120, 400, 1000, 187.25}
+    {0.95, 24, 220, 1600, 3200, 544.03}
 };
 
 const int MAX_INTEGER = 2147483647;
@@ -211,7 +211,7 @@ int main()
     int count = 0;
 
     //2. Define Test Case 1..7
-    setTestCase(1);
+    setTestCase(7);
 
     //3. Perform Test
     for (int p = 0; p < common_size; p++)
@@ -220,7 +220,7 @@ int main()
         {
             for (int c = 0; c < common_size; c++)
             {
-                for (int i = 0; i < common_size; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     count++;
 
@@ -232,9 +232,9 @@ int main()
         }
     }
 
-    printf("Cost: %i", LOWEST);
-    //if (!(pValue == -1 && bValue == -1 && cValue == -1 && iValue == -1))
-    //    __VERIFIER_error();
+    //printf("Cost: %i", LOWEST);
+    if (!(pValue == -1 && bValue == -1 && cValue == -1 && iValue == -1))
+        __VERIFIER_error();
 
     return 0;
 }

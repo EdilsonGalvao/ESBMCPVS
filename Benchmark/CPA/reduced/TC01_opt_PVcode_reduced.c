@@ -220,7 +220,7 @@ int main()
         {
             for (int c = 0; c < common_size; c++)
             {
-                for (int i = 0; i < common_size; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     count++;
 
@@ -232,9 +232,9 @@ int main()
         }
     }
 
-    printf("Cost: %i", LOWEST);
-    //if (!(pValue == -1 && bValue == -1 && cValue == -1 && iValue == -1))
-    //    __VERIFIER_error();
+    //printf("Cost: %i", LOWEST);
+    if (!(pValue == -1 && bValue == -1 && cValue == -1 && iValue == -1))
+        __VERIFIER_error();
 
     return 0;
 }

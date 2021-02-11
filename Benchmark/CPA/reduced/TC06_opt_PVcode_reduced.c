@@ -211,7 +211,7 @@ int main()
     int count = 0;
 
     //2. Define Test Case 1..7
-    setTestCase(1);
+    setTestCase(6);
 
     //3. Perform Test
     for (int p = 0; p < common_size; p++)
@@ -232,9 +232,9 @@ int main()
         }
     }
 
-    printf("Cost: %i", LOWEST);
-    //if (!(pValue == -1 && bValue == -1 && cValue == -1 && iValue == -1))
-    //    __VERIFIER_error();
+    //printf("Cost: %i", LOWEST);
+    if (!(pValue == -1 && bValue == -1 && cValue == -1 && iValue == -1))
+        __VERIFIER_error();
 
     return 0;
 }
