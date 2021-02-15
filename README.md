@@ -1,5 +1,5 @@
 # ESBMCPVS
-Use Binary Search and Vz to optimize the choice of PhotoVoltaic System.
+Use binary search and vZ to optimize the sizing of stand-alone solar photoVoltaic systems.
 
 # Result Guide
 **TC** = Test Case, **P** = Panel, **B** = Battery, **C** = Controller, I= Inverter, 
@@ -7,7 +7,6 @@ Use Binary Search and Vz to optimize the choice of PhotoVoltaic System.
 **qP** = Quantity of Panel, **qB** = Quantity of Baterry, 
 
 **Fobj** = Cost Base and **LCC** = Final Cost.
-
 
 | TC | P | B | C | I | qP | qB | Fobj | LCC |
 | ------ | ------ | ------ | ------ |------ | ------ | ------ | ------ | ------ |
@@ -17,4 +16,4 @@ Use Binary Search and Vz to optimize the choice of PhotoVoltaic System.
 | 04 | 13 | 11 | 04 | 03 | -- | -- | US$ 2943,64 | US$ 8883,62 |
 | 05 | 10 | 11 | 04 | 03 | -- | -- | US$ 2216,14 | US$ 8119,47 |
 | 06 | 10 | 11 | 13 | 04 | -- | -- | US$ 3613,54 | US$ 9587,01 |
-| 07 | -- | -- | -- | -- | -- | -- | US$ 12014,73 | US$ 18408,27 |
+| 07 | 10 | 11 | 17 | 13 | -- | -- | US$ 12014,73 | US$ 18408,27 |
