@@ -117,12 +117,20 @@ namespace PVS
                     int cValue;
                     int.TryParse(args.FirstOrDefault(), out cValue);
 
+                    bool isMultiThread = true;
+                    isMultiThread = args.Contains("-single");
+
+                    bool isReduced = false;
+                    isReduced = args.Contains("-reduced");
+
+                    ReducedContent(isReduced);
+
                     if (cValue != 0)
                     {
                         SetCase(cValue);
 
                         var startedAt = DateTime.Now;
-                        var lowest = Solve(int.MaxValue, cValue);
+                        var lowest = Solve(int.MaxValue, cValue, isMultiThread);
 
                         Console.WriteLine($"TC 0{cValue} - Solved Time: ({(DateTime.Now - startedAt).TotalSeconds}) Seconds.");
                         Console.WriteLine($"{lowest}\r\n");
@@ -145,39 +153,43 @@ namespace PVS
         /// <param name="maxCost">Maximum possible cost</param>
         /// <param name="tcNumber">TC number</param>
         /// <returns>The best equipament to TC</returns>
-        private static Equipaments Solve(float maxCost, int tcNumber)
+        private static Equipaments Solve(float maxCost, int tcNumber, bool isSingle)
         {
             Dictionary<string, string> cfg = new Dictionary<string, string>()
                 {{ "AUTO_CONFIG", "true" }, { "MODEL", "true" }};
 
             Equipaments.Clear();
 
-            Parallel.ForEach(GenerateSet(), c =>
+            if (isSingle)
             {
-                var isLowest = GetLowestCost(c, maxCost);
-
-                if (isLowest)
+                foreach (var c in GenerateSet())
                 {
-                    lock (c)
+                    if (GetLowestCost(c, maxCost))
                     {
-                        maxCost = c.Cost;
-                        Equipaments.Add(c);
+                        lock (c)
+                        {
+                            maxCost = c.Cost;
+                            Equipaments.Add(c);
+                        }
                     }
                 }
-            });
+            }
+            else
+            {
+                Parallel.ForEach(GenerateSet(), c =>
+                {
+                    var isLowest = GetLowestCost(c, maxCost);
 
-
-            //foreach (var c in GenerateSet())
-            //{
-            //    if (GetLowestCost(c, new Context(), maxCost))
-            //    {
-            //        lock (c)
-            //        {
-            //            maxCost = c.Cost;
-            //            Equipaments.Add(c);
-            //        }
-            //    }
-            //}
+                    if (isLowest)
+                    {
+                        lock (c)
+                        {
+                            maxCost = c.Cost;
+                            Equipaments.Add(c);
+                        }
+                    }
+                });
+            }
 
             return Equipaments
                 .Where(x => x != null)
@@ -399,6 +411,40 @@ namespace PVS
                 return arr.GetLength(0);
             else
                 return -1;
+        }
+
+        private static void ReducedContent(bool isReduced)
+        {
+            if (isReduced)
+            {
+                _panelData = new float[,]
+                {
+                    {1.97904f, 0.1700f, 72f, 45f,  0.0005f,   -0.003f,   9.33f, 45.6f,  330f, 8.85f, 37.3f,  34.4f,  118f},
+                    {1.984f,   0.1991f, 144f, 45f, 0.00049f,  -0.0029f,  10.31f,49.10f, 395f, 9.83f, 40.2f,  37.5f,  178.03f},
+                    {1.984f,   0.1789f, 144f, 45f, 0.0005f,   -0.0029f,  9.59f, 46.8f,  355f, 9.02f, 39.4f,  36.60f, 144.26f},
+                    {2.20918f, 0.1924f, 144f, 42f, 0.0005f,   -0.0029f,  11.29f,48.00f, 425f, 10.71f,39.70f, 36.00f, 187.41f}
+                };
+
+                _batteryData = new float[,]
+                {
+                    {0.85f, 12f, 220f, 14.14f, 13.2f, 243.69f}
+                };
+
+                _controllerData = new float[,] {
+                    {0.98f, 20f, 24f, 13f, 100f, 132.25f},
+                    {0.98f, 30f, 24f, 13f, 100f, 161.00f},
+                    {0.98f, 40f, 24f, 13f, 150f, 281.39f},
+                    {0.95f, 100f, 48f, 13f, 400f, 1800f}
+                };
+
+                _inverterData = new float[,]
+                {
+                    {0.93f, 24f, 120f, 1200f, 2400f, 450.00f},
+                    {0.91f, 24f, 120f, 280f, 750f, 149.75f},
+                    {0.91f, 24f, 120f, 400f, 1000f, 187.25f},
+                    {0.95f, 24f, 220f, 1600f, 3200f, 544.03f},
+                };
+            }
         }
     }
 

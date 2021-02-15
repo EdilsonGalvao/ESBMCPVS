@@ -6,11 +6,12 @@ unsigned char nondet_uchar();
 //#include <stdio.h>
 
 //area, efficiency, num cells, NOCT, mii, miv, Iscref, Vocref, Pmref, Imref, Vmref, VmpNOCT, cost
-float _panelSet[4][13] = {
+float _panelSet[2][13] = {
     {1.97904, 0.1700, 72, 45, 0.0005, -0.003, 9.33, 45.6, 330, 8.85, 37.3, 34.4, 118},
-    {1.984, 0.1991, 144, 45, 0.00049, -0.0029, 10.31, 49.10, 395, 9.83, 40.2, 37.5, 178.03},
-    {1.984, 0.1789, 144, 45, 0.0005, -0.0029, 9.59, 46.8, 355, 9.02, 39.4, 36.60, 144.26},
-    {2.20918, 0.1924, 144, 42, 0.0005, -0.0029, 11.29, 48.00, 425, 10.71, 39.70, 36.00, 187.41}};
+    {1.984, 0.1991, 144, 45, 0.00049, -0.0029, 10.31, 49.10, 395, 9.83, 40.2, 37.5, 178.03}
+    //{1.984, 0.1789, 144, 45, 0.0005, -0.0029, 9.59, 46.8, 355, 9.02, 39.4, 36.60, 144.26},
+    //{2.20918, 0.1924, 144, 42, 0.0005, -0.0029, 11.29, 48.00, 425, 10.71, 39.70, 36.00, 187.41}
+};
 
 //efficiency, voltage, capacityC20, Vbulk, Vfloat, cost
 float _batterySet[1][6] = {
@@ -190,7 +191,7 @@ float getLowestCost(int panel, int battery, int controller, int inverter)
 
     LCC = Fobj + (Fobj * percentMaintence + qttYears * costMaintenceByYear);
 
-    if (Fobj < LOWEST)
+    if (Fobj < LOWEST && Fobj > -1)
     {
         LOWEST = Fobj;
 
@@ -205,8 +206,10 @@ float getLowestCost(int panel, int battery, int controller, int inverter)
 
 int main()
 {
-    int common_size = 4;
-    int common_extra = 1;
+    int ps = 2;
+    int bs = 1;
+    int cs = 4;
+    int is = 3;
 
     int count = 0;
 
@@ -214,13 +217,13 @@ int main()
     setTestCase(5);
 
     //3. Perform Test
-    for (int p = 0; p < common_size; p++)
+    for (int p = 0; p < ps; p++)
     {
-        for (int b = 0; b < common_extra; b++)
+        for (int b = 0; b < bs; b++)
         {
-            for (int c = 0; c < common_size; c++)
+            for (int c = 0; c < cs; c++)
             {
-                for (int i = 0; i < common_size; i++)
+                for (int i = 0; i < is; i++)
                 {
                     count++;
 
@@ -234,7 +237,7 @@ int main()
 
     //printf("Cost: %i", LOWEST);
     if (!(pValue == -1 && bValue == -1 && cValue == -1 && iValue == -1))
-       __VERIFIER_error();
+        __VERIFIER_error();
 
     return 0;
 }
