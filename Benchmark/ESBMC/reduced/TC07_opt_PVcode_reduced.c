@@ -6,10 +6,10 @@ unsigned char nondet_uchar();
 //#include <stdio.h>
 
 //area, efficiency, num cells, NOCT, mii, miv, Iscref, Vocref, Pmref, Imref, Vmref, VmpNOCT, cost
-float _panelSet[2][13] = {
+float _panelSet[3][13] = {
     {1.97904, 0.1700, 72, 45, 0.0005, -0.003, 9.33, 45.6, 330, 8.85, 37.3, 34.4, 118},
-    //{1.984, 0.1991, 144, 45, 0.00049, -0.0029, 10.31, 49.10, 395, 9.83, 40.2, 37.5, 178.03},
-    //{1.984, 0.1789, 144, 45, 0.0005, -0.0029, 9.59, 46.8, 355, 9.02, 39.4, 36.60, 144.26}
+    {1.984, 0.1991, 144, 45, 0.00049, -0.0029, 10.31, 49.10, 395, 9.83, 40.2, 37.5, 178.03},
+    // {1.984, 0.1789, 144, 45, 0.0005, -0.0029, 9.59, 46.8, 355, 9.02, 39.4, 36.60, 144.26},
     {2.20918, 0.1924, 144, 42, 0.0005, -0.0029, 11.29, 48.00, 425, 10.71, 39.70, 36.00, 187.41}
 };
 
@@ -19,8 +19,9 @@ float _batterySet[1][6] = {
 };
 
 //efficiency, nominal current, voltage  output, Vmpptmin=vbat+1, Vcmax, cost
-float _controllerSet[4][6] = {
-    {0.98, 20, 24, 13, 100, 132.25},
+float _controllerSet[3][6] = 
+{
+    //{0.98, 20, 24, 13, 100, 132.25},
     {0.98, 30, 24, 13, 100, 161.00},
     {0.98, 40, 24, 13, 150, 281.39},
     {0.95, 100, 48, 13, 400, 1800},
@@ -28,10 +29,10 @@ float _controllerSet[4][6] = {
 
 //efficiency, VinDC, VoutAC, PACref, MAXACref, cost
 float _inverterSet[3][6] = {
-    {0.93, 24, 120, 1200, 2400, 450.00},
+    // {0.93, 24, 120, 1200, 2400, 450.00},
     {0.91, 24, 120, 280, 750, 149.75},
-    {0.91, 24, 120, 400, 1000, 187.25}
-    // {0.95, 24, 220, 1600, 3200, 544.03}
+    {0.91, 24, 120, 400, 1000, 187.25},
+    {0.95, 24, 220, 1600, 3200, 544.03}
 };
 
 const int MAX_INTEGER = 2147483647;
@@ -206,15 +207,15 @@ float getLowestCost(int panel, int battery, int controller, int inverter)
 
 int main()
 {
-    int ps = 2; //2;
+    int ps = 2;
     int bs = 1;
-    int cs = 4; //4;
-    int is = 3; //3;
+    int cs = 4;
+    int is = 3;
 
     int count = 0;
 
     //2. Define Test Case 1..7
-    setTestCase(1);
+    setTestCase(7);
 
     //3. Perform Test
     for (int p = 0; p < ps; p++)
@@ -229,7 +230,7 @@ int main()
 
                     getLowestCost(p, b, c, i);
 
-                    //printf("getLowestCost(%i, %i, %i, %i);\n", p, b, c, i);
+                    //printf("getLowestCost(%i, %i, %i, %i) %i;\n", p, b, c, i, LOWEST);
                 }
             }
         }
