@@ -1,33 +1,55 @@
-#!/bin/bash
-TM=36000
+echo "Test Case 01 - Reduced"
+date
+SECONDS=0
+../../../../esbmc TC01_opt_PVcode.c --incremental-bmc --boolector > Result_TC01_opt_PVcode.txt
+duration=$SECONDS
+echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed." > ResultTime_TC01_opt_PVcode.txt
+date
 
-echo ----------------- ESBMC -----------------
-echo --------------------01-------------------
+echo "Test Case 02 - Reduced"
 date
-timeout $TM ../../../esbmc/v6.4.0/bin/esbmc TC01_opt_PVcode.c --incremental-bmc --boolector> case01.txt
+SECONDS=0
+../../../../esbmc TC02_opt_PVcode.c --incremental-bmc --boolector > Result_TC02_opt_PVcode.txt
+duration=$SECONDS
+echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed." > ResultTime_TC02_opt_PVcode.txt
 date
-echo --------------------02-------------------
+
+echo "Test Case 03 - Reduced"
 date
-timeout $TM ../../../esbmc/v6.4.0/bin/esbmc TC02_opt_PVcode.c --incremental-bmc --boolector> case02.txt
+SECONDS=0
+../../../../esbmc TC03_opt_PVcode.c --incremental-bmc --boolector > Result_TC03_opt_PVcode.txt
+duration=$SECONDS
+echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed." > ResultTime_TC03_opt_PVcodetxt
 date
-echo --------------------03-------------------
+
+echo "Test Case 04 - Reduced"
 date
-timeout $TM ../../../esbmc/v6.4.0/bin/esbmc TC03_opt_PVcode.c --incremental-bmc --boolector> case03.txt
+SECONDS=0
+../../../../esbmc TC04_opt_PVcode.c --incremental-bmc --boolector > Result_TC04_opt_PVcode.txt
+duration=$SECONDS
+echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed." > ResultTime_TC04_opt_PVcode.txt
 date
-echo --------------------04-------------------
+
+echo "Test Case 05 - Reduced"
 date
-timeout $TM ../../../esbmc/v6.4.0/bin/esbmc TC04_opt_PVcode.c --incremental-bmc --boolector> case04.txt
+SECONDS=0
+../../../../esbmc TC05_opt_PVcode.c --incremental-bmc --boolector > Result_TC05_opt_PVcode.txt
+duration=$SECONDS
+echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed." > ResultTime_TC05_opt_PVcode.txt
 date
-echo --------------------05-------------------
+
+echo "Test Case 06 - Reduced"
 date
-timeout $TM ../../../esbmc/v6.4.0/bin/esbmc TC05_opt_PVcode.c --incremental-bmc --boolector> case05.txt
+SECONDS=0
+../../../../esbmc TC06_opt_PVcode.c --incremental-bmc --boolector > Result_TC06_opt_PVcode.txt
+duration=$SECONDS
+echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed." > ResultTime_TC06_opt_PVcode.txt
 date
-echo --------------------06-------------------
+
+echo "Test Case 07 - Reduced"
 date
-timeout $TM ../../../esbmc/v6.4.0/bin/esbmc TC06_opt_PVcode.c --incremental-bmc --boolector> case06.txt
+SECONDS=0
+../../../../esbmc TC07_opt_PVcode.c --incremental-bmc --boolector > Result_TC07_opt_PVcode.txt
+duration=$SECONDS
+echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed." > ResultTime_TC07_opt_PVcode.txt
 date
-echo --------------------07-------------------
-date
-timeout $TM ../../../esbmc/v6.4.0/bin/esbmc TC07_opt_PVcode.c --incremental-bmc --boolector> case07.txt
-date
-echo 

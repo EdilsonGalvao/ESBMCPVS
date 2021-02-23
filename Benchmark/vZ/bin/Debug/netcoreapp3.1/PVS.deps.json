@@ -1,0 +1,58 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "PVS/1.0.0": {
+        "dependencies": {
+          "Microsoft.Z3.x64": "4.8.9"
+        },
+        "runtime": {
+          "PVS.dll": {}
+        }
+      },
+      "Microsoft.Z3.x64/4.8.9": {
+        "runtime": {
+          "lib/netstandard1.4/Microsoft.Z3.dll": {
+            "assemblyVersion": "4.8.9.0",
+            "fileVersion": "4.8.9.0"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/macos/native/libz3.dylib": {
+            "rid": "macos",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/ubuntu-x64/native/libz3.so": {
+            "rid": "ubuntu-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/libz3.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "PVS/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Z3.x64/4.8.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hvoBEnMAfB9KdtUQvequcPIE/ZdCi1f5Pqts6INKDnhY+Fd8yPFivIepA3ISGY/1EUwp2v4ztue9OeOqPh8a8g==",
+      "path": "microsoft.z3.x64/4.8.9",
+      "hashPath": "microsoft.z3.x64.4.8.9.nupkg.sha512"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "qHo236ZGmPx0Nrzle+TgyXYyfa23OQMtFoEAi/awOUWWoccm+W2CfcE0li88C5pU4Iil+cxhX2k1dSKQx+EXXQ==",
+  "success": true,
+  "projectFilePath": "/home/galvao/Documents/ESBMCPVS/Benchmark/vZ/PVS.csproj",
+  "expectedPackageFiles": [
+    "/home/galvao/.nuget/packages/microsoft.z3.x64/4.8.9/microsoft.z3.x64.4.8.9.nupkg.sha512"
+  ],
+  "logs": []
+}

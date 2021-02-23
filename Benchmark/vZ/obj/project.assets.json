@@ -1,0 +1,119 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Microsoft.Z3.x64/4.8.9": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.4/Microsoft.Z3.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.4/Microsoft.Z3.dll": {}
+        },
+        "build": {
+          "build/Microsoft.Z3.x64.targets": {}
+        },
+        "runtimeTargets": {
+          "runtimes/macos/native/libz3.dylib": {
+            "assetType": "native",
+            "rid": "macos"
+          },
+          "runtimes/ubuntu-x64/native/libz3.so": {
+            "assetType": "native",
+            "rid": "ubuntu-x64"
+          },
+          "runtimes/win-x64/native/libz3.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Microsoft.Z3.x64/4.8.9": {
+      "sha512": "hvoBEnMAfB9KdtUQvequcPIE/ZdCi1f5Pqts6INKDnhY+Fd8yPFivIepA3ISGY/1EUwp2v4ztue9OeOqPh8a8g==",
+      "type": "package",
+      "path": "microsoft.z3.x64/4.8.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/Microsoft.Z3.x64.targets",
+        "content/LICENSE.txt",
+        "content/icon.jpg",
+        "lib/netstandard1.4/Microsoft.Z3.dll",
+        "microsoft.z3.x64.4.8.9.nupkg.sha512",
+        "microsoft.z3.x64.nuspec",
+        "runtimes/macos/native/libz3.dylib",
+        "runtimes/ubuntu-x64/native/libz3.so",
+        "runtimes/win-x64/native/libz3.dll"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.1": [
+      "Microsoft.Z3.x64 >= 4.8.9"
+    ]
+  },
+  "packageFolders": {
+    "/home/galvao/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/home/galvao/Documents/ESBMCPVS/Benchmark/vZ/PVS.csproj",
+      "projectName": "PVS",
+      "projectPath": "/home/galvao/Documents/ESBMCPVS/Benchmark/vZ/PVS.csproj",
+      "packagesPath": "/home/galvao/.nuget/packages/",
+      "outputPath": "/home/galvao/Documents/ESBMCPVS/Benchmark/vZ/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/home/galvao/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.1"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
+        "dependencies": {
+          "Microsoft.Z3.x64": {
+            "target": "Package",
+            "version": "[4.8.9, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.102/RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
