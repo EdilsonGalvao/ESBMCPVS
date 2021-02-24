@@ -56,7 +56,6 @@
 
 
 
-
 % *** CITATION PACKAGES ***
 %
 %\ifCLASSOPTIONcompsoc
@@ -522,6 +521,7 @@ often, a very large number of states will cause classic SMT solvers to demand mo
 
 %---------------------------------------------------------------------------
 \subsection{Simulation Tools and Assumptions}
+\label{sec:SimulationToolsandAssumptions}
 %---------------------------------------------------------------------------
 Concerning the off-the-shelf optimization/simulation tools, only HOMER Pro performs an off-grid system with battery backup analysis and includes economical analysis. Here we used HOMER Pro version $3.13.1$ as a state-of-the-art optimization tool for comparison purposes. In particular, HOMER Pro has the following characteristics:
 \color{blue}(a) it is available only for MS-Windows, its annual standard subscription costs US\$ $1500.00$ using Expert Package~\cite{HOMER}; \color{black}
@@ -726,11 +726,11 @@ An optimal solution from a tool is not necessarily the same optimal from other t
 %------------------------------------
 \section{Conclusions} 
 %------------------------------------
-In summary, this work presented an extremely efficient tool, with more accurate results than the Homer Pro, which has a solid commercial reality. The gains are: providing all the details of each component for a photovoltaic system solution, with complete electrical details, including the manufacturers' data sheet, the component model, rated current and voltage. When we do the analysis regarding the ESBMC and CPAchecker solvers (which are highlighted in their respective areas) versus the proposed tool, the performance issue is considerable, this directly impacts the market, since this work makes it possible to include a solver SMT in traditional market tools with an optimal response time.
+In summary, the tool presented here is extremely efficient, bringing results with greater precision (providing all the details of each component of a photovoltaic system, with complete electrical details, including the manufacturer's data sheet, the component model, rated current and voltage) and more performance when compared to ESBMC and CPAChecker, which are state of the art in SMT solvers. PVz was shown to be more efficient in both approaches described in section ~\ref{sec:SolversandStateSpace}, was dozens of times faster than the best case (ESBMC) in the first approach, and was able to process a significantly greater number of states and equipment combinations without exceeding the memory limit. available for testing in the second approach, which unfortunately traditional SMT solvers have failed.
 
-In addition, we have extended the CEGIS Synthesis Method and implemented this extension within our formal synthesis tool, which allows the optimization of autonomous photovoltaic systems with the best compromise between energy reliability and system cost analysis.
+When we talk about a commercial tool, HOMER tends to be a great choice, however, one must take into account all the restrictions mentioned in section~\ref{sec:SimulationToolsandAssumptions}. When comparing PVz with HOMER, it is evident that state coverage and proximity to performance make choosing PVz a valuable and less expensive alternative. Our advances are further complemented by the extension of the CEGIS synthesis method implemented in the proposed tool.
 
-For future work we want to make the tool proposed here an API and include it in a commercial tool or develop it on our university campus. Support on-grid systems and optimize calculations for a serious-parallel based system. Finally, we want to apply the knowledge developed in this article to real riverside communities. \color{black}
+For future work we want to make the tool proposed here an API and include it in a commercial tool or develop it on our university campus. Support for on-grid systems and optimize calculations for a system based on serious parallel. Finally, we want to apply the knowledge developed in this article for real riverside communities. \color{black}
 
 %
 %\appendices
@@ -818,4 +818,3 @@ received his Ph.D. degree in Computer Science in 2011 from the University of Sou
 %\enlargethispage{-5in}
 % that's all folks
 \end{document}
-
