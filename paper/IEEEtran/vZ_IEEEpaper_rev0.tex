@@ -421,6 +421,7 @@ LCC = C_{PV} + C_{bat} + C_{charger} + C_{inv} + C_{installation} + C_{batrep} +
 %returns the lowest possible cost with the best configuration of photovoltaic equipment.}
 Initialize arrays and variables\;
 Create Satisfable List called \textit{NodeSatList}\;
+Create \textit{AllAvailableNodes} list\;
 Create maximumCost as a long variable\;
 \ForAll {AllAvailableNodes node}
 {%
@@ -440,9 +441,9 @@ Create maximumCost as a long variable\;
 
 Algorithm~\ref{base_opt_code} is started based in input described on Fig.~\ref{fig:optimization}, it contemplate manufacturer’s data, prices of PV panels, batteries, charge controllers, and inverters. Programmatically this set of data are represented in arrays and global variables, which have the purpose of assisting the storage of counterexamples and the maximum possible cost. Moreover, we define design (house) requirements and design assumptions to help backend solvers. 
 
-\textit{AllAvailableNodes} is a list that contains all nodes that system will check with 100\% of coverage, to be more explicit, understand as a node the representation of metadata regarding the verification of a smaller context of the larger problem, that is, the general problem is subdivided into smaller problems so that each processor core can solve it in a parallel way (in this work we use the increment of one unit for each context).
+\textit{AllAvailableNodes} is the data set that represents the total sample of states to be explored, its purpose is to ensure 100\% coverage of equipment combinations. A node represents a possible solution within the total set of solutions, and its structure was created to store all information relevant to the technique described here. Through the abstraction of the node, a major problem has been subdivided into several other small problems, consequently, parallelizing the resolution of the nodes has become a less arduous task, it is hoped with this to use all possible computational power and increase the overall performance work we use the increment of one unit for each context).
 
-This representation stores the lower and upper limits, the counter-example, and other auxiliary variables. The parallel loop is used to process each node separately, the function \textit{solve} that will described in Algorithm~\ref{base_opt_code2} returns true when the node is a possible solution and the cost is lower than global maximum cost. Therefore, to assure the correct storage of result processed by many threads at same time, the lock function was added. After the internal loop ends, the last action returns the optimal solution found in the list that contains all possible solutions.
+the node representation stores the lower and upper limits, the counter-example, and other auxiliary variables. The parallel loop is used to process each node separately, the function \textit{solve} that will described in Algorithm~\ref{base_opt_code2} returns true when the node is a possible solution and the cost is lower than global maximum cost. Therefore, to assure the correct storage of result processed by many threads at same time, the lock function was added. After the internal loop ends, the last action returns the optimal solution found in the list that contains all possible solutions.
 
 \begin{algorithm}[h]
 \SetAlgoLined
@@ -470,19 +471,18 @@ $F_{obj} \leftarrow N_{TP}*Panel_{Cost} \, + \, N_{TB}*Battery_{Cost} \, + Contr
 \label{base_opt_code2}
 \end{algorithm}
 
-To choose the best option, the system uses as input a
-list of \textbf{seventy} equipment from \textbf{twelve} different manufacturers, where each technical information required was found in a datasheet provided by the equipment factory). To calculate equation~\ref{eq:LCC} value it was necessary to convert the amounts to US dollars based on the exchange rate of the day. To simplify understanding about this type of data, a report has created that condensates general information required to perform tests over this tool, and it is available online.\footnote{\url{https://tinyurl.com/ycgbsgkp}}
+To choose the best option, the system uses as input a list of \textbf{seventy} equipment from \textbf{twelve} different manufacturers, where each technical information required was found in a datasheet provided by the equipment factory. To calculate equation~\ref{eq:LCC} value it was necessary to convert the amounts to US dollars based on the exchange rate of the day. To simplify understanding about this type of data, a report has created that condensates general information required to perform tests over this tool, and it is available online.\footnote{\url{https://tinyurl.com/ycgbsgkp}}
 
-The Algorithm 2 recover the information described above based on arguments provided by ”solve” function and creates an internal context. This context is responsible to check if all equation is satiable, at this moment all ”assume” marks that contain the constraints are added.
+The Algorithm 2 recover the information described above based on arguments provided by \textit{solve} function and creates an internal context. This context is responsible to verify if all equations are satiables, thus, the \textit{assume} method is called to assurance that constrains will be respected.
 
-The pseudocode contains three points to be attention: The first point is the set of equations that correspond to a valid combination of electrical components. These equations can be found at steps 02, 03, 04, 06, 07, 09, 11 and 13. The second point refers to all four "assume" function is necessary because it serves as a limit or barrier of acceptable values to equipments. These restrictions can be found at steps 05, 08, 10 and 12, sequentially this steps represents battery bank, charge controller voltage check, does the inverter check and ensures the power demand and the surge power of the inverter. the last one point, the return system that can be SAT or UNSAT. The created context is saved in node variable and note that fobj described in last step is a cost of equipament.
+The pseudocode contains three points to be attention: The first point is the set of equations that correspond to a valid combination of electrical components. These equations can be found at steps 02, 03, 04, 06, 07, 09, 11 and 13. The second point refers to all four \textit{assume} method that is necessary because it serves as a limit or barrier of acceptable values to equipments. These restrictions can be found at steps 05, 08, 10 and 12, sequentially this steps represents battery bank, charge controller voltage check, does the inverter check and ensures the power demand and the surge power of the inverter. the last one point, the return system that can be SAT or UNSAT. 
 
 The algorithm always returns two different states, SAT when the electrical equipaments combinations and the general cost are safe to became a possible solution and  UNSAT, once the program finishes without finding a solution, indicating that it was unable to combine the specific items of equipment to create a feasible solution. In some scenarios, you can expect a memory overflow or excessive time (timeout) resulting in a system with no concrete result, it is most common in hardware with few gigabytes of memory. The main challenge for the Algorithm~\ref{base_opt_code2} is to find a feasible candidate solution for the constraints and user requirements.
 
-Summarizing: We use four non-deterministic variables
-to index four matrices with complete datasheet information from an equipment item. We have four variables and four matrices: one to PV panels, one to batteries, one to the inverter, and one to the charge controller. Those nondeterministic variables are used during the search for the feasible solution and controlled by the statements assume. Note that the process described here is completely automated to ensure that the solution is sound. The verification engines transform the Algorithm~\ref{base_opt_code2} into the Boolean expressions that are passed to the solver to verify (C and !P), as described online.\footnote{\url{https://tinyurl.com/yajfmavl}}
-
 \color{black}
+Summarizing: We use four non-deterministic variables to index four matrices with complete datasheet information from an equipment item. We have four variables and four matrices: one to PV panels, one to batteries, one to the inverter, and one to the charge controller. Those nondeterministic variables are used during the search for the feasible solution and controlled by the statements assume. Note that the process described here is completely automated to ensure that the solution is sound. The verification engines transform the Algorithm~\ref{base_opt_code2} into the Boolean expressions that are passed to the solver to verify (C and !P), as described online.\footnote{\url{https://tinyurl.com/yajfmavl}}
+
+
 
 
 %---------------------------------------------------------------------------
@@ -560,19 +560,19 @@ Once it has been confirmed that the EG1 objective has been achieved, we must not
 
 The second approach described in columns 5, 6 and 7 denote that all cases were solved by the proposed tool in less than two minutes, traditional SMT solvers received Timeout as a solution in all seven test cases. This confirms our approach described in~\ref{sec:SolversandStateSpace} about the explosion of states.
 
-\color{blue} \textbf{HOMER Pro:} HOMER Pro was able to evaluate six case studies (cases $1$, $2$, $4$, $5$, $6$, and $7$) under $30$ seconds; The test case $3$ could not be simulated since HOMER Pro does not have the battery autonomy adjustment feature, i.e., the tool always tries to feed the given load with electricity $365$ days/year. Some HOMER Pro drawbacks were also noted. (1) System equipment does not include an explicit charge controller. HOMER Pro includes a controller automatically to simulate the charge/discharge of batteries and to meet the load requirement. However, without costs or even with electrical characteristics such as maximum current and voltage, which are common during PV sizing. (2) HOMER Pro requires the inclusion of some battery specification to initiate optimization; however, it does not change the electrical specifications during simulation; the results presented are multiples of the original battery type suggested by the user. For example, it was started with an $83.4$ Ah lead-acid battery, and during simulation, HOMER Pro did not try to use other capacities or types. (3) HOMER Pro does not present the optimal solution in terms of connections of PV panel arrays, just the total in terms of power, i.e., it presents neither the models and the power of each PV panel nor the total of panels in series or parallel. The cost of every equipment item used in HOMER Pro is a US-based cost, without adaptation regardless of where the equipment is installed. \color{black}
+\color{black} \textbf{HOMER Pro:} HOMER Pro was able to evaluate six case studies (cases $1$, $2$, $4$, $5$, $6$, and $7$) under $30$ seconds; The test case $3$ could not be simulated since HOMER Pro does not have the battery autonomy adjustment feature, i.e., the tool always tries to feed the given load with electricity $365$ days/year. Some HOMER Pro drawbacks were also noted. (1) System equipment does not include an explicit charge controller. HOMER Pro includes a controller automatically to simulate the charge/discharge of batteries and to meet the load requirement. However, without costs or even with electrical characteristics such as maximum current and voltage, which are common during PV sizing. (2) HOMER Pro requires the inclusion of some battery specification to initiate optimization; however, it does not change the electrical specifications during simulation; the results presented are multiples of the original battery type suggested by the user. For example, it was started with an $83.4$ Ah lead-acid battery, and during simulation, HOMER Pro did not try to use other capacities or types. (3) HOMER Pro does not present the optimal solution in terms of connections of PV panel arrays, just the total in terms of power, i.e., it presents neither the models and the power of each PV panel nor the total of panels in series or parallel. The cost of every equipment item used in HOMER Pro is a US-based cost, without adaptation regardless of where the equipment is installed. \color{black}
 
 %CPAchecker was able to synthesize optimal sizing in three out of the seven case studies (cases $1$, $4$, and $5$): the result was produced within the time limit, which varied from $4$ to $9$ hours. 
 %Fig.~\ref{fig:CPAoptc1} illustrates the result of case $5$ with the optimal sizing appearing on the left side as the integer $3$ for the solar panel (which is the Canadian CS6U-330P model of $330$ W from the manufacturer Victron Energy), battery $0$ refers to the model 12MF80 of $80$ Ah from Moura, charge controller $0$ refers to the model 35A-145V MPPT from Victron Energy. The inverter number $2$ refers to the Epever model IP350-11 of $280$ W (nominal power) and $750$ W of surge power. The variables NTP, NPS, NPP, NBS, NBP, and NBTotal, also presented in the counterexample, shows the number of panels and batteries and how they are connected.
 %\color{blue}Case studies $2$, $3$, $6$, and $7$ led to a \textit{time out} result in CPAchecker, i.e., it was not solved within $10$ hours.  \color{black}
 
 %
-\begin{figure}[h]
-\fbox{\includegraphics[width=0.47\textwidth]{CPA_opt_c5.png}}
-\centering
-\caption{Counterexample generated by CPAchecker after validation of case $5$.}
-\label{fig:CPAoptc1}
-\end{figure}
+%\begin{figure}[h]
+%\fbox{\includegraphics[width=0.47\textwidth]{CPA_opt_c5.png}}
+%\centering
+%\caption{Counterexample generated by CPAchecker after validation of %case $5$.}
+%\label{fig:CPAoptc1}
+%\end{figure}
 
 We have real PV systems deployed since June $2018$ in a riverside community in the State of Amazonas, Brazil, GPS coordinates 2$^{o}$44'50.0"S 60$^{o}$25'47.8"W, with demands of case studies $1$, $4$, $5$, and $6$, always with a $3$ $\times$ $325$ W ($3$S, total $975$ W) panels and $4$ $\times$ $220$ Ah ($2$S-$2$P $= 440$ Ah) lead-acid batteries.
 
@@ -585,7 +585,7 @@ We have real PV systems deployed since June $2018$ in a riverside community in t
 \hline
 Tools & \makecell{Microsoft Z3 \\(vZ 4.8.9)}& \makecell{ESBMC 6.0.0 \\(Boolector 3.0.1)}& \makecell{CPAchecker 1.8\\(MathSAT 5.5.3)}& \makecell{Microsoft Z3 \\(vZ 4.8.9)}& \makecell{ESBMC 6.0.0 \\(Boolector 3.0.1)}& \makecell{CPAchecker 1.8\\(MathSAT 5.5.3)}& HOMER Pro 3.13.1\\
 \hline
-Test Case & \multicolumn{3}{|c|}{Approach 01}  & \multicolumn{3}{|c|}{Approach 02} & \makecell{Simulation}\\
+Test Case & \multicolumn{3}{|c|}{Reduced Approach}  & \multicolumn{3}{|c|}{Expanded Approach} & \makecell{Simulation}\\
 \hline
 \makecell{\textbf{Case Study 1}\\Peak:342W\\Surge:342W \\E:3,900Wh/day\\Autonomy:48h}&
 \makecell{SAT (0,008 min) \\NTP:4$\times$425w\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
@@ -721,7 +721,9 @@ An optimal solution from a tool is not necessarily the same optimal from other t
 \subsection{Threats to validity} 
 %---------------------------------------------------------------------------
 
-\color{blue}It is worth highlighting some points for improvement in future works. (i) Improve the technique described in this work for a substantial increase in equipment (in the hundreds of hundreds) without significant loss of performance. (ii) Include the possibility of combinations of battery packs in the series-parallel format instead of just blocks in series. (iii) Include analysis of pressure loss or energy loss in the power supply. (iv) converting the equations encoded in fluent points to real arithmetic theory.
+\color{blue}It is worth highlighting some points for improvement to future works. (i) Improve the technique described in this
+work to increase the quantity of equipment (in the hundreds of hundreds) without significant loss of performance.
+(ii) Until this moment, the PVz returns the blocks of battery based in series circuits, however, circuits based on series-parallel can be a good alternative to reduce final price. (iii) Include analysis of pressure loss or energy loss in the power supply, helps prevent electrical surges in real systems. (iv) converting the equations encoded in fluent points to real arithmetic theory.
 
 %------------------------------------
 \section{Conclusions} 
