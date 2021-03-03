@@ -87,7 +87,7 @@
 % *** SPECIALIZED LIST PACKAGES ***
 %
 %\usepackage{algorithm,algorithmic}
-\usepackage[ruled]{algorithm2e}
+\usepackage[ruled,vlined]{algorithm2e}
 % algorithmic.sty was written by Peter Williams and Rogerio Brito.
 % This package provides an algorithmic environment fo describing algorithms.
 % You can use the algorithmic environment in-text or within a figure
@@ -298,9 +298,8 @@ To provide electricity for all, decentralized systems led by solar photovoltaic 
 In front of world changes to improve the electrical energy uses, the more precise the dimensioning for electrical networks, the more effective the use of renewable energies. For this purpose, there are some software available in the market, a part of them is created to general purpose like MATLAB~\cite{Benatiallah2017} and others for specific energy study like RETScreen, and HOMER~\cite{Pradhan,Swarnkar}. However, the
 industry demands the design solution to be the optimum, considering equipment manufacturers and models available on the market and not just minimum or maximum
 values of current or power for the optimized items. We need to evaluate the electrical compatibility among the equipment, which can only be achieved with specialized PV optimization software. Therefore, the optimal solution is the lowest cost from a list of equipment that meets the house’s electrical demands.
-\color{black}
 
-\color{red} IMPORTANTE! aqui vale o mesmo comentário da revisão anterior. Atente que o HOMER Pro faz otimização e entrega uma solução com equipamentos comerciais (mas apenas para baterias e painéis solares). Portanto precisamos nos posicionar aqui do diferencial da nossa técnica, que tem a ver com a cobertura do design-space
+Given the above, the HOMER tool manages to deliver an optimal solution in a smaller scope, where only batteries and solar panels are optimized, while all other modules are simulated. In contrast, the technique described in this work, called PVz, is capable of optimizing, in addition to solar panels and batteries, electrical inverters and controllers. The clear difference between the optimized electrical devices ensures greater assertiveness, once both techniques are compared, thus favoring greater coverage of the design-space.
 \color{black}
 
 Here, we have developed a variant of counterexample guided inductive synthesis (CEGIS)~\cite{AbateCAV2018} for synthesizing optimal sizing of stand-alone PV systems using commercial equipment data. If the user gives a correctness specification $\sigma$, our technique uses that as a starting point and then iteratively produces a sequence of candidate solutions that satisfy $\sigma$, related to power reliability.
@@ -406,37 +405,45 @@ These equations model the continuous-time behavior of the PV system; they produc
 \label{sec:SynthesizingOptimalSolarPhotovoltaicSystems}
 %------------------------------------------------------
 
-The best compromise between two objectives makes the optimal sizing of PV systems: \textit{power reliability} and \textit{system cost}~\cite{Alsadi2018}. This study will rely on the critical period solar energy method~\cite{Pinho}, as described in Section~\ref{sec:sizing}. Our study will use an adapted Life Cycle Cost (LCC) analysis, where the acquisition cost of every item of equipment is considered, plus the installation cost, the operational and maintenance costs~\cite{Alsadi2018}, given as,
-%
+The best compromise between two objectives makes the optimal sizing of PV systems: \textit{power reliability} and \textit{system cost}~\cite{Alsadi2018}. This study will rely on the critical period solar energy method~\cite{Pinho}, as described in Section~\ref{sec:sizing}. Our study will use an adapted Life Cycle Cost (LCC) analysis, where the acquisition cost of every item of equipment is considered, plus the installation cost, the operational and maintenance costs~\cite{Alsadi2018}, theses costs are represented by:
 \begin{equation}
 \label{eq:LCC}
-LCC = C_{PV} + C_{bat} + C_{charger} + C_{inv} + C_{installation} + C_{batrep} + C_{PWO\&M}
+LCC = EC + EM
+\end{equation}
+%
+\noindent EC denotes the costs of the following equipment: $C_{PV}$ is the PV array cost, $C_{bat}$ is the initial cost of batteries, $C_{charger}$ is the cost of the charger, $C_{inv}$ is the inverter cost.
+\begin{equation}
+\label{eq:EquipamentCost}
+EC = C_{PV} + C_{bat} + C_{charger} + C_{inv}
 \end{equation}
 
-\noindent where $C_{PV}$ is the PV array cost, $C_{bat}$ is the initial cost of batteries, $C_{charger}$ is the cost of the charger, $C_{inv}$ is the inverter cost, $C_{installation}$ is the installation cost, $C_{batrep}$ is battery replacement cost at current prices, and $C_{PWO\&M}$ is operation and maintenance costs at current rates. In this study, we will use a $C_{installation}$ equivalent to 5\% of total equipment cost and a $C_{PWO\&M}$ equal to U\$ 289.64/year according to Amazon State literature data~\cite{Agrener2013}; and a LCC lifetime analysis of 20 years.
+EC denotes other costs related to the maintenance and proper functioning of the electrical system: $C_{installation}$ is the installation cost, $C_{batrep}$ is battery replacement cost at current prices, and $C_{PWO\&M}$ is operation and maintenance costs at current rates.
+\begin{equation}
+\label{eq:EquipamentMaintenence}
+EM = C_{installation} + C_{batrep} + C_{PWO\&M}
+\end{equation}
 
-\color{blue} In this section, we will describe a couple of pseudo-code that embassy our tool and how model checking was used as a backend verification engine~\cite{DBLP:journals/corr/abs-1909-13139}. The Algorithm~\ref{base_opt_code} describes how to save and expose the correct solutions and the optimal solution, and Algorithm~\ref{base_opt_code2} is responsible to verify the mathematical assertion over electrical equipaments.\\
+In this study, we will use a $C_{installation}$ equivalent to 5\% of total equipment cost and a $C_{PWO\&M}$ equal to U\$ 289.64/year according to Amazon State literature data~\cite{Agrener2013}; and a LCC lifetime analysis of 20 years.
 
-\begin{algorithm}[h]
+\color{blue} In this section, we will describe a couple of pseudo-code that embassy our tool and how model checking was used as a backend verification engine~\cite{DBLP:journals/corr/abs-1909-13139}. The Algorithm~\ref{base_opt_code} describes how to save and expose the correct solutions and the optimal solution, and Algorithm~\ref{base_opt_code2} is responsible to verify the mathematical assertion over electrical equipaments.
+
+\begin{algorithm}[ht]
 \SetAlgoLined
-\KwResult{returns a feasible sizing of PV system with the lowest cost}
-%returns the lowest possible cost with the best configuration of photovoltaic equipment.}
-Initialize arrays and variables\;
-Create Satisfable List called \textit{NodeSatList}\;
-Create \textit{AllAvailableNodes} list\;
+\KwResult{returns a feasible sizing of PV system with the lowest cost }
+ Initialize arrays and variables\;
+Create Satisfable List called NodeSatList\;
+Create AllAvailableNodes list\;
 Create maximumCost as a long variable\;
-\ForAll {AllAvailableNodes node}
-{%
-    isLowestNode = solve(node)\\
-     \If{$\var{isLowestNode} = true$}
-     {
-        lock(this)\\
-        maximumCost = node.cost \\
-        NodeSatList.add(node)\\
-        unlock(this)\\
-    }
-}
-\textbf {return} NodeSatList.OrderBy(x.Cost).FirstOrDefault()
+ \ForAll{AllAvailableNodes node}{
+  isLowestNode = solve(node)\;
+  \If{isLowestNode = true}{
+lock(this)\;
+maximumCost = node.cost\;
+NodeSatList.add(node)\;
+unlock(this)\;
+   }
+ }
+\textbf{return} NodeSatList.OrderBy(x.Cost).FirstOrDefault()
 \caption{Find by the optimal solution}
 \label{base_opt_code}
 \end{algorithm}
@@ -447,28 +454,31 @@ Algorithm~\ref{base_opt_code} is started based in input described on Fig.~\ref{f
 
 the node representation stores the lower and upper limits, the counter-example, and other auxiliary variables. The parallel loop is used to process each node separately, the function \textit{solve} that will described in Algorithm~\ref{base_opt_code2} returns true when the node is a possible solution and the cost is lower than global maximum cost. Therefore, to assure the correct storage of result processed by many threads at same time, the lock function was added. After the internal loop ends, the last action returns the optimal solution found in the list that contains all possible solutions.
 
-\begin{algorithm}[h]
+\begin{algorithm}[ht]
 \SetAlgoLined
-\KwResult{Verify if the node is satisfactory for restrictions and equipment.}
-Initialize internal arrays and variables\;
+\KwResult{Returns the possible cost of the F combination of equipment.}
+ Initialize internal arrays and variables\;
+ 
+\SetKwFunction{FMain}{Solve}
 \SetKwProg{Fn}{Function}{:}{}
-  \Fn{\FMain{$solve(node)$}}{
-\textbf{Step 01.} Declare non-deterministic variables to select PV Panel, Controller, Battery, and Inverter from list \\
-\textbf{Step 02.} Calculate Steps i and ii of Fig.~\ref{fig:flow} \\
-\textbf{Step 03.} Define PV panels arrangement: Step iii of Fig.~\ref{fig:flow} \\
-\textbf{Step 04.} Calculate Step iv of Fig.~\ref{fig:flow} \\
-\textbf{Step 05.} Enforce electrical compatibility in Step v of Fig.~\ref{fig:flow} with statement \textbf{assume} \\
-\textbf{Step 06.} Calculate Steps vi to viii of Fig.~\ref{fig:flow} \\
-\textbf{Step 07.} Define battery arrangement according Step ix of Fig.~\ref{fig:flow} \\
-\textbf{Step 08.} Enforce electrical compatibility in Step x of Fig.~\ref{fig:flow} with statement \textbf{assume} \\
-\textbf{Step 09.} Correct variables to ambient temperature: Step xi of Fig.~\ref{fig:flow} \\
-\textbf{Step 10.} Enforce electrical compatibility in Step xii of Fig.~\ref{fig:flow} with statement \textbf{assume} \\
-\textbf{Step 11.} Define number of charge controllers: Step xiii of Fig.~\ref{fig:flow}\\
-\textbf{Step 12.} Enforce electrical compatibilities in Step xiv of Fig.~\ref{fig:flow} with statement \textbf{assume} and define the inverter \\
-\textbf{Step 13.} Non-deterministic variables hold feasible equipment and cost \\
-$F_{obj} \leftarrow N_{TP}*Panel_{Cost} \, + \, N_{TB}*Battery_{Cost} \, + Controller_{Cost} \, + \, Inverter_{Cost} \, + \, Installation_{Cost} \, + \, batrep_{Cost} \, + \, PWO\&M_{Cost}$ \\
-\KwRet\ isSatisfiable;
-  }
+\Fn{\FMain{$F$}}{
+    \textbf{Step 01.} Declare non-deterministic variables to select PV Panel, Controller, Battery, and Inverter from list \;
+    \textbf{Step 02.} Calculate Steps i and ii of Fig.~\ref{fig:flow} \;
+    \textbf{Step 03.} Define PV panels arrangement: Step iii of Fig.~\ref{fig:flow} \;
+    \textbf{Step 04.} Calculate Step iv of Fig.~\ref{fig:flow} \;
+    \textbf{Step 05.} Enforce electrical compatibility in Step v of Fig.~\ref{fig:flow} with statement \textbf{assume} \;
+    \textbf{Step 06.} Calculate Steps vi to viii of Fig.~\ref{fig:flow} \;
+    \textbf{Step 07.} Define battery arrangement according Step ix of Fig.~\ref{fig:flow} \;
+    \textbf{Step 08.} Enforce electrical compatibility in Step x of Fig.~\ref{fig:flow} with statement \textbf{assume} \;
+    \textbf{Step 09.} Correct variables to ambient temperature: Step xi of Fig.~\ref{fig:flow} \;
+    \textbf{Step 10.} Enforce electrical compatibility in Step xii of Fig.~\ref{fig:flow} with statement \textbf{assume}\;
+    \textbf{Step 11.} Define number of charge controllers: Step xiii of Fig.~\ref{fig:flow}\;
+    \textbf{Step 12.} Enforce electrical compatibilities in Step xiv of Fig.~\ref{fig:flow} with statement \textbf{assume} and define the inverter \;
+    \textbf{Step 13.} Non-deterministic variables hold feasible equipment and cost \;
+    $F_{obj} \leftarrow N_{TP}*Panel_{Cost} \, + \, N_{TB}*Battery_{Cost} \, + Controller_{Cost} \, + \, Inverter_{Cost} \, + \, Installation_{Cost} \, + \, batrep_{Cost} \, + \, PWO\&M_{Cost}$
+    \KwRet\ isSatisfiable\;
+}
+\textbf{End Function}\;
 \caption{Verify if the node is satisfactory for restrictions and equipment.}
 \label{base_opt_code2}
 \end{algorithm}
@@ -786,13 +796,9 @@ In summary, the tool presented here is extremely efficient, bringing results wit
     [{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{alessandro3por4_2}}]{Alessandro Trindade}
 received his PhD in Computing, BSc and MSc in Electrical Engineering from the Federal University of Amazonas (UFAM) in 2020, 1995 and 2015, respectively. Currently, he holds an Adjunct Professor position in the Electricity Department from UFAM. Prior to joining UFAM, he worked 4 years as Consultant of renewable energy to the Amazonas State Electric Utility and to the Inter-American Institute for Cooperation on Agriculture (IICA); he also worked for 12 years as R\&D and project manager at a non-profit foundation. His interest is in renewable energy, automated verification, and model checking.
 \end{IEEEbiography}
-%
-%\begin{IEEEbiographynophoto}{Alessandro Trindade}
-%received his BSc and MSc in Electrical Engineering from the Federal University of Amazonas (UFAM) in 1995 and 2015, respectively. Currently, he is pursuing his PhD in the Postgraduate Program in Informatics (PPGI) at UFAM, and holds an Assistant Professor position in the Electricity Department from UFAM. Prior to joining UFAM, he worked 4 years as Consultant of renewable energy to the State Electric Utility and to the Inter-American Institute for Cooperation on Agriculture (IICA); he also worked for 12 years as R\&D and project manager at a non-profit foundation (Centre of Analysis, Research and Innovation Technology Foundation). His interest is in renewable energy, automated verification, and model checking.
-%\end{IEEEbiographynophoto}
-%
+
 \begin{IEEEbiography}
-    [{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{edilsonphoto}}]{Edilson Galvao} received his computer engineering degree in 2015 from Foundation Center for Analysis, Research and Technological Innovation (FUCAPI) and is pursuing his M.Sc. at UFAM. Currently, he is a Software engineer at Samsung R&D. His interest is in automated verification and model checking. His work focuses on developing tools for process automation.
+    [{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{edilsonphoto}}]{Edilson Galvao} received his computer engineering degree in 2015 from Foundation Center for Analysis, Research and Technological Innovation (FUCAPI) and is pursuing his M.Sc. at UFAM. Currently, he is a Software engineer at Samsung R\&D. His interest is in automated verification and model checking. His work focuses on developing tools for process automation.
 \end{IEEEbiography}
 
 \begin{IEEEbiography}
