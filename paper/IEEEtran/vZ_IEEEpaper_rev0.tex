@@ -682,7 +682,7 @@ Test Case & \multicolumn{3}{|c|}{Reduced Approach}  & \multicolumn{3}{|c|}{Expan
 \subsection{Comparison Between Formal Synthesis ($\nu$Z) and HOMER Pro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \color{blue}
-Lets consider just $\nu$Z versus HOMER Pro, since that ESBMC and CPAchecker don't found a optimal solution in common scenario, in other words, this topic represent the second approach describe previously. If we compare the formal synthesis results against those of HOMER Pro, and considering that the cost of individual items of each database used to compose the optimal design is not the same among the tools, it is plausible to obtain distinct results. thus, we observed some distinct effects in terms of the technical solution and cost (cf. Table~\ref{Tab:Tcr}). 
+Lets consider just $\nu$Z versus HOMER Pro, since that ESBMC and CPAchecker don't found a optimal solution in common scenario, in other words, this topic represent the second approach describe previously. If we compare the formal synthesis results against those of HOMER Pro, and considering that the cost of individual items of each database used to compose the optimal design is not the same among the tools, it is plausible to obtain distinct results. Thus, we observed some distinct effects in terms of the technical solution and cost (cf. Table~\ref{Tab:Tcr}). 
 
 Concerning the performance, the difference between each test case is less then two minutes, the avarage, HOMER Pro executed the cases on average three times faster. The $\nu$Z take a little bit more time, however, returns the optimal cost, HOMER Pro returns an average cost of around 5\% more or less than the correct value. It's possible to found theses values, removing the test case with maximum and minimum values, after it, removing the test case 3 that HOMER Pro don’t resolved, finally, calculating the average price (LCC) of the set exposed in this work, we obtain the value around US\$ 450 dollars.
 
@@ -701,17 +701,17 @@ CS & \makecell{PVsyst\\(pre-sizing)}& \makecell{Field\\deployed\\validation}& \m
 \hline
 CS 1 & \makecell{P= 1,166 W\\B= 381 Ah\\(minimum)} & \makecell{Not correct sizing \\Avail. $<$ 95\%\\(91.06\%)} & \makecell{No error found \\100\% of avail.} & \makecell{No error found\\Panels oversized in 2.16 $\times$\\Batteries oversized in 1.39 $\times$}\\
 \hline
-CS 2 & \makecell{P= 1,482 W\\B= 478 Ah\\(minimum)} & \makecell{NA\\There exists no real PV system\\available for comparison} & \makecell{NA \\(TO result\\in Table~\ref{tab1})} & \makecell{No error found\\Panels oversized in 2.6 $\times$\\Batteries oversized in 1.74 $\times$}\\
+CS 2 & \makecell{P= 1,482 W\\B= 478 Ah\\(minimum)} & \makecell{NA\\There exists no real PV system\\available for comparison} & \makecell{No error found \\95.76\% of avail.} & \makecell{No error found\\Panels oversized in 2.6 $\times$\\Batteries oversized in 1.74 $\times$}\\
 \hline
 CS 3 & \makecell{Not possible to \\simulate\\(autonomy $<$ 24h)} & \makecell{NA\\There exists no real PV system\\available for comparison} & \makecell{Only technique that\\produced solution} & \makecell{NA\\(autonomy $<$ 24h)}\\
 \hline
-CS 4 & \makecell{P= 1,078 W\\B= 354 Ah\\(minimum)} & \makecell{No error found \\95.76\% of avail.} & \makecell{No error found \\97.37\% of avail.} & \makecell{No error found\\Panels oversized in 2.24 $\times$\\Batteries oversized in 1.41 $\times$}\\
+CS 4 & \makecell{P= 1,078 W\\B= 354 Ah\\(minimum)} & \makecell{No error found \\95.76\% of avail.} & \makecell{No error found \\98.10\% of avail.} & \makecell{No error found\\Panels oversized in 2.24 $\times$\\Batteries oversized in 1.41 $\times$}\\
 \hline
 CS 5 & \makecell{P= 823 W\\B= 268 Ah\\(minimum)} & \makecell{No error found \\100\% of avail.} & \makecell{No error found \\100\% of avail.} & \makecell{No error found\\Panels oversized in 1.93 $\times$\\Batteries oversized in 1.56 $\times$}\\
 \hline
 CS 6 & \makecell{P= 1,299 W\\B= 421 Ah\\(minimum)} & \makecell{Not correct sizing \\Avail. $<$ 95\%\\(85.65\%)} & \makecell{No error found \\100\% of avail.} & \makecell{No error found\\Panels oversized in 2.42 $\times$\\Batteries oversized in 1.38 $\times$}\\
 \hline
-CS 7 & \makecell{P= 4,263 W\\B= 1,384 Ah\\(minimum)} & \makecell{NA\\There exists no real PV system\\available for comparison} & \makecell{NA \\(UNSAT result\\in Table~\ref{tab1})} & \makecell{No error found\\Panels oversized in 2.9 $\times$\\Batteries oversized in 1.99 $\times$}\\
+CS 7 & \makecell{P= 4,263 W\\B= 1,384 Ah\\(minimum)} & \makecell{NA\\There exists no real PV system\\available for comparison} & \makecell{No error found \\98.37\% of avail.} & \makecell{No error found\\Panels oversized in 2.9 $\times$\\Batteries oversized in 1.99 $\times$}\\
 \hline
 \hline
 \end{tabular}
