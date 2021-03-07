@@ -405,7 +405,7 @@ These equations model the continuous-time behavior of the PV system; they produc
 \label{sec:SynthesizingOptimalSolarPhotovoltaicSystems}
 %------------------------------------------------------
 
-The best compromise between two objectives makes the optimal sizing of PV systems: \textit{power reliability} and \textit{system cost}~\cite{Alsadi2018}. This study will rely on the critical period solar energy method~\cite{Pinho}, as described in Section~\ref{sec:sizing}. Our study will use an adapted Life Cycle Cost (LCC) analysis, where the acquisition cost of every item of equipment is considered, plus the installation cost, the operational and maintenance costs~\cite{Alsadi2018}, theses costs are represented by:
+The best compromise between two objectives makes the optimal sizing of PV systems: \textit{power reliability} and \textit{system cost}~\cite{Alsadi2018}. This study will rely on the critical period solar energy method~\cite{Pinho}, as described in Section~\ref{sec:sizing}. \color{blue}Our study will use an adapted Life Cycle Cost (LCC) analysis, where the acquisition cost of every item of equipment is considered, plus the installation cost, the operational and maintenance costs~\cite{Alsadi2018}, theses costs are represented by:
 \begin{equation}
 \label{eq:LCC}
 LCC = EC + EM
@@ -590,12 +590,12 @@ We have real PV systems deployed since June $2018$ in a riverside community in t
 
 \begin{landscape}
 \begin{table}
-\label{tab1}
+\caption{Comparative result table between state-of-the-art tools.}
+\label{Tab:Tcr}
 \centering
-\begin{tabular}{c||c|c|c||c|c|c||c}
-
+\begin{tabular}{|c||c|c|c||c|c|c||c|}
 \hline
-Tools & \makecell{Microsoft Z3 \\($\nu$Z 4.8.9)}& \makecell{ESBMC 6.0.0 \\(Boolector 3.0.1)}& \makecell{CPAchecker 1.8\\(MathSAT 5.5.3)}& \makecell{Microsoft Z3 \\($\nu$Z 4.8.9)}& \makecell{ESBMC 6.0.0 \\(Boolector 3.0.1)}& \makecell{CPAchecker 1.8\\(MathSAT 5.5.3)}& HOMER Pro 3.13.1\\
+Tools & \makecell{Microsoft Z3 \\($\nu$Z 4.8.9)}& \makecell{ESBMC 6.2.0 \\(Boolector 3.0.1)}& \makecell{CPAchecker 2.0\\(MathSAT 5.6.6)}& \makecell{Microsoft Z3 \\($\nu$Z 4.8.9)}& \makecell{ESBMC 6.2.0 \\(Boolector 3.0.1)}& \makecell{CPAchecker 2.0\\(MathSAT 5.6.6)}& HOMER Pro 3.13.1\\
 \hline
 Test Case & \multicolumn{3}{|c|}{Reduced Approach}  & \multicolumn{3}{|c|}{Expanded Approach} & \makecell{Simulation}\\
 \hline
@@ -670,9 +670,7 @@ Test Case & \multicolumn{3}{|c|}{Reduced Approach}  & \multicolumn{3}{|c|}{Expan
 
 \hline
 \end{tabular}
-
-\caption{Legend: OM = out of memory; TO = time out; IF = internal failure; E = energy; NTP = total number of panels, NBtotal = total number of batteries, NPS = number of panels in series; NPP = number of panels in parallel, NBS = number of batteries in series; NBP = number of batteries in parallel; LCC = Life Cycle Cost.}
-
+\\label{Legend: OM = out of memory; TO = time out; IF = internal failure; E = energy; NTP = total number of panels, NBtotal = total number of batteries, NPS = number of panels in series; NPP = number of panels in parallel, NBS = number of batteries in series; NBP = number of batteries in parallel; LCC = Life Cycle Cost.}
 \label{Tab:Tcr}
 \end{table}
 \end{landscape}
