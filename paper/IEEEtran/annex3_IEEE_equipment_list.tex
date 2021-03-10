@@ -1,0 +1,334 @@
+%\documentclass[journal]{IEEEtran}
+\documentclass[journal,onecolumn]{IEEEtran}
+
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation
+% can be obtained at: 
+% http://www.ctan.org/pkg/graphicx
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found at:
+% http://www.ctan.org/pkg/epslatex
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/url
+% Basically, \url{my_url_here}.
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithm,algorithmic}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{makecell}
+\usepackage{textcomp}
+\usepackage{xcolor}
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+%\renewcommand{\baselinestretch}{0.97}
+
+\begin{document}
+%
+% paper title
+% Titles are generally capitalized except for words such as a, an, and, as,
+% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
+% not capitalized unless they are the first or last word of the title.
+% Linebreaks \\ can be used within to get better formatting as desired.
+% Do not put math or special symbols in the title.
+%\title{An automated formal synthesis optimization method for sizing of stand-alone solar photovoltaic systems: case studies and comparative}
+\title{Multi-core synthesis and maximum satisfiability applied to obtain optimal sizing of solar photovoltaic systems}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+\author{Edilson~Galvão, Alessandro~Trindade and Lucas~Cordeiro}% <-this % stops a space
+%\thanks{A. Trindade is with the Department of Electricity, Federal University of Amazonas, Manaus, Brazil, e-mail: alessandrotrindade@ufam.edu.br.}% <-this % stops a space
+%\thanks{L. Cordeiro is with School of Computer Science, The University of Manchester, UK, e-mail: lucas.cordeiro@manchester.ac.uk.}% <-this % stops a space
+%\thanks{The work of A. Trindade was supported in part by Newton Fund under Grant $261881580$, and in part by FAPEAM- Amazonas Foundation for Research under Grant PROTI-Pesquisa $2018$.}}
+
+% note the % following the last \IEEEmembership and also \thanks - 
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+% 
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+% The paper headers
+%\markboth{IEEE Transactions on Sustainable Energy}%
+%{Trindade and Cordeiro: An automated formal synthesis optimization method for sizing of stand-alone solar photovoltaic systems}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+% 
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2015 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+% make the title area
+\maketitle
+
+Here we describe the detailed data from each one of the equipment there were used during the optimization of solar PV systems. The aim is to aid to understand where each variable or parameter came from.
+
+According with the evaluated local of the PV systems installation, however using the GPS coordinates of Manaus, Amazonas State, Brazil, because is the nearest weather station of the rural community:
+
+\begin{itemize}
+ \item The considered insolation for the worst month is $3.8 \, kWh/m^{2}$ per day\footnote{\url{http://www.cresesb.cepel.br/index.php?section=sundata}};
+ \item The minimum average solar irradiance in $W/m^{2}$ per hour (in a day) is:  {0, 0, 0, 0, 0, 0, 25, 135, 274, 422, 509, 537, 503, 505, 430, 281, 80, 10, 0, 0, 0, 0, 0, 0};
+ \item The maximum average solar irradiance in $W/m^{2}$ per hour (in a day) is {0, 0, 0, 0, 0, 4, 87, 295, 487, 648, 751, 852, 817, 742, 610, 418, 128, 51, 0, 0, 0, 0, 0, 0};
+ \item The average minimum temperature (in $^{o}$C) per month is: {23, 23, 23, 23, 23, 23, 23, 23, 23, 24, 24, 23};
+ \item The average maximum temperature (in $^{o}$C) per month is: {30, 30, 30, 30, 30, 30, 30, 31, 32, 32, 31, 30};
+ \item Manaus GPS coordinates: coordinates 3$^{o}$7'8.5"S 60$^{o}$1'18.2"W
+ \item Nova Esperan\c{c}a GPS coordinates (distant $1.75$ h by boat from Manaus): coordinates 2$^{o}$44'50.0"S 60$^{o}$25'47.8"W
+\end{itemize} 
+
+%---------------------------------------
+%\section{PV Panels}
+%---------------------------------------
+\begin{table}[h]
+\renewcommand{\arraystretch}{1.3}
+\caption{PV Panels}\label{tab:panels}
+\centering
+\begin{scriptsize}
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c}
+\hline
+\hline
+$\eta_{p}$ & N & T & $\mu_{I}$ & $\mu_{V}$ & $I_{sc,ref}$ & $V_{oc,ref}$ & $P_{m}$ & $I_{m}$ & $V_{m}$ & $V_{mp}$ & US\$ & Model \\
+\hline
+\hline
+0.1620 & 72 & 45 & 0.053 & -0.31 & 9.18 & 45.1 & 315 & 8.16 & 36.6 & 33.4 & 268.40 & CS6U-315 \\
+\hline
+0.1646 & 72 & 45 & 0.053 & -0.31 & 9.26 & 45.3 & 320 & 8.69 & 36.8 & 33.6 & 190.00 &  CS6U-320 \\
+\hline
+0.1672 & 72 & 45 & 0.053 & -0.31 & 9.34 & 45.5 & 325 & 8.78 & 37.0 & 33.7 & 216.67 & CS6U-325 \\
+\hline
+0.1697 & 72 & 45 & 0.053 & -0.31 & 9.45 & 45.6 & 330 & 8.88 & 37.2 & 33.9 & 170.30 & CS6U-330 \\
+\hline
+0.1515 & 80 & 47 & 0.020 & -0.48 & 8.86 & 50.8 & 340 & 8.26 & 41.2 & 37.0 & 214.20 & KU340-8BCA \\
+\hline
+0.1600 & 54 & 47 & 0.00318 & -0.123 & 8.21 & 32.9 & 200 & 7.61 & 32.9 & 23.2 & 300.00 & KC200GT \\
+\hline
+0.1690 & 60 & 47 & 0.039 & -0.307 & 9.44 & 38.84 & 275 & 8.81 & 31.22 & 26.72 & 150.00 & SA275-60P \\
+\hline
+0.1855 & 72 & 45 & 0.039 & -0.307 & 9.73 & 47.60 & 360 & 9.33 & 38.59 & 34.96 & 237.24 & SA360-72M \\
+\hline
+0.1515 & 36 & 45 & 0.033 & -0.39 & 8.81 & 22.30 & 150 & 8.20 & 18.30 & 14.40 & 94.75 & RSM36-6-150P \\
+\hline
+0.1500 & 36 & 46 & 0.060 & -0.37 & 8.61 & 22.90 & 150 & 8.12 & 18.50 & 14.61 & 108.50 & YL150P-17b \\
+\hline
+\hline
+\end{tabular}
+\newline
+\\Caption: (T): NOCT, (CS): Canadian, (KC or KU): Kyocera, (SA): Sinosola, (RMS): Risen, (YL): Yingli.
+\end{scriptsize}
+\end{table}
+
+
+%---------------------------------------
+%\section{Batteries}
+%---------------------------------------
+
+\begin{table}[h]
+\renewcommand{\arraystretch}{1.3}
+\caption{Batteries}\label{tab:battery}
+\centering
+\begin{scriptsize}
+\begin{tabular}{c|c|c|c|c|c|c|c}
+\hline
+\hline
+$\eta_{b}$  &  $V_{b}$  &  $C_{20}$  &  $V_{bulk}$  &  $V_{float}$  &  $Cost \, (US\$)$  &  Brand  &  Model \\
+\hline
+\hline
+  0.85  &  12  &  80  &  14.4  &  13.8  &  131.00  &  Moura  &  12MF80  \\            
+\hline
+0.85 & 12 & 105 & 14.4 & 13.8 & 150.00 & Moura & 12MF105 \\
+\hline
+0.85 & 12 & 150 & 14.4 & 13.8 & 324.75 & Moura & 12MF150 \\
+\hline
+0.85 & 12 & 175 & 14.4 & 13.8 & 299.75 & Moura & 12MF175 \\
+\hline
+0.85 & 12 & 220 & 14.4 & 13.8 & 374.75 & Moura & 12MF220 \\
+\hline
+0.85 & 12 & 60 & 14.4 & 13.8 & 114.75 & Heliar & DF1000 \\     
+\hline
+0.85 & 12 & 80 & 14.4 & 13.2 & 138.00 & Heliar & DF1500 \\
+\hline
+0.85 & 12 & 150 & 14.4 & 13.2 & 275.00 & Heliar & DF2500 \\
+\hline
+0.85 & 12 & 170 & 14.4 & 13.2 & 299.01 & Heliar & DF3000 \\
+\hline
+0.85 & 12 & 220 & 14.4 & 13.2 & 330.73 & Heliar & DF4001 \\
+\hline
+\hline
+\end{tabular}
+%\\Caption: (SE): Schneider Electric.
+\end{scriptsize}
+\end{table}
+
+%---------------------------------------
+%\section{Charge Controllers}
+%---------------------------------------
+
+\begin{table}[h]
+\renewcommand{\arraystretch}{1.3}
+\caption{Charge controllers}\label{tab:charg}
+\centering
+\begin{scriptsize}
+\begin{tabular}{c|c|c|c|c|c|c}
+\hline
+\hline
+$\eta_{c}$ & $I_{c}$  & $V_{OUT}$ & $V_{c,max}$ & $Cost \, (US\$)$ & Brand & Model\\
+\hline
+\hline
+0.98 & 35 & 24 & 145 & 294.95 & Victron & 35-145 \\
+\hline
+0.98 & 15 & 24 & 75 & 88.40 & Victron & 15-75 \\
+\hline
+0.98 & 15 & 24 & 100 & 137.70 & Victron & 15-100 \\
+\hline
+0.98 & 50 & 24 & 100 & 294.95 & Victron & 50-100 \\
+\hline
+0.98 & 20 & 24 & 100 & 132.25 & Epever & TRIRON 2210N 20A 12/24V \\
+\hline
+0.98 & 30 & 24 & 100 & 161.00 & Epever & TRIRON 3210N 30A 12/24V \\
+\hline
+0.98 & 40 & 24 & 100 & 184.75 & Epever & TRIRON 4210N 40A 12/24V \\
+\hline
+0.97 & 20 & 24 & 100 & 217.25 & Epsolar & Tracer-2210RN 20A 12/24V \\
+\hline
+0.97 & 30 & 24 & 100 & 297.25 & Epsolar & Tracer-3215BN 30A 12/24V \\
+\hline
+0.96 & 60 & 60 & 140 & 1072.50 & SE & XW-MPPT 60/150 \\
+\hline
+0.98 & 60 & 48 & 150 & 388.91 & Epever & ET6415BND \\
+\hline
+0.98 & 50 & 48 & 150 & 347.82 & Epever & 54150AN \\
+\hline
+\hline
+\end{tabular}
+\newline
+\\Caption: (SE): Schneider Electric.
+\end{scriptsize}
+\end{table}
+
+%---------------------------------------
+%\section{Inverters}
+%---------------------------------------
+
+\begin{table}[h]
+\renewcommand{\arraystretch}{1.3}
+\caption{Inverters}\label{tab:inverter}
+\centering
+\begin{scriptsize}
+\begin{tabular}{c|c|c|c|c|c|c|c}
+\hline
+\hline
+$\eta_{i}$ & $V_{in}DC$  & $V_{out}AC$ & $P_{AC,ref}$  & $MAX_{AC,ref}$ & $Cost (US\$)$ & Brand & Model\\
+\hline
+\hline
+0.93 & 48 & 110 & 700 & 1600 & 400.00 & Victron & 24-800 \\
+\hline
+0.93 & 48 & 110 & 1200 & 2400 & 750.00 & Victron & 48-1200 \\
+\hline
+0.93 & 24 & 120 & 1200 & 2400 & 450.00 & Epever & IP1500-11 \\
+\hline
+0.91 & 24 & 120 & 280 & 750 & 149.75 & Epever & IP350-11 \\
+\hline
+0.91 & 24 & 120 & 400 & 1000 & 187.25 & Epever &  IP500-11 \\
+\hline
+0.93 & 12 & 220 & 600 & 1350 & 342.25 & Epsolar & SHI600-12 \\
+\hline
+0.93 & 24 & 120 & 800 & 1200 & 500.00 & Epsolar & STI1000-24-120 \\
+\hline
+0.90 & 12 & 120 & 900 & 2000 & 649.75 & Xantrex & SW 1000 \\
+\hline
+0.82 & 12 & 120 & 1000 & 2000 & 1122.25 & Xantrex & HFS 1055 1000W \\
+\hline
+0.90 & 24 & 125 & 1800 & 2900 & 1669.75 & Xantrex & HF 1800W \\
+\hline
+\hline
+\end{tabular}
+%Caption: (SE): Schneider Electric.
+\end{scriptsize}
+\end{table}
+
+%//HOUSE1 
+%// int loadcurve[24] = %{118,118,118,46,46,46,95,95,170,170,296,242,242,95,95,95,95,95,342,288,288,288,288,118};
+%// int Phouse = 501, Psurge = 501, Econsumption = 3900;
+%//HOUSE2 
+%// int loadcurve[24] = {136, 136, 136, 136, 136, 136, 67, 67, 184, 184, 184, 184, 184, 67, 67, 67, 67, 67, 253, 253, 253, 253, 253, 136};
+%// int Phouse = 253, Psurge = 722, Econsumption = 3600;
+%//HOUSE3 
+%// int loadcurve[24] = %{113,113,113,113,113,113,67,67,217,97,97,97,97,97,97,97,97,97,263,113,113,113,113,113};
+%// int Phouse = 263, Psurge = 732, Econsumption = 2500;
+%//HOUSE4 
+%// int loadcurve[24] = %{207,207,207,135,135,135,66,66,161,161,233,253,248,66,66,66,66,66,302,317,322,302,302,207};
+%// int Phouse = 322, Psurge = 896, Econsumption = 4300;
+%//HOUSE5 
+%// int loadcurve[24] = %{45,16,16,16,16,16,0,0,0,72,72,222,150,150,0,0,72,72,814,814,814,742,742,16};
+%// int Phouse = 915, Psurge = 980, Econsumption = 4880;
+
+\end{document}
