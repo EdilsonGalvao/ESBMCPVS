@@ -249,8 +249,7 @@
 % in the abstract or keywords.
 \IEEEtitleabstractindextext{%
 \begin{abstract}
-(IEEE TOSE text, not published yet)There exist various methods and tools to size solar photovoltaic systems; however, these tools rely on simulations, which do not cover all aspects of the design space during the search for the optimal solution. In prior studies in optimal sizing, the focus was always on criteria or objectives. Here, we present a new sound and complete approach to obtaining optimal sizing using an unprecedented program synthesis technique. Our variant of counterexample guided inductive synthesis (CEGIS) approach has two phases linking the technical and cost analysis. First, we synthesize a feasible candidate based on power reliability, but that may not achieve the lowest cost. Second, the candidate is then verified iteratively with a lower bound cost via symbolic model checking. If the verification step does not fail, the lower bound is adjusted; and if it fails, a counterexample provides the optimal solution. Experimental results using seven case studies and commercial equipment data show that our synthesis method can produce within an acceptable run-time the optimal system sizing. We also compare our approach with a commercial tool specialized in photovoltaic systems optimization. Both results are validated with commercial design software to show the effectiveness of our approach.
-(VSTTE) In the current scenario, energy demand rises by 1.3\% each year to 2040, and photovoltaic (PV) systems have emerged as an alternative to the fossil or nuclear fuel energy generation. The use of formal methods for PV systems is a new subject with significant research spanning only five years. Here we develop and evaluate  an automated synthesis technique to obtain optimal sizing of PV systems based on Life Cycle Cost (LCC) analysis. The optimal solution is the lowest cost from a list of equipment that meets the electrical demands from a house, plus the replacement, operation, and maintenance costs over $20$ years. We propose a variant of the counterexample guided inductive synthesis (CEGIS) approach with two phases linking the technical and cost analysis to obtain the PV sizing optimization. We advocate that our technique has various advantages if compared to off-the-shelf optimization tools available in the market for PV systems. Experimental results from seven case studies demonstrate that we can produce an optimal solution within an acceptable run-time; different software verifiers are evaluated to check performance and soundness. We also compare our approach with a commercial tool specialized in PV systems optimization. Both results are validated with commercial design software; furthermore, some real PV systems comparison are used to show our approach effectiveness.
+Given that the growth of annual global energy consumption is around 1.3\% with forecasts until 2040, photovoltaic systems become a plausible alternative to traditional means of generating energy such as nuclear and fossil. To promote the dissemination of this technology and expand the use of renewable energies, we present the use of formal methods in the development of tools that assist in decision making when implementing an off-grid residential system. Therefore, we evaluated and developed an automated synthesis technique called PVz to obtain the ideal dimensioning of photovoltaic systems with a focus on Life Cycle Cost (LCC) analysis. Given the electrical needs of a home, we seek in a large set of electrical equipment the best possible combination of devices for renewable energy systems, in order to meet the demand required by the house under study, in addition, we calculate all costs related to maintenance such as: equipment replacement, system operation and general maintenance over 20 years. To carry out such optimization, PVz uses a counterexample-guided inductive synthesis approach (CEGIS) to obtain the optimum of each electrical equipment, we understand that our technique is advantageous compared to the tools for photovoltaic dimensioning and optimization available on the market. The results presented here are based on 7 case studies that denote different energy consumptions, some theoretical and others real, these results put the traditional software verifiers face to face, in addition to the commercial tools, we analyze some topics such as solution time, optimal solution , configuration of the resulting systems, among others.
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
@@ -600,77 +599,77 @@ Tools & \makecell{Microsoft Z3 \\($\nu$Z 4.8.9)}& \makecell{ESBMC 6.2.0 \\(Boole
 Test Case & \multicolumn{3}{|c|}{Reduced Approach}  & \multicolumn{3}{|c|}{Expanded Approach} & \makecell{Simulation}\\
 \hline
 \makecell{\textbf{Case Study 1}\\Peak:342W\\Surge:342W \\E:3,900Wh/day\\Autonomy:48h}&
-\makecell{SAT (0,008 min) \\NTP:4$\times$425w\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
-\makecell{SAT (0,033 min) \\NTP:4$\times$425w\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
-\makecell{SAT (143,32 min) \\NTP:4$\times$425w\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
-\makecell{SAT (1,38 min) \\NTP:4$\times$425w\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
+\makecell{SAT (0,008 min) \\NTP:4$\times$425w (2S-2P)\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
+\makecell{SAT (0,033 min) \\NTP:4$\times$425w (2S-2P)\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
+\makecell{SAT (143,32 min) \\NTP:4$\times$425w (2S-2P)\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
+\makecell{SAT (1,38 min) \\NTP:4$\times$425w (2S-2P)\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
 \makecell{MO} & 
 \makecell{MO} & 
 \makecell{(Time: 0.33 min)\\2.53 kW of PV\\NBT:12$\times$83.4Ah (2S-6P)\\0.351kW inverter\\LCC: US\$ 7,808.04} \\
 
 \hline
 \makecell{\textbf{Case Study 2}\\Peak:814W\\Surge:980W\\E:4,880Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,003 min) \\NTP:6$\times$355w\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (0,05 min) \\NTP:6$\times$355w\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (143,35 min) \\NTP:6$\times$355w\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (1,48 min) \\NTP:6$\times$355w\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
+\makecell{SAT (0,003 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
+\makecell{SAT (0,05 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
+\makecell{SAT (143,35 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
+\makecell{SAT (1,48 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
 \makecell{MO} & 
 \makecell{MO} &
 \makecell{(Time: 0.18 min)\\3.71 kW of PV\\NBT:20$\times$83.4Ah (2S-10P)\\0.817kW inverter\\LCC: US\$ 12,861.75} \\
 
 \hline
 \makecell{\textbf{Case Study 3}\\Peak:815W\\Surge:980W\\E:4,880Wh/day\\Autonomy:12h} & 
-\makecell{SAT (0,003 min) \\NTP:6$\times$355w\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (0,05 min) \\NTP:6$\times$355w\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (164,46 min) \\NTP:6$\times$355w\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (1,67 min) \\NTP:6$\times$355w\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
+\makecell{SAT (0,003 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
+\makecell{SAT (0,05 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
+\makecell{SAT (164,46 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
+\makecell{SAT (1,67 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
 \makecell{MO} & 
 \makecell{MO} & 
 \makecell{NA}\\
 
 \hline
 \makecell{\textbf{Case Study 4}\\Peak:253W\\Surge:722W\\E:3,600Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,003 min) \\NTP:4$\times$395w\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
-\makecell{SAT (0,05 min) \\NTP:4$\times$395w\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
-\makecell{SAT (144,7 min) \\NTP:4$\times$395w\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
-\makecell{SAT (1,42 min) \\NTP:4$\times$395w\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
+\makecell{SAT (0,003 min) \\NTP:4$\times$395w (2S-2P)\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
+\makecell{SAT (0,05 min) \\NTP:4$\times$395w (2S-2P)\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
+\makecell{SAT (144,7 min) \\NTP:4$\times$395w (2S-2P)\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
+\makecell{SAT (1,42 min) \\NTP:4$\times$395w (2S-2P)\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
 \makecell{MO} & 
 \makecell{MO} &
 \makecell{(Time: 0.23 min)\\2.42 kW of PV\\NBT:12$\times$83.4Ah (2S-6P)\\0.254kW inverter\\LCC: US\$ 7,677.95} \\
 
 \hline
 \makecell{\textbf{Case Study 5}\\Peak:263W\\Surge:732W\\E:2,500Wh/day\\Autonomy:48h} &
-\makecell{SAT (0,003 min) \\NTP:4$\times$330w\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
-\makecell{SAT (0,033 min) \\NTP:4$\times$330w\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
-\makecell{SAT (154,60 min) \\NTP:4$\times$330w\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
-\makecell{SAT (1,51 min) \\NTP:4$\times$330w\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
+\makecell{SAT (0,003 min) \\NTP:4$\times$330w (2S-2P)\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
+\makecell{SAT (0,033 min) \\NTP:4$\times$330w (2S-2P)\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
+\makecell{SAT (154,60 min) \\NTP:4$\times$330w (2S-2P)\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
+\makecell{SAT (1,51 min) \\NTP:4$\times$330w (2S-2P)\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
 \makecell{MO} & 
 \makecell{MO} &
 \makecell{(Time: 0.18 min)\\1.59 kW of PV\\NBT:10$\times$83.4Ah (2S-5P)\\0.268kW inverter\\LCC: US\$ 6,175.57}\\
 
 \hline
 \makecell{\textbf{Case Study 6}\\Peak:322W\\Surge:896W\\E:4,300Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,003 min) \\NTP:6$\times$330w\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} &
-\makecell{SAT (0,05 min) \\NTP:6$\times$330w\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} & 
-\makecell{SAT (153,42 min) \\NTP:6$\times$330w\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} & 
-\makecell{SAT (1,38 min) \\NTP:6$\times$330w\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} &
+\makecell{SAT (0,003 min) \\NTP:6$\times$330w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} &
+\makecell{SAT (0,05 min) \\NTP:6$\times$330w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} & 
+\makecell{SAT (153,42 min) \\NTP:6$\times$330w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} & 
+\makecell{SAT (1,38 min) \\NTP:6$\times$330w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} &
 \makecell{MO} & 
 \makecell{MO} &
 \makecell{(Time: 0.22 min)\\3.15 kW of PV\\NBT:14$\times$83.4Ah (2S-7P)\\0.328kW inverter\\LCC: US\$ 9,112.45}\\
 
 \hline
 \makecell{\textbf{Case Study 7}\\Peak:1,586W\\Surge:2,900W\\E:14,000Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,003 min) \\NTP:20$\times$330w\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
-\makecell{SAT (0,016 min) \\NTP:20$\times$330w\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
-\makecell{SAT (130,08 min) \\NTP:20$\times$330w\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
-\makecell{SAT (1,73 min) \\NTP:20$\times$330w\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
+\makecell{SAT (0,003 min) \\NTP:20$\times$330w (10S-2P)\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
+\makecell{SAT (0,016 min) \\NTP:20$\times$330w (10S-2P)\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
+\makecell{SAT (130,08 min) \\NTP:20$\times$330w (10S-2P)\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
+\makecell{SAT (1,73 min) \\NTP:20$\times$330w (10S-2P)\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
 \makecell{MO} & 
 \makecell{MO} &
 \makecell{(Time: 0.20 min)\\12.5 kW of PV\\NBT:66$\times$83.4Ah (2S-33P)\\1.60kW inverter\\LCC: US\$ 41,878.11} \\
 
 \hline
 \end{tabular}
-\\label{Legend: OM = out of memory; TO = time out; IF = internal failure; E = energy; NTP = total number of panels, NBtotal = total number of batteries, NPS = number of panels in series; NPP = number of panels in parallel, NBS = number of batteries in series; NBP = number of batteries in parallel; LCC = Life Cycle Cost.}
+\\Legend: OM = out of memory; TO = time out; IF = internal failure; E = energy; NTP = total number of panels, NBtotal = total number of batteries, NPS = number of panels in series; NPP = number of panels in parallel, NBS = number of batteries in series; NBP = number of batteries in parallel; LCC = Life Cycle Cost.
 \label{Tab:Tcr}
 \end{table}
 \end{landscape}
