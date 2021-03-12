@@ -51,7 +51,6 @@ C := \left [ \begin{array}{ll}
 	\wedge \, \, I_{m,ref} = select \, (PanelData \, [panelchoice][9]) \\
 	\wedge \, \, V_{m,ref} = select \, (PanelData \, [panelchoice][10]) \\
 	\wedge \, \, Panel_{Cost} = select \, (PanelData \, [panelchoice][12]) \\
-	\wedge \, \, \eta_{b} = select \, (BatteryData \, [batterychoice][0]) \\
 	\wedge \, \, Vbat = select \, (BatteryData \, [batterychoice][1]) \\
 	\wedge \, \, Capacity = select \, (BatteryData \, [batterychoice][2]) \\
 	\wedge \, \, Battery_{Cost} = select \, (BatteryData \, [batterychoice][5]) \\
@@ -88,10 +87,10 @@ C := \left [ \begin{array}{ll}
 \label{eq:quant_free_formulae_p}
 \begin{scriptsize}
 P := \left [ \begin{array}{ll} 
-	((panelchoice \geq 0) \, \, \wedge \, \, (panelchoice \leq 9)) \\
-	\wedge \, \, ((batterychoice \geq 0) \, \, \wedge \, \, (batterychoice \leq 9)) \\
-	\wedge \, \, ((controllerchoice \geq 0) \, \, \wedge \, \, (controllerchoice \leq 9)) \\
-	\wedge \, \, ((inverterchoice \geq 0) \, \, \wedge \, \, (inverterchoice \leq 9)) \\
+	((panelchoice \geq 0) \, \, \wedge \, \, (panelchoice \leq 17)) \\
+	\wedge \, \, ((batterychoice \geq 0) \, \, \wedge \, \, (batterychoice \leq 17)) \\
+	\wedge \, \, ((controllerchoice \geq 0) \, \, \wedge \, \, (controllerchoice \leq 19)) \\
+	\wedge \, \, ((inverterchoice \geq 0) \, \, \wedge \, \, (inverterchoice \leq 17)) \\
 	\wedge \, \, (I_{c} \geq I_{total,PVpanels}) \\
 	\wedge \, \, (V_{c,max} \geq V_{total,PVpanels}) \\
 	\wedge \, \, ((V_{c,max} \times I_{C} \times \eta_{c}) \geq P_{AC,ref}) \\
@@ -102,5 +101,4 @@ P := \left [ \begin{array}{ll}
               \end{array} \right ]  \\
 \end{scriptsize}
 \end{equation}
-
 \end{document}
