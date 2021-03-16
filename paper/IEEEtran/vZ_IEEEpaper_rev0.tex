@@ -189,7 +189,7 @@
 
 \author{Edilson Galvão, Alessandro~Trindade and Lucas~Cordeiro% <-this % stops a space
 \IEEEcompsocitemizethanks{
-\IEEEcompsocthanksitem{E. Galvão is with ???, Manaus, Brazil, e-mail: esj.galvao@gmail.com.}
+\IEEEcompsocthanksitem{E. Galvão is with MSc student in the Post-graduate Program in Electrical Engineering, Manaus, Brazil, e-mail: esj.galvao@gmail.com.}
 \IEEEcompsocthanksitem{A. Trindade is with the Department of Electricity, Federal University of Amazonas, Manaus, Brazil, e-mail: alessandrotrindade@ufam.edu.br.}% <-this % stops a space
 \IEEEcompsocthanksitem{L. Cordeiro is with School of Computer Science, The University of Manchester, UK, e-mail: lucas.cordeiro@manchester.ac.uk.}}% <-this % stops a space
 \thanks{The authors would like to thank ????, for the financial support.}
@@ -245,10 +245,10 @@
 \IEEEtitleabstractindextext{%
 \begin{abstract}
 Given that the growth of annual global energy consumption is around 1.3\% with forecasts until 2040, photovoltaic systems become a %plausible
-\textcolor{red} {suitable} alternative to traditional means of generating energy such as nuclear and fossil. To promote the dissemination of this technology and expand the use of renewable energies, we present the use of formal methods in the development of tools that assist in decision making when implementing an off-grid residential system. Therefore, we developed and evaluated an automated synthesis technique called PVz to obtain the %ideal dimensioning 
-\textcolor{red} {optimal sizing} of photovoltaic systems with a focus on Life Cycle Cost (LCC) analysis. Given the electrical needs of a home, we seek in a large set of electrical equipment the best possible combination of devices for renewable energy systems, in order to meet the demand required by the house under study, in addition, we calculate all costs related to maintenance such as: equipment replacement, system operation and general maintenance over 20 years. To carry out such optimization, PVz uses a counterexample-guided inductive synthesis approach (CEGIS) to obtain the %optimum of each electrical equipment
-\textcolor{red}{technical solution}. We %understand 
-clain that our technique is advantageous compared to the tools for photovoltaic sizing and optimization available on the market. The results presented in this paper are based on seven case studies that denote different energy consumptions, some theoretical and others real\textcolor{red}{. These results put some traditional software verifiers face to face. The same case studies were solved by a commercial optimization tool. Our technique and the commercial tool results were both validated with a third commercial design software in order to perform a fair comparison; furthermore} we analyze some topics such as solution time, optimal solution, configuration of the resulting systems, among others.
+\textcolor{black} {suitable} alternative to traditional means of generating energy such as nuclear and fossil. To promote the dissemination of this technology and expand the use of renewable energies, we present the use of formal methods in the development of tools that assist in decision making when implementing an off-grid residential system. Therefore, we developed and evaluated an automated synthesis technique called PVz to obtain the %ideal dimensioning 
+\textcolor{black} {optimal sizing} of photovoltaic systems with a focus on Life Cycle Cost (LCC) analysis. Given the electrical needs of a home, we seek in a large set of electrical equipment the best possible combination of devices for renewable energy systems, in order to meet the demand required by the house under study, in addition, we calculate all costs related to maintenance such as: equipment replacement, system operation and general maintenance over 20 years. To carry out such optimization, PVz uses a counterexample-guided inductive synthesis approach (CEGIS) to obtain the %optimum of each electrical equipment
+\textcolor{black}{technical solution}. We %understand 
+clain that our technique is advantageous compared to the tools for photovoltaic sizing and optimization available on the market. The results presented in this paper are based on seven case studies that denote different energy consumptions, some theoretical and others real\textcolor{black}{. These results put some traditional software verifiers face to face. The same case studies were solved by a commercial optimization tool. Our technique and the commercial tool results were both validated with a third commercial design software in order to perform a fair comparison; furthermore} we analyze some topics such as solution time, optimal solution, configuration of the resulting systems, among others.
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
@@ -288,7 +288,7 @@ Formal synthesis, software verification, model checking, solar photovoltaic syst
 % Here we have the typical use of a "T" for an initial drop letter
 % and "HIS" in caps to complete the first word.
 --------------------
-\color{blue} 
+ 
 \IEEEPARstart{T}{he} recent studies about global energy indicate that 789 million people have no access to electricity, which is 10\% of the world population~\cite{Energyprogressreport}. From 2010 until 2018 the effort to reduce the number of people without access to electricity increased and the result was positive. Quantitatively the result was a decrease from 1.2 billion to 0.84 billion people without electrical energy, of this total, renewable energy solutions are responsible for 136 million people receiving basic energy service~\cite{Energyprogressreport}. Unfortunately, lack of access to clean and affordable energy is considered a core dimension of poverty~\cite{Hussein2012} and this has a direct impact on the low HDI (Human Development Index) of different localities~\cite{Coelho}. It follows that increased access to energy allows economic growth and poverty alleviation\cite{Karekesi}. 
 
 To provide electricity for all, decentralized systems led by solar photovoltaic (PV) in off-grid and mini-grid systems will be the lowest-cost solution for three-quarters of the connections needed~\cite{Hussein2012}. Thus, this can be ratified by analyzing the result of renewable energy reported by global bank, where 17.3\%  of global energy is based on wind and solar energy~\cite{Energyprogressreport}.
@@ -303,7 +303,7 @@ Given the above, the HOMER tool manages to deliver an optimal solution in a smal
 Here, we have developed a variant of counterexample guided inductive synthesis (CEGIS)~\cite{AbateCAV2018} for synthesizing optimal sizing of stand-alone PV systems using commercial equipment data. If the user gives a correctness specification $\sigma$, our technique uses that as a starting point and then iteratively produces a sequence of candidate solutions that satisfy $\sigma$, related to power reliability.
 
 
-\color{blue} 
+ 
 We used a solver called Z3. Internally, the Z3 tool contains a module to include optimization objectives, this module is named $\nu$Z and integrates state-of-the-art algorithms for optimization and extra tools to solve linear restrictions problems. In particular, the $\nu$Z features match our problem and will help us to optimize PV systems~\cite{BjornerPF15}.
 In particular, in each iteration, we synthesize the sizing of stand-alone PV systems, but that may not achieve the lowest cost. Thus, the candidate solution passes through an SMT solver to reduce the number of possible states, a lower bound is provided by our candidate solution, which serves as the minimum cost of reference will help our engine in restrictions verification; Note, each iteration can be cost lower or higher than current reference, once found a value lower than the current reference, and it respects the user constraints, the reference is updated globally. 
 If the verification by SMT solver step does fail, it means there is an optimal solution, thus, all content produced is saved as a counterexample with an optimal sizing that meets both power reliability and system cost. If the verification step does not fail, the content produced is ignored. Our novelty relies on a practical approach to the pursuit of the optimal solution of PV systems using formal methods. 
@@ -317,7 +317,7 @@ Research in the fields of renewable energy and photovoltaic systems, date from t
 \section{Background}
 \label{sec:AutomatedVerification}
 %-----------------------------------------------------------
-\vspace{-1ex}\color{blue}
+\vspace{-1ex}  
 Fig.~\ref{fig:optimization} illustrates how to obtain the optimal sizing of a stand-alone PV system using two different modes, the first one is the traditional model called \textit{\textbf{traditional sizing}} that include manual verification, which means calculus about electrical equipment capacity and installation for validation. Allied to the first mode, there are still commercial tools like MATLAB~\cite{Benatiallah2017} and Homer~\cite{Pradhan,Swarnkar} that try to simulate the real electrical system. The second and on the opposite side, the model well-knows as \textbf{\textit{Automated Synthesis}} that encompasses BMC engines. This option proves to be more powerful since it generates more complex and accurate data than the traditional way described previously.
 Both modes described here use the same input and theoretically tend to produce the same output, it is noteworthy that variables such as electrification, support for different categories of equipment and different forms of electrical dimensioning, impact on the expected output.
 
@@ -333,7 +333,7 @@ For the \textbf{output} data and for a clearer reading of this work, we will ass
 \label{fig:optimization}
 \end{figure}
 
-\color{blue}
+  
 The automated synthesis technique is mathematical reasoning about a model, where the result is a rich counterexample that has detailed information on the optimal solution, thus, the answer can guide the software or client to choose the best combination of electrical machines. Contrariwise, the traditional way don't offer the quantity of necessary data about the system and internal modes. Another special topic that needs to hightlighted is about coverage of each model, models that use automated kernel can to assurance a complete coverage overall state space, instead of, locals states as a traditional model. 
 
 \color{black}
@@ -383,7 +383,7 @@ A PV system is illustrated in Fig.\ref{fig:blockdiagram}. It employs the PV gene
 
 The sizing check stage can ensure that the system meets the standard project steps related to the critical period method (worst month) for solar energy system sizing~\cite{Pinho}. It adopts an MPPT (Maximum Power Point Tracking) charge controller, which is the most common in use. 
 
-Since this paper's audience is targeted to be from the software verification area, we decided to use a higher-level explanation about the PV sizing. The sizing process involves a set of eighteen equations related to the electrical engineering area, which is detailed online.\footnote{\url{https://tinyurl.com/yck7dfxt}} Fig.~\ref{fig:flow} illustrates the overview of the steps that must be taken to size a stand-alone PV system.
+Since this paper's audience is targeted to be from the software verification area, we decided to use a higher-level explanation about the PV sizing. The sizing process involves a set of eighteen equations related to the electrical engineering area, which is detailed online.\footnote{\url{https://cutt.ly/Dz1Ua6Q}} Fig.~\ref{fig:flow} illustrates the overview of the steps that must be taken to size a stand-alone PV system.
 %
 \begin{figure}[h]
 \fbox{\includegraphics[width=0.47\textwidth]{flowchart}}
@@ -403,7 +403,7 @@ These equations model the continuous-time behavior of the PV system; they produc
 \label{sec:SynthesizingOptimalSolarPhotovoltaicSystems}
 %------------------------------------------------------
 
-The best compromise between two objectives makes the optimal sizing of PV systems: \textit{power reliability} and \textit{system cost}~\cite{Alsadi2018}. This study will rely on the critical period solar energy method~\cite{Pinho}, as described in Section~\ref{sec:sizing}. \color{blue}Our study will use an adapted Life Cycle Cost (LCC) analysis, where the acquisition cost of every item of equipment is considered, plus the installation cost, the operational and maintenance costs~\cite{Alsadi2018}, theses costs are represented by:
+The best compromise between two objectives makes the optimal sizing of PV systems: \textit{power reliability} and \textit{system cost}~\cite{Alsadi2018}. This study will rely on the critical period solar energy method~\cite{Pinho}, as described in Section~\ref{sec:sizing}.   Our study will use an adapted Life Cycle Cost (LCC) analysis, where the acquisition cost of every item of equipment is considered, plus the installation cost, the operational and maintenance costs~\cite{Alsadi2018}, theses costs are represented by:
 \begin{equation}
 \label{eq:LCC}
 LCC = EC + EM
@@ -423,7 +423,7 @@ EM = C_{installation} + C_{batrep} + C_{PWO\&M}
 
 In this study, we will use a $C_{installation}$ equivalent to 5\% of total equipment cost and a $C_{PWO\&M}$ equal to U\$ 289.64/year according to Amazon State literature data~\cite{Agrener2013}; and a LCC lifetime analysis of 20 years.
 
-\color{blue} In this section, we will describe a couple of pseudo-code that embassy our tool and how model checking was used as a backend verification engine~\cite{DBLP:journals/corr/abs-1909-13139}. The Algorithm~\ref{base_opt_code} describes how to save and expose the correct solutions and the optimal solution, and Algorithm~\ref{base_opt_code2} is responsible to verify the mathematical assertion over electrical equipaments.
+ In this section, we will describe a couple of pseudo-code that embassy our tool and how model checking was used as a backend verification engine~\cite{DBLP:journals/corr/abs-1909-13139}. The Algorithm~\ref{base_opt_code} describes how to save and expose the correct solutions and the optimal solution, and Algorithm~\ref{base_opt_code2} is responsible to verify the mathematical assertion over electrical equipaments.
 
 \begin{algorithm}[ht]
 \SetAlgoLined
@@ -481,7 +481,7 @@ the node representation stores the lower and upper limits, the counter-example, 
 \label{base_opt_code2}
 \end{algorithm}
 
-To choose the best option, the system uses as input a list of \textbf{seventy} equipment from \textbf{twelve} different manufacturers, where each technical information required was found in a datasheet provided by the equipment factory. To calculate equation~\ref{eq:LCC} value it was necessary to convert the amounts to US dollars based on the exchange rate of the day. To simplify understanding about this type of data, a report has created that condensates general information required to perform tests over this tool, and it is available online.\footnote{\url{https://tinyurl.com/ycgbsgkp}}
+To choose the best option, the system uses as input a list of \textbf{seventy} equipment from \textbf{twelve} different manufacturers, where each technical information required was found in a datasheet provided by the equipment factory. To calculate equation~\ref{eq:LCC} value it was necessary to convert the amounts to US dollars based on the exchange rate of the day. To simplify understanding about this type of data, a report has created that condensates general information required to perform tests over this tool, and it is available online.\footnote{\url{https://cutt.ly/Vz1Uw84}}
 
 The Algorithm 2 recover the information described above based on arguments provided by \textit{solve} function and creates an internal context. This context is responsible to verify if all equations are satiables, thus, the \textit{assume} method is called to assurance that constrains will be respected.
 
@@ -490,7 +490,7 @@ The pseudocode contains three points to be attention: The first point is the set
 The algorithm always returns two different states, SAT when the electrical equipaments combinations and the general cost are safe to became a possible solution and  UNSAT, once the program finishes without finding a solution, indicating that it was unable to combine the specific items of equipment to create a feasible solution. In some scenarios, you can expect a memory overflow or excessive time (timeout) resulting in a system with no concrete result, it is most common in hardware with few gigabytes of memory. The main challenge for the Algorithm~\ref{base_opt_code2} is to find a feasible candidate solution for the constraints and user requirements.
 
 \color{black}
-Summarizing: We use four non-deterministic variables to index four matrices with complete datasheet information from an equipment item. We have four variables and four matrices: one to PV panels, one to batteries, one to the inverter, and one to the charge controller. Those nondeterministic variables are used during the search for the feasible solution and controlled by the statements assume. Note that the process described here is completely automated to ensure that the solution is sound. The verification engines transform the Algorithm~\ref{base_opt_code2} into the Boolean expressions that are passed to the solver to verify (C and !P), as described online.\footnote{\url{https://tinyurl.com/yajfmavl}}
+Summarizing: We use four non-deterministic variables to index four matrices with complete datasheet information from an equipment item. We have four variables and four matrices: one to PV panels, one to batteries, one to the inverter, and one to the charge controller. Those nondeterministic variables are used during the search for the feasible solution and controlled by the statements assume. Note that the process described here is completely automated to ensure that the solution is sound. The verification engines transform the Algorithm~\ref{base_opt_code2} into the Boolean expressions that are passed to the solver to verify (C \& !P), as described online.\footnote{\url{https://cutt.ly/gz1Y159}}
 
 
 
@@ -506,7 +506,7 @@ Summarizing: We use four non-deterministic variables to index four matrices with
 
 Our evaluation aims to answer three experimental goals: [EG1] \textbf{(soundness)} Does our automated synthesis approach provide correct results?; [EG2] \textbf{(performance)} How do the software verifiers compare to each other for synthesizing PV systems?; and [EG3] \textbf{(state-of-the-art)} how does our formal synthesis tool compare to a specialized simulation tool?
 
-\color{blue}All experiments regarding the verification tools were conducted on an otherwise idle Intel Xeon CPU E5-4617 ($6$-cores and 6 Threads) with $2.90$ GHz and $64$ GB RAM, running Ubuntu $18.04$ LTS $64$-bits. 
+  All experiments regarding the verification tools were conducted on an otherwise idle Intel Xeon CPU E5-4617 ($6$-cores and 6 Threads) with $2.90$ GHz and $64$ GB RAM, running Ubuntu $18.04$ LTS $64$-bits. 
 
 For HOMER Pro, we have used an Intel Core i5-$4210$ ($4$-cores) with $1.7$ GHz and $4$ GB RAM running Windows 10. The ideal scenario would be to use the same hardware configuration for the experiments. However, This setup has an impact on performance, which is less favorable to HOMER Pro. PVsyst used the same configuration as HOMER Pro. We perform the experiments with a predefined \textit{timeout} of $200,000$ seconds (55.5 hours).\color{black}
 
@@ -516,15 +516,15 @@ For HOMER Pro, we have used an Intel Core i5-$4210$ ($4$-cores) with $1.7$ GHz a
 
 The proposed synthesis approach was evaluated in seven stand-alone PV system. These test cases were defined based on the usual electrical load found in riverside communities in the Amazonas State, Brazil~\cite{TrindadeCordeiro19,Agrener2013}, except for case 7, which was idealized to support a few lamps and a 12k BTUs air-conditioner solution. 
 Here we report each case study as a 4-tuple \textit{\{power peak (W); power surge (W); energy consumption (Wh/day); battery autonomy (hours)\}} as follows:
-\color{blue}\textbf{1:} \{342; 342; 3,900; 48\}; \textbf{2:} \{814; 980; 4,880; 48\}; \textbf{3:} \{815; 980; 4,880; 12\}; \textbf{4:} \{253; 722; 3,600; 48\}; \textbf{5:} \{263; 732; 2,500; 48\}; \textbf{6:} \{322; 896; 4,300; 48\}; \textbf{7:} \{1,586; 2,900; 14,000; 48\}. This 4-tuple represents the Algorithm~\ref{base_opt_code2} inputs. For all cases, an estimated load curve (kWh) was defined based on the electronics consumers in each house. Our synthesis algorithm was fed with data and costs of seventy equipment items from twelve different manufacturers of PV systems. 
+  \textbf{1:} \{342; 342; 3,900; 48\}; \textbf{2:} \{814; 980; 4,880; 48\}; \textbf{3:} \{815; 980; 4,880; 12\}; \textbf{4:} \{253; 722; 3,600; 48\}; \textbf{5:} \{263; 732; 2,500; 48\}; \textbf{6:} \{322; 896; 4,300; 48\}; \textbf{7:} \{1,586; 2,900; 14,000; 48\}. This 4-tuple represents the Algorithm~\ref{base_opt_code2} inputs. For all cases, an estimated load curve (kWh) was defined based on the electronics consumers in each house. Our synthesis algorithm was fed with data and costs of seventy equipment items from twelve different manufacturers of PV systems. 
 %
-Three state-of-the-art verifiers, Z3 \footnote{Command-line: \$ dotnet run id} version 4.8.9 with $\nu$Z as optimization engine, ESBMC\footnote{Command-line: \$ esbmc filename.c -\phantom{}-incremental-bmc -\phantom{}-boolector} v6.0.0~\cite{esbmc2018} with the Boolector 3.0.1 solver~\cite{Brummayer}, and CPAchecker\footnote{Command-line: \$ scripts/cpa.sh -heap 64000m -config config/bmc-incremental.properties -spec config/specification/sv-comp-reachability.spc file.c} v2.0~\cite{Beyer2011} with MathSAT 5.6.5~\cite{mathsat5}, were used as verification engines to compare the proposed approach effectiveness and efficiency.  \color{black}
+Three state-of-the-art verifiers, Z3 \footnote{Command-line: \$ dotnet run TC-ID} version 4.8.9 with $\nu$Z as optimization engine, ESBMC\footnote{Command-line: \$ esbmc filename.c -\phantom{}-incremental-bmc -\phantom{}-boolector} v6.0.0~\cite{esbmc2018} with the Boolector 3.0.1 solver~\cite{Brummayer}, and CPAchecker\footnote{Command-line: \$ scripts/cpa.sh -heap 64000m -config config/bmc-incremental.properties -spec config/specification/sv-comp-reachability.spc file.c} v2.0~\cite{Beyer2011} with MathSAT 5.6.5~\cite{mathsat5}, were used as verification engines to compare the proposed approach effectiveness and efficiency.  \color{black}
 
 %---------------------------------------------------------------------------
 \subsection{Solvers and State Space}
 \label{sec:SolversandStateSpace}
 %---------------------------------------------------------------------------
-\color{blue}Classic SMT solvers such as ESBMC and CPAchecker will explore the state space searching by the solution of the proposed problem, each verified state demands computational cost. Proportionally, the greater the number of states to be processed, the longer the problem is resolved and the greater the computational power is required. The Z3 tool has an API that works specifically for solving maximum and minimum problems, this tool substantially reduces the computational demand and converges to the objective of this work, therefore, algorithms~\ref{base_opt_code} and~\ref{base_opt_code2} use this tool as a basis to optimize the resolution of the problems proposed.
+  Classic SMT solvers such as ESBMC and CPAchecker will explore the state space searching by the solution of the proposed problem, each verified state demands computational cost. Proportionally, the greater the number of states to be processed, the longer the problem is resolved and the greater the computational power is required. The Z3 tool has an API that works specifically for solving maximum and minimum problems, this tool substantially reduces the computational demand and converges to the objective of this work, therefore, algorithms~\ref{base_opt_code} and~\ref{base_opt_code2} use this tool as a basis to optimize the resolution of the problems proposed.
 
 often, a very large number of states will cause classic SMT solvers to demand more time than is acceptable, as described in ~\ref{ObjectivesAndSetup}, this would override the EG01 objective, since it would not be possible to verify that all tools compared here produce correct answers. We will then use two approaches, called \textbf{Reduced} and \textbf{Expanded} respectively, that will guarantee the demonstration of correctness and the robustness of the proposed system. The first, reduces the state space by ensuring that all solvers described in the previous paragraph will have an answer to the problem in a timely manner. Finally, to ensure the robustness of the proposed technique: we will significantly increase the state space so that we can validate the technique and face market programs. Both approaches must achieve the same result, since the reduced state space is a valid subset of the total analyzed space, and both approachs converge to the same solution.\color{black}
 
@@ -534,7 +534,7 @@ often, a very large number of states will cause classic SMT solvers to demand mo
 \label{sec:SimulationToolsandAssumptions}
 %---------------------------------------------------------------------------
 Concerning the off-the-shelf optimization/simulation tools, only HOMER Pro performs an off-grid system with battery backup analysis and includes economical analysis. Here we used HOMER Pro version $3.13.1$ as a state-of-the-art optimization tool for comparison purposes. In particular, HOMER Pro has the following characteristics:
-\color{blue}(a) it is available only for MS-Windows, its annual standard subscription costs US\$ $1,500.00$ using Expert Package~\cite{HOMER}; \color{black}
+  (a) it is available only for MS-Windows, its annual standard subscription costs US\$ $1,500.00$ using Expert Package~\cite{HOMER}; \color{black}
 (b) it has two optimization algorithms: one algorithm simulates all of the feasible system configurations defined by the search space, and additionally, a proprietary derivative-free algorithm to search for the least-costly system;
 (c) it does not have LCC cost in its reports, only Net Present Cost (NPC); however, we can obtain LCC from NPC; 
 (d) the optimization analysis defines a load curve and temperature according to data collected from online databases. 
@@ -551,7 +551,7 @@ To validate and compare the optimal sizing solution produced by our approach and
 \subsection{Results}
 %---------------------------------------------------------------------------
 
-\color{blue} Table~\ref{Tab:Tcr} condenses the result of both approaches described in section~\ref{sec:SolversandStateSpace}. The table is divided into four important sets of columns, read from left to right: Column 01 describes all test cases with their respective specifications. Columns 02, 03 and 04 refer to the reduced approach that proves the correctness of the system. Columns 05, 06 and 07 refer to the expanded approach, which proves the robustness of the tool used for commercial analysis and finally the last column refers to the simulation of the photovoltaic system using HOMER Pro.
+ Table~\ref{Tab:Tcr} condenses the result of both approaches described in section~\ref{sec:SolversandStateSpace}. The table is divided into four important sets of columns, read from left to right: Column 01 describes all test cases with their respective specifications. Columns 02, 03 and 04 refer to the reduced approach that proves the correctness of the system. Columns 05, 06 and 07 refer to the expanded approach, which proves the robustness of the tool used for commercial analysis and finally the last column refers to the simulation of the photovoltaic system using HOMER Pro.
 
 %In each result analysis there is (SAT) when a solution cannot be found or (UNSAT) when a solution is found.
 
@@ -574,7 +574,7 @@ The second approach described in columns 5, 6 and 7 denote that all cases were s
 
 %CPAchecker was able to synthesize optimal sizing in three out of the seven case studies (cases $1$, $4$, and $5$): the result was produced within the time limit, which varied from $4$ to $9$ hours. 
 %Fig.~\ref{fig:CPAoptc1} illustrates the result of case $5$ with the optimal sizing appearing on the left side as the integer $3$ for the solar panel (which is the Canadian CS6U-330P model of $330$ W from the manufacturer Victron Energy), battery $0$ refers to the model 12MF80 of $80$ Ah from Moura, charge controller $0$ refers to the model 35A-145V MPPT from Victron Energy. The inverter number $2$ refers to the Epever model IP350-11 of $280$ W (nominal power) and $750$ W of surge power. The variables NTP, NPS, NPP, NBS, NBP, and NBTotal, also presented in the counterexample, shows the number of panels and batteries and how they are connected.
-%\color{blue}Case studies $2$, $3$, $6$, and $7$ led to a \textit{time out} result in CPAchecker, i.e., it was not solved within $10$ hours.  \color{black}
+%  Case studies $2$, $3$, $6$, and $7$ led to a \textit{time out} result in CPAchecker, i.e., it was not solved within $10$ hours.  \color{black}
 
 %
 %\begin{figure}[h]
@@ -677,7 +677,7 @@ Test Case & \multicolumn{3}{|c|}{Reduced Approach}  & \multicolumn{3}{|c|}{Expan
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comparison Between Formal Synthesis ($\nu$Z) and HOMER Pro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\color{blue}
+  
 Lets consider just $\nu$Z versus HOMER Pro, since that ESBMC and CPAchecker don't found a optimal solution in common scenario, in other words, this topic represent the second approach describe previously. If we compare the formal synthesis results against those of HOMER Pro, and considering that the cost of individual items of each database used to compose the optimal design is not the same among the tools, it is plausible to obtain distinct results. Thus, we observed some distinct effects in terms of the technical solution and cost (cf. Table~\ref{Tab:Tcr}). 
 
 Concerning the performance, the difference between each test case is less then two minutes, the avarage, HOMER Pro executed the cases on average three times faster. The $\nu$Z take a little bit more time, however, returns the optimal cost, HOMER Pro returns an average cost of around 5\% more or less than the correct value. It's possible to found theses values, removing the test case with maximum and minimum values, after it, removing the test case 3 that HOMER Pro don’t resolved, finally, calculating the average price (LCC) of the set exposed in this work, we obtain the value around US\$ 450 dollars.
@@ -717,7 +717,7 @@ CS 7 & \makecell{P= 4,263 W\\B= 1,384 Ah\\(minimum)} & \makecell{NA\\There exist
 
 Overall, those comparisons with our approach, the optimization software, and the deployed systems, with validation through simulation tool, show that the synthesis solution is sound and complete, which answers \textit{EG1} and {EG3}.
 
-\color{blue}Concerning the cost (LCC) present by both tools, HOMER Pro does not use the real cost for PV systems deployed in Brazil; therefore, the optimal solution presented by HOMER Pro is tends to be cheaper than our technique. However, considering that the aim is to present an optimal PV sizing solution that is feasible and closer to the market prices, our technique is more indicated. \color{black}
+  Concerning the cost (LCC) present by both tools, HOMER Pro does not use the real cost for PV systems deployed in Brazil; therefore, the optimal solution presented by HOMER Pro is tends to be cheaper than our technique. However, considering that the aim is to present an optimal PV sizing solution that is feasible and closer to the market prices, our technique is more indicated. \color{black}
 
 Besides that, HOMER Pro suggests a value in kW for the inverters that are very close to the maximum load of every case study, but it is not commercial. The proposed synthesis tool, however, presents inverters that are commercial and can be obtained off-the-shelf. Moreover, our synthesis approach considers surge power demand from the house, which is not viewed by HOMER Pro or PVsyst. This feature is a definite advantage of the formal synthesis method. HOMER Pro does not include charge controllers as a specific item of equipment in its mathematical model; only the synthesis tool presents a commercial controller and includes it during the cost analysis. The formal synthesis method, therefore, presents more reliable results than HOMER Pro.
 
@@ -729,12 +729,12 @@ An optimal solution from a tool is not necessarily the same optimal from other t
 \subsection{Threats to validity} 
 %---------------------------------------------------------------------------
 
-\color{blue}It is worth highlighting some points for improvement to future works. (i) Improve the technique described in this work to increase the quantity of equipment (in the hundreds of hundreds) without significant loss of performance. (ii) Until this moment, the PVz returns the blocks of battery based in series circuits, however, circuits based on series-parallel can be a good alternative to reduce final price. (iii) Include analysis of pressure loss or energy loss in the power supply, helps prevent electrical surges in real systems. (iv) Converting the equations encoded in fluent points to real arithmetic theory.
+  It is worth highlighting some points for improvement to future works. (i) Improve the technique described in this work to increase the quantity of equipment (in the hundreds of hundreds) without significant loss of performance. (ii) Until this moment, the PVz returns the blocks of battery based in series circuits, however, circuits based on series-parallel can be a good alternative to reduce final price. (iii) Include analysis of pressure loss or energy loss in the power supply, helps prevent electrical surges in real systems. (iv) Converting the equations encoded in fluent points to real arithmetic theory.
 
 %------------------------------------
 \section{Conclusions} 
 %------------------------------------
-In summary, the tool presented here is extremely efficient, bringing results with greater precision (providing all the details of each component of a photovoltaic system, with complete electrical details, including the manufacturer's data sheet, the component model, rated current and voltage) and more performance when compared to ESBMC and CPAchecker, which are state of the art in SMT solvers. PVz was shown to be more efficient in both approaches described in section ~\ref{sec:SolversandStateSpace}, was dozens of times faster than the best case (ESBMC) in the first approach, and was able to process a significantly greater number of states and equipment combinations without exceeding the memory limit available for testing in the second approach, which unfortunately traditional SMT solvers have failed. When we talk about a commercial tool, HOMER tends to be a great choice, however, one must take into account all the restrictions mentioned in section~\ref{sec:SimulationToolsandAssumptions}. When comparing PVz with HOMER, it is evident that state coverage and proximity to performance make choosing PVz a valuable and less expensive alternative. Our advances are further complemented by the extension of the CEGIS synthesis method implemented in the proposed tool. For future work we want to make the tool proposed here an API and include it in a commercial tool or develop it on our university campus. Support for on-grid systems and optimize calculations for a system based on serious parallel \textcolor{red}{não entendi o que seria serious parallel}. Finally, we want to apply the knowledge developed in this article for real riverside communities. \color{black}
+In summary, the tool presented here is extremely efficient, bringing results with greater precision (providing all the details of each component of a photovoltaic system, with complete electrical details, including the manufacturer's data sheet, the component model, rated current and voltage) and more performance when compared to ESBMC and CPAchecker, which are state of the art in SMT solvers. PVz was shown to be more efficient in both approaches described in section ~\ref{sec:SolversandStateSpace}, was dozens of times faster than the best case (ESBMC) in the first approach, and was able to process a significantly greater number of states and equipment combinations without exceeding the memory limit available for testing in the second approach, which unfortunately traditional SMT solvers have failed. When we talk about a commercial tool, HOMER tends to be a great choice, however, one must take into account all the restrictions mentioned in section~\ref{sec:SimulationToolsandAssumptions}. When comparing PVz with HOMER, it is evident that state coverage and proximity to performance make choosing PVz a valuable and less expensive alternative. Our advances are further complemented by the extension of the CEGIS synthesis method implemented in the proposed tool. For future work we want to make the tool proposed here an API and include it in a commercial tool or develop it on our university campus. Support for on-grid systems and optimize calculations for a system based on series-parallel. Finally, we want to apply the knowledge developed in this article for real riverside communities. \color{black}
 
 %
 %\appendices
