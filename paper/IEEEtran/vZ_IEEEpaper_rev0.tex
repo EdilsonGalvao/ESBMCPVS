@@ -149,7 +149,7 @@
 % http://www.ctan.org/pkg/url
 % Basically, \url{my_url_here}.
 
-%\usepackage{hyperref}
+\usepackage{hyperref}
 
 
 % *** Do not adjust lengths that control margins, column widths, etc. ***
@@ -380,7 +380,7 @@ A PV system is illustrated in Fig.\ref{fig:blockdiagram}. It employs the PV gene
 
 The sizing check stage can ensure that the system meets the standard project steps related to the critical period method (worst month) for solar energy system sizing~\cite{Pinho}. It adopts an MPPT (Maximum Power Point Tracking) charge controller, which is the most common in use. 
 
-Since this paper's audience is targeted to be from the software verification area, we decided to use a higher-level explanation about the PV sizing. The sizing process involves a set of eighteen equations related to the electrical engineering area, which is detailed online.\footnote{\url{https://cutt.ly/Dz1Ua6Q}} Fig.~\ref{fig:flow} illustrates the overview of the steps that must be taken to size a stand-alone PV system.
+Since this paper's audience is targeted to be from the software verification area, we decided to use a higher-level explanation about the PV sizing. The sizing process involves a set of eighteen equations related to the electrical engineering area, which is detailed online.\footnote{\href{https://cutt.ly/Dz1Ua6Q}{https://cutt.ly/Dz1Ua6Q}} Fig.~\ref{fig:flow} illustrates the overview of the steps that must be taken to size a stand-alone PV system.
 %
 \begin{figure}[h]
 \fbox{\includegraphics[width=0.47\textwidth]{flowchart}}
@@ -478,7 +478,8 @@ the node representation stores the lower and upper limits, the counter-example, 
 \label{base_opt_code2}
 \end{algorithm}
 
-To choose the best option, the system uses as input a list of \textbf{seventy} equipment from \textbf{twelve} different manufacturers, where each technical information required was found in a datasheet provided by the equipment factory. To calculate equation~\ref{eq:LCC} value it was necessary to convert the amounts to US dollars based on the exchange rate of the day. To simplify understanding about this type of data, a report has created that condensates general information required to perform tests over this tool, and it is available online.\footnote{\url{https://cutt.ly/Vz1Uw84}}
+To choose the best option, the system uses as input a list of \textbf{seventy} equipment from \textbf{twelve} different manufacturers, where each technical information required was found in a datasheet provided by the equipment factory. To calculate equation~\ref{eq:LCC} value it was necessary to convert the amounts to US dollars based on the exchange rate of the day. To simplify understanding about this type of data, a report has created that condensates general information required to perform tests over this tool, and it is available online.\footnote{\href{https://cutt.ly/Vz1Uw84}{https://cutt.ly/Vz1Uw84}}
+
 
 The Algorithm 2 recover the information described above based on arguments provided by \textit{solve} function and creates an internal context. This context is responsible to verify if all equations are satiables, thus, the \textit{assume} method is called to assurance that constrains will be respected.
 
@@ -487,9 +488,7 @@ The pseudocode contains three points to be attention: The first point is the set
 The algorithm always returns two different states, SAT when the electrical equipaments combinations and the general cost are safe to became a possible solution and  UNSAT, once the program finishes without finding a solution, indicating that it was unable to combine the specific items of equipment to create a feasible solution. In some scenarios, you can expect a memory overflow or excessive time (timeout) resulting in a system with no concrete result, it is most common in hardware with few gigabytes of memory. The main challenge for the Algorithm~\ref{base_opt_code2} is to find a feasible candidate solution for the constraints and user requirements.
 
 \color{black}
-Summarizing: We use four non-deterministic variables to index four matrices with complete datasheet information from an equipment item. We have four variables and four matrices: one to PV panels, one to batteries, one to the inverter, and one to the charge controller. Those nondeterministic variables are used during the search for the feasible solution and controlled by the statements assume. Note that the process described here is completely automated to ensure that the solution is sound. The verification engines transform the Algorithm~\ref{base_opt_code2} into the Boolean expressions that are passed to the solver to verify ($C \wedge \neg P$), as described online.\footnote{\url{https://cutt.ly/gz1Y159}}
-
-
+Summarizing: We use four non-deterministic variables to index four matrices with complete datasheet information from an equipment item. We have four variables and four matrices: one to PV panels, one to batteries, one to the inverter, and one to the charge controller. Those nondeterministic variables are used during the search for the feasible solution and controlled by the statements assume. Note that the process described here is completely automated to ensure that the solution is sound. The verification engines transform the Algorithm~\ref{base_opt_code2} into the Boolean expressions that are passed to the solver to verify ($C \wedge \neg P$), as described online.\footnote{\href{https://cutt.ly/gz1Y159}{https://cutt.ly/gz1Y159}}
 
 
 %---------------------------------------------------------------------------
