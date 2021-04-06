@@ -326,7 +326,8 @@ Note that the automated synthesis technique is a mathematical reasoning about a 
 \subsection{Program Synthesis}
 \label{sec:ProgramSynthesis}
 %-----------------------------------------------------------
-The basic idea of program synthesis is to automatically construct a $ P $ program that satisfies a correctness specification $\sigma$. In particular, program synthesis is automatically performed by engines that use a correctness specification $\sigma$, as a starting point and then incrementally produce a sequence of candidate solutions that partially satisfy $\sigma$~\cite{Abateetal2017}. As a result, a given candidate program $p$ is iteratively refined to match $\sigma$ more closely. Figure~\ref{Counter-Example-Guided-Inductive-Synthesis} illustrates the underlying architecture. 
+
+The basic idea of program synthesis is to automatically construct a $P$ program that satisfies a correctness specification $\sigma$. In particular, program synthesis is automatically performed by engines that use a correctness specification $\sigma$, as a starting point and then incrementally produce a sequence of candidate solutions that partially satisfy $\sigma$~\cite{Abateetal2017}. As a result, a given candidate program $p$ is iteratively refined to match $\sigma$ more closely. Figure~\ref{Counter-Example-Guided-Inductive-Synthesis} illustrates the underlying architecture. 
 %
 \begin{figure}[h]
 \begin{center}
@@ -386,7 +387,7 @@ These equations model the PV system's continuous-time behavior; they produce rea
 \label{sec:SynthesizingOptimalSolarPhotovoltaicSystems}
 %------------------------------------------------------
 
-The best compromise between two objectives makes the optimal sizing of PV systems: \textit{power reliability} and \textit{system cost}~\cite{Alsadi2018}. This study will rely on the critical period solar energy method~\cite{Pinho}, as described in Section~\ref{sec:sizing}.   Our study will use an adapted Life Cycle Cost (LCC) analysis, where the acquisition cost of every item of equipment is considered, plus the installation cost, the operational and maintenance costs~\cite{Alsadi2018}; theses costs are represented by:
+The best compromise between two objectives makes the optimal sizing of PV systems: \textit{power reliability} and \textit{system cost}~\cite{Alsadi2018}. This study will rely on the critical period solar energy method~\cite{Pinho}, as described in Section~\ref{sec:sizing}. Our study will use an adapted Life Cycle Cost (LCC) analysis, where the acquisition cost of every item of equipment is considered, plus the installation cost, the operational and maintenance costs~\cite{Alsadi2018}; theses costs are represented by:
 \begin{equation}
 \label{eq:LCC}
 LCC = EC + EM
@@ -404,9 +405,9 @@ EC denotes other costs related to the maintenance and proper functioning of the 
 EM = C_{installation} + C_{batrep} + C_{PWO\&M}
 \end{equation}
 
-In this study, we will use a $C_{installation}$ equivalent to 5\% of total equipment cost and a $C_{PWO\&M}$ equal to U\$ 289.64/year according to Amazon State literature data~\cite{Agrener2013}; and an LCC lifetime analysis of 20 years.
+In this study, we will use a $C_{installation}$ equivalent to $5$\% of total equipment cost and a $C_{PWO\&M}$ equal to U\$ 289.64/year, according to Amazon State literature data~\cite{Agrener2013}; and an LCC lifetime analysis of $20$ years.
 
- In this section, we will describe a couple of pseudocode that embassy our tool and how model checking was used as a backend verification engine~\cite{DBLP:journals/corr/abs-1909-13139}. The Algorithm~\ref{base_opt_code} describes how to save and expose the correct solutions and the optimal solution, and Algorithm~\ref{base_opt_code2} is responsible for verifying the mathematical assertion over electrical equipment.
+In this section, we will describe our algorithms and how model checking can be used as a back-end verification engine~\cite{DBLP:journals/corr/abs-1909-13139}. Algorithm~\ref{base_opt_code} describes how to save and expose the correct solutions and the optimal solution, and Algorithm~\ref{base_opt_code2} is responsible for verifying the mathematical assertion over electrical equipment.
 
 \begin{algorithm}[ht]
 \SetAlgoLined
@@ -429,11 +430,11 @@ Create maximumCost as a long variable\;
 \label{base_opt_code}
 \end{algorithm}
 
-Algorithm~\ref{base_opt_code} receives as input the data described in Fig.~\ref{fig:optimization}. This content is represented in matrices and global variables. The first line contemplates the manufacturer's data, prices of PV panels, batteries, charge controllers, and inverters. Lines 2, 3, and 4 represent the state-space, the nodes that satisfy the equations, and the lowest global cost. Moreover, we define design (house) requirements and design assumptions to help backend solvers.
+Algorithm~\ref{base_opt_code} receives as input the data described in Fig.~\ref{fig:optimization}. This content is represented in matrices and global variables. The first line includes the manufacturer's data, prices of PV panels, batteries, charge controllers, and inverters. Lines $2$, $3$, and $4$ represent the state-space, the nodes that satisfy the equations, and the lowest global cost. Moreover, we define design (house) requirements and design assumptions to help the back-end solvers \textcolor{red}{which ones? where do you describe them? can you point to the section where you describe them?}.
 
-\textit{AllAvailableNodes} is the data set representing the total sample of states to be explored; its purpose is to ensure 100\% coverage of equipment combinations. A node represents a possible solution within the full set of solutions, and its structure was created to store all information relevant to the technique described here. Through the abstraction of the node, a significant problem has been subdivided into several other minor problems. Consequently, parallelizing the nodes' resolution has become a less arduous task. It is hoped to use all possible computational power and increase the overall performance work we use to increment one unit for each context).
+\textit{AllAvailableNodes} is the data set representing the total sample of states to be explored; its purpose is to ensure $100$\% coverage of equipment combinations. A node represents a possible solution within the full set of solutions, and its structure was created to store all information relevant to the technique described here. Through the node abstraction \textcolor{red}{how do we define ``node''? which ``abstraction'' do you perform?}, a significant problem has been split into several other minor problems. Consequently, parallelizing the nodes' resolution has become a less arduous task. \textcolor{red}{This sentence is confused...} It is hoped to use all possible computational power and increase the overall performance work we use to increment one unit for each context.
 
-The node representation stores the lower and upper limits, the counterexample, and other auxiliary variables. The parallel loop is used to process each node separately. The function \textit{solve} described in Algorithm~\ref{base_opt_code2} returns true when the node is a possible solution, and the cost is lower than the global maximum cost. Therefore, to assure the proper storage of results processed by many threads simultaneously, the lock function was added. After the internal loop ends, the last action returns the optimal solution found in the list that contains all possible solutions.
+The node representation stores the lower and upper limits, the counterexample, and other auxiliary variables \textcolor{red}{which ones? can you define here?}. The parallel loop is used to process each node separately. The function \textit{solve} described in Algorithm~\ref{base_opt_code2} returns true when the node is a possible solution, and the cost is lower than the global maximum cost. Therefore, to ensure the proper storage of results processed by many threads simultaneously, the lock function was added. After the internal loop ends, the last action returns the optimal solution found in the list that contains all possible solutions.
 
 \begin{algorithm}[ht]
 \SetAlgoLined
