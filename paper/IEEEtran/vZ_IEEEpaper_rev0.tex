@@ -306,14 +306,12 @@ This paper makes the following original contributions. First, it is a radical im
 \section{Background}
 \label{sec:AutomatedVerification}
 %-----------------------------------------------------------
-\vspace{-1ex}  
-Fig.~\ref{fig:optimization} illustrates how to obtain the optimal sizing of a stand-alone PV system using two different modes. The first one is the traditional model called \textit{\textbf{traditional sizing}} that includes manual verification, which means calculus about electrical equipment capacity and installation for validation. Concerning the first mode, there are still commercial tools like MATLAB~\cite{Benatiallah2017} and Homer~\cite{Pradhan,Swarnkar} that try to simulate the real electrical system. The second and on the opposite side, the model well-knows as \textbf{\textit{Automated Synthesis}} that encompasses BMC engines. This option proves to be more potent since it generates more complex and accurate data than the traditional way described previously.
-Both modes described here use the same input and theoretically tend to produce the same output; it is noteworthy that variables such as electrification, support for different categories of equipment, and different electrical sizing forms impact the expected output.
+ 
+Fig.~\ref{fig:optimization} illustrates how to obtain the optimal sizing of a stand-alone PV system using two different modes. The first one is the traditional model called \textit{\textbf{traditional sizing}}, which includes manual verification by computing the electrical equipment capacity and installation for validation. Concerning the first mode, there are still commercial tools as MATLAB~\cite{Benatiallah2017} and Homer~\cite{Pradhan,Swarnkar}, which simulate the real electrical system. The second includes \textbf{\textit{Automated Synthesis}} that encompasses verification engines. This option proves to be viable since it generates more complex and accurate data than the traditional way described previously. Both modes described here use the same input and theoretically produce the same output; it is noteworthy that variables such as electrification, support for different categories of equipment, and different electrical sizing forms impact the expected output.
 
-For \textbf{Input} data, we can consider weather data, price information about each piece of equipment, design requirements, load curve, power demand, and design assumptions. This information is converted programmatically into a matrix of data and exposed as global content to the software.
+For \textbf{input} data, we can consider weather data, price information about each piece of equipment, design requirements, load curve, power demand, and design assumptions. This information is converted into a matrix of data and exposed as global content to the software.
 
-For the \textbf{output} data and a more straightforward reading of this work, we will assume from now on that every test case that contains a valid answer will be called \textbf{satisfactory (SAT)}. In opposition to this, when there is no sound system, we will call \textbf{unsatisfactory (UNSAT)}. In other words, if there is a set of renewable energy equipment that can be combined (price and system hardware composition), then the result is SAT.
-
+For the \textbf{output} data and a more straightforward reading of this work, we will assume from now on that every benchmark that contains a valid answer will be called \textbf{satisfiable (SAT)}. By contrast, when there is no solution, we will call it \textbf{unsatisfiable (UNSAT)}. If there is a set of renewable energy equipment, which can be combined (price and system hardware composition), then the result is SAT.
 %
 \begin{figure}[h]
 \fbox{\includegraphics[width=0.38\textwidth]{TraditonalVsAutoFlow.png}}
@@ -321,9 +319,8 @@ For the \textbf{output} data and a more straightforward reading of this work, we
 \caption{Comparative image of the traditional method versus the proposed method.}
 \label{fig:optimization}
 \end{figure}
-
   
-The automated synthesis technique is mathematical reasoning about a model, where the result is a rich counterexample with detailed information on the optimal solution. Thus, the answer can guide the software or client to choose the best combination of electrical machines. The traditional way does not offer the quantity of necessary data about the system and internal modes. Another notable topic that needs to be highlighted is about each model's coverage; models that use automated kernel can to assurance a complete coverage overall state space, instead of locals states as a traditional model. 
+Note that the automated synthesis technique is a mathematical reasoning about a formal model, where the SAT result is a counterexample with detailed information on the optimal solution \textcolor{red}{what is a counterexample? we need to define here}. Thus, the answer can guide the software or client to choose the best combination of electrical machines. The traditional way does not offer the quantity of necessary data about the system and internal modes \textcolor{red}{add citation}. Another notable topic that needs to highlight is about each model's coverage; models that use automated kernel \textcolor{red}{what do you mean by automated kernel?} can ensure a complete coverage over the entire state-space, instead of locals states as a traditional model \textcolor{red}{this last sentence is unclear}. 
 
 %-----------------------------------------------------------
 \subsection{Program Synthesis}
