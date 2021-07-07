@@ -1,0 +1,122 @@
+\documentclass[11pt]{article}
+
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage[pdftex]{hyperref}
+%From Equations
+\usepackage{amsmath}
+%\usepackage{url}
+
+%\usepackage{mathtools}
+%\mathtoolsset{showonlyrefs}
+
+\usepackage{color}
+\usepackage{natbib}
+% \usepackage[style=authoryear-comp,dashed=false]{biblatex}
+% \bibliography{piecewise_lyapunov}
+
+\textwidth 15cm
+\setlength{\textheight}{1.1\textheight}
+\newcommand\hi{\hspace*{\parindent}}
+\newcommand\vi{\vspace{\baselineskip}}
+\newcommand\lac{{\mbox{{\Huge\bf L}\hspace{-0.65em}
+\raisebox{-1.2ex}{\Huge\bf A}\hspace{-1.1em}
+\raisebox{-0.6ex}{\Huge\bf C~}}}}
+
+
+\newcommand{\Real}{\mathbb{R}}
+
+
+
+\pagestyle{empty}
+
+\begin{document}
+
+\hoffset -1.5cm \voffset .5cm
+
+
+\sf
+
+\vspace*{-2.5cm} \hspace*{-0.1cm} {\small
+{\mbox{\begin{minipage}{1.5cm}
+\centerline{\includegraphics[width=2cm]{manchester.jpg}}
+\end{minipage}}} \hspace*{0.1cm}
+\begin{minipage}{11.0cm}{\sf \large \textbf{UNIVERSITY OF MANCHESTER}}\\
+{\sc School of Computer Science}
+\end{minipage}
+} \vspace*{0mm}
+
+\hspace*{-.7cm} {\rule[-1ex]{15cm}{0.03cm}}
+
+\begin{flushright}
+\begin{minipage}{7.0cm}\small
+{\bf Please Reply to:}\\
+Dr. Cordeiro\\
+University of Manchester\\
+Department of Computer Science\\
+Kilburn Building, Manchester M13 9PL\\
+{\em e-mail: lucas.cordeiro@manchester.ac.uk}
+\end{minipage}
+\end{flushright}
+
+\vi
+\hspace*{\fill}{\small Manchester, \today.}
+\vi
+
+\begin{flushleft}
+	W. Eric Wong \\
+	Editor-in-Chief \\
+	University of Texas at Dallas \\
+  EUA \\
+	IEEE Transactions on Reliability
+    \end{flushleft}
+ 
+\indent Dear Wong,
+\vi
+
+Please find enclosed our manuscript entitled ``Multi-core synthesis and maximum satisfiability for optimal sizing of solar photovoltaic systems'' by Edilson Galvao, Alessandro Trindade, and Lucas Cordeiro, which we would like to submit for publication in the journal of IEEE Transactions on Reliability.
+
+The present work describes and evaluates an automated synthesis methodology to obtain the optimal sizing of photovoltaic systems. It employs model checking, specific solvers, and multi-core features to synthesize photovoltaic (PV) systems used in rural areas or where grid extension is unfeasible.
+
+The sizing of PV systems is usually performed by hand or with commercial specialized simulation-optimization tools, which are well known in the market. However, the exploration of all design space states is impossible with those tools, and some flaws, which can be originated from the design phase, reaching the field after the PV deployment. This can cause dissatisfaction to the PV system owners and conclude that intermittent renewable systems are not suitable.
+   
+Our study's experimental results from seven case studies showed that only the automated synthesis could find the most meaningful and detailed equipment information for PV systems in a comparative evaluation of tools. Finally, based on the fact that only since 2019 papers deal with automated synthesis applied to PV systems, with notable results but with low performance, our study is unique and with outstanding results.
+
+The submitted paper is a substantially extended version of our
+manuscript published at the VSTTE 2020 (12th Working Conference on Verified Software: Theories, Tools, and Experiments), \url{https://doi.org/10.1007/978-3-030-63618-0_6}.
+Both papers resulted from Trindade's Ph.D. research defended in January 2020, which had Professor Cordeiro as primary supervisor.
+Our original manuscript was promising since the beginning of the experimental stage in 2019. In particular, the qualitative aspect of the results was outstanding. However, we faced performance issues on comparative results because, depending on the case study, even ten hours were necessary to deliver the optimal sizing. In this newly revised paper, the subject is the same, i.e., optimizing solar photovoltaic systems using model checking. We kept the same seven case studies, the comparative with a commercial simulation tool (HOMER Pro), and the outcome validation with PVSyst. However, we focused on performance improvement without loose the qualitative aspect of the results. We introduced a new solver tool (vZ) based on the maximum satisfiability and a new algorithm specifically to deal with multi-core synthesis to achieve that goal. We decided to use a new hardware configuration to all verification engines to keep a fair comparison. The database used to search for the optimal solution was updated from 40 to 70 commercial equipment, thereby increasing the problem's complexity. Note that we revised the abstract and introduction sections, which are entirely new. The theoretical foundation for PV systems and how to size a stand-alone solar PV system is the same as the original paper. However, the explanation for the multi-core synthesis and the related algorithm is all-new; our analysis of the experimental results is new due to the new nature of the employed algorithms. The threats to validity and conclusions are also new. 
+Lastly, the Boolean expressions passed to the solver ($C \wedge \neg P$) were revised considering the new maximum satisfiability algorithm. In summary, we can state that more than 50\% of the submitted paper is new material; the result is a good quality paper.
+
+We expect that our manuscript can be evaluated in this respectful journal with this contextualization.
+
+
+\vi
+Thank you for your time.
+\vi
+
+
+\indent
+~~~~~~~~~~~~~~~~~~~~~~~~~~~Sincerely,\\
+
+
+
+\begin{quote}
+\begin{quote}
+\begin{flushright}
+
+
+%\vfill
+
+Lucas C. Cordeiro~~~~~~~
+\end{flushright}
+\end{quote}
+\end{quote}
+
+
+ 
+ 
+
+\end{document} 
