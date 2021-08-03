@@ -280,7 +280,7 @@ The evaluation process answers three experimental goals:
 \begin{enumerate}
 \item [EG1] \textbf{(soundness)} Does our automated synthesis approach provide correct results?
 \item [EG2] \textbf{(performance)} How do the software verifiers compare to each other for synthesizing PV systems?
-\item [EG3] \textbf{(state-of-the-art)} How PVz compare to a specialized simulation tool?
+\item [EG3] \textbf{(comparison)} How PVz compare to a specialized simulation tool?
 \end{enumerate}
 \end{tcolorbox}
 
@@ -297,7 +297,7 @@ We evaluated three state-of-the-art verifiers to compare the proposed approach e
 %---------------------------------------------------------------------------
 
 The PVz synthesis approach was evaluated in seven case studies. These benchmarks were defined based on the usual electrical load found in riverside communities in the Amazon State, Brazil~\cite{TrindadeCordeiro19,Agrener2013}, except for case 7, which was idealized to support lighting and a 12k BTUs air-conditioner.  
-\textcolor{blue}{Each case study is a 4-tuple \textit{\{power peak (W); power surge (W); energy consumption (Wh/day); battery autonomy (hours)\}} as follows:}
+Each case study is a 4-tuple \textit{\{power peak (W); power surge (W); energy consumption (Wh/day); battery autonomy (hours)\}} as follows:
   \textbf{1:} \{342; 342; 3,900; 48\}; \textbf{2:} \{814; 980; 4,880; 48\}; \textbf{3:} \{815; 980; 4,880; 12\}; \textbf{4:} \{253; 722; 3,600; 48\}; \textbf{5:} \{263; 732; 2,500; 48\}; \textbf{6:} \{322; 896; 4,300; 48\}; \textbf{7:} \{1,586; 2,900; 14,000; 48\}. This 4-tuple represents the inputs of Algorithm~\ref{base_opt_code2}. For every case study, an estimated load curve (kWh) was defined based on the electronics consumers in each house. The PVz synthesis algorithm was populated with data and costs of seventy equipment items from twelve manufacturers of PV systems. 
 
 %---------------------------------------------------------------------------
