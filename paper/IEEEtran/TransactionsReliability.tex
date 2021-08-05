@@ -88,11 +88,11 @@ Scholars in the field of solar photovoltaic systems or even renewable energy hav
 
 \noindent \textbf{Contributions.} This paper makes the following original contributions. First, it is a radical improvement in the base paper's performance describing formal synthesis for stand-alone PV system application~\cite{DBLP:journals/corr/abs-1909-13139}. Second, the technique described here supports data processing parallelization since it relies on a multi-core processor. Third, the state space coverage was increased compared to the base article~\cite{VSTTE2020}. It was possible to cover and compute all the spaces of the combinations of electrical equipment. Fourth, experimental results with seven case studies show that the formal synthesis approach qualitatively outperforms an existing state-of-the-art optimization tool. Lastly, the results are validated with accurate commercial design software called PVsyst.
 
-\noindent \textbf{Outline.} The remainder of this paper is organized as follows. \textcolor{red}{we should describe a summary of each section here.}
+\noindent \textit{Outline}. The remainder of this paper is organized as follows. Section~\ref{sec:Background} shows how to perform traditional and synthesized sizing of PV systems. Section~\ref{sec:Synthesis} details our proposed technique in comparison with traditional CEGIS technique. Section~\ref{sec:sizing} explains the components and how to size stand-alone solar PV systems. The details of our algorithms and the construction of our PVz tool is presented in section~\ref{sec:SynthesizingOptimalSolarPhotovoltaicSystems}. Section~\ref{sec:Results} is devoted to the results. Section~\ref{sec:Conclusions} presents the conclusion and describes future work.
 
 %-----------------------------------------------------------
 \section{Background}
-\label{sec:AutomatedVerification}
+\label{sec:Background}
 %-----------------------------------------------------------
 Fig.~\ref{fig:optimization} illustrates how to obtain the optimal sizing of a stand-alone PV system using two modes. The first one is the traditional model called \textit{\textbf{traditional sizing}}, which includes manual verification by computing the electrical equipment capacity and installation for validation. Concerning the first mode, there are still commercial tools as MATLAB~\cite{Benatiallah2017} and HOMER~\cite{Pradhan,Swarnkar}, which simulate the real electrical system. The second includes \textbf{\textit{automated synthesis}} that encompasses verification engines. This option proves viable since it generates more complex and accurate data than the traditional way described previously. Both modes described here use the same input and theoretically produce the same output; it is noteworthy that variables such as electrification, support for different equipment categories, and different electrical sizing forms impact the expected output.
 
@@ -112,6 +112,7 @@ The automated synthesis technique is mathematical reasoning about a formal model
 
 %-----------------------------------------------------------
 \section{Program Synthesis}
+\label{sec:Synthesis}
 %-----------------------------------------------------------
 
 The essence behind program synthesis is to automatically build a $P$ program that satisfies a correctness specification $\sigma$. More specifically, program synthesis can be performed automatically by engines using a correctness specification $\sigma$. In particular, we consider $\sigma$ as a starting point, and then we incrementally produce a sequence of candidate solutions that partly satisfy it~\cite{Abateetal2017}. As a result, a given candidate program $p$ is iteratively refined to match $\sigma$ more closely. Figure~\ref{Counter-Example-Guided-Inductive-Synthesis} illustrates the architecture described here.
@@ -269,6 +270,7 @@ In summary, we use four non-deterministic variables to index four matrices with 
 
 %---------------------------------------------------------------------------
 \section{Results and Discussion}
+\label{sec:Results}
 %---------------------------------------------------------------------------
 
 %---------------------------------------------------------------------------
@@ -290,9 +292,7 @@ We performed all experiments on a dedicated Intel Xeon CPU E5-4617 ($6$-cores an
 
 For HOMER Pro and PVsyst, we have used an Intel Core i5-$4210$ ($4$-cores) with $1.7$ GHz and $4$ GB RAM under Windows 10. For comparative issues, the indication would be to use the same hardware configuration for the experiments. However, because of the operational system and availability of machines at the laboratory, we used different configurations, which is less favorable to HOMER Pro. We perform the experiments with a predefined \textit{timeout} of $200,000$ seconds (55.5 hours).
 
-We evaluated three state-of-the-art verifiers to compare the proposed approach effectiveness and efficiency, Z3\footnote{Command-line: \$ dotnet run TC-ID} version 4.8.9 with $\nu$Z as optimization engine, ESBMC\footnote{Command-line: \$ esbmc filename.c -\phantom{}-incremental-bmc -\phantom{}-boolector} v6.0.0~\cite{esbmc2018} with the Boolector 3.0.1 solver~\cite{Brummayer}, and CPAchecker\footnote{Command-line: \$ scripts/cpa.sh -heap 64000m -config config/bmc-incremental.properties -spec config/specification/sv-comp-reachability.spc file.c} v2.0~\cite{Beyer2011} with MathSAT 5.6.5~\cite{mathsat5}.
-
-\textcolor{red}{shall we provide a link to download our scripts, tools, and benchmarks?}
+We evaluated three state-of-the-art verifiers to compare the proposed approach effectiveness and efficiency, Z3\footnote{Command-line: \$ dotnet run TC-ID} version 4.8.9 with $\nu$Z as optimization engine, ESBMC\footnote{Command-line: \$ esbmc filename.c -\phantom{}-incremental-bmc -\phantom{}-boolector} v6.0.0~\cite{esbmc2018} with the Boolector 3.0.1 solver~\cite{Brummayer}, and CPAchecker\footnote{Command-line: \$ scripts/cpa.sh -heap 64000m -config config/bmc-incremental.properties -spec config/specification/sv-comp-reachability.spc file.c} v2.0~\cite{Beyer2011} with MathSAT 5.6.5~\cite{mathsat5}. \textcolor{blue}{All the scripts, tools, benchmarks, and general instructions for experimental process can be reach online\footnote{http://github.com/}.}
 
 %---------------------------------------------------------------------------
 \subsection{Description of Benchmarks}
@@ -337,26 +337,13 @@ Table~\ref{Tab:Tcr} shows the result of both approaches described in Section~\re
 \textbf{Reduced approach:} Traditional software verifiers, e.g., ESBMC~\cite{esbmc2018} and CPAchecker~\cite{Beyer2011}, face difficulties in solving optimization problems. However, they can be solid allies for detecting the optimal solution. The strategy of this approach is to reduce state-space exploration. The reduction in the state space was due to the reduction in the number of electrical equipment combinations as described in Section~\ref{sec:SolversandStateSpace}. The \textit{Expanded} methodology includes $93,347$ arrangements as possible solutions for the photovoltaic system.
 In contrast, in this approach, we reduce the number of arrangements to $24$ only. In this approach, all verifiers above will solve the proposed photovoltaic systems and compute their respective results. Using this approach, we were able to avoid timeout and memory-out problems. Thus, we can prove the technique's efficiency when the results are convergent to the same specification. In other words, each test case should have the same result when analyzed by the three SMT solvers.
 
-Analyzing column number 2 of Table~\ref{Tab:Tcr}, we can observe that all benchmarks returned SAT as a response. This result implies that there is a correct solution for each proposed case. Column 3 for the ESBMC and column 4 for the CPAchecker confirm that the results are convergent with the tool proposed here in search of a solution. However, the existence of a valid solution does not confirm that the proposed solution is the optimal solution. To confirm that PVz converges towards equipment specification, we must analyze the lines after SAT: NTP, NBT, controllers, inverters, and LCC. In the case of equality of the three tools, which we have successfully achieved, it can be inferred that the algorithm is sound. This outcome means that the program works correctly and brings accurate results as an answer. In other words, that the \textbf{EG1} objective was successfully achieved. In the case of a difference between the results obtained, an inconsistency was developed.
-%
-\begin{tcolorbox}
-\textcolor{red}{We should summarize our main findings concerning EG1 here.}
-\end{tcolorbox}
+Analyzing column number 2 of Table~\ref{Tab:Tcr}, we can observe that all benchmarks returned SAT as a response. This result implies that there is a correct solution for each proposed case. Column 3 for the ESBMC and column 4 for the CPAchecker confirm that the results are convergent with the tool proposed here in search of a solution. However, the existence of a valid solution does not confirm that the proposed solution is the optimal solution. To confirm that PVz converges towards equipment specification, we must analyze the lines after SAT: NTP, NBT, controllers, inverters, and LCC. In the case of equality of the three tools, which we have successfully achieved, it can be inferred that the algorithm is sound. This outcome means that the program works correctly and brings accurate results as an answer. In other words, that the EG1 objective was successfully achieved. In the case of a difference between the results obtained, an inconsistency was developed.
 
 Once it has been confirmed that the EG1 objective has been achieved, we must note that the tools' crucial difference is the processing time. Nevertheless, PVz obtained interesting results, being approximately $13$ times faster if compared to ESBMC and hundreds of thousands of times faster than CPAchecker. Furthermore, our reduced approach solution proved to be robust against two of the state-of-the-art software verifiers.
 
 \textbf{Expanded approach:} Once we have the solutions of the benchmarks found by the three aforementioned solvers, we focus on the objectives EG2 and EG3, respectively. In contrast to the first approach, the amount of equipment has increased considerably; this implies an increase in the computational cost to find the optimal solution.
 
 For objective EG2, we analyzed the proposed technique's performance versus ESBMC, CPAchecker, and HOMER Pro tools. In Table~\ref{Tab:Tcr}, we can infer that both the ESBMC and CPAchecker tools failed to find a feasible solution for all the proposed simulations. HOMER Pro obtained all the results except for the third case described in Table~\ref{Tab:Tcr} column 08. For objective EG3, we make a comparison between columns 05 and 08. We conclude that the technique we have implemented is more accurate concerning the combinations of electrical equipment and their respective prices and LCC. Simultaneously, HOMER Pro, which we will describe in more detail in the next paragraph, processes the system a few seconds faster with an acceptable answer, but that is not the optimal one.
-
-\begin{tcolorbox}
-\textcolor{red}{We should summarize our main findings concerning EG2.}
-\end{tcolorbox}
-
-
-\begin{tcolorbox}
-\textcolor{red}{We should summarize our main findings concerning EG3.}
-\end{tcolorbox}
 
 \textbf{HOMER Pro:} HOMER Pro was able to evaluate six case studies (cases $1$, $2$, $4$, $5$, $6$, and $7$) under $30$ seconds. The test case $3$ was not performed because HOMER Pro does not have a battery autonomy adjustment feature; the tool always tries to supply electricity $365$ days/year to the load. Other HOMER Pro drawbacks must be highlighted: (a) The equipment list for the optimal solution does not include a commercial charge controller. HOMER Pro includes a controller to simulate the charge/discharge of batteries and meet the load requirement. However, there are no costs or electrical characteristics such as maximum current and voltage. (b) HOMER Pro requires some battery specifications to start the optimization; however, it does not change this battery during simulation; the results presented are multiples of this original battery type. HOMER Pro does not try to use other capacities or types. (c) HOMER Pro presents just the total power of the PV array. It does not present the power of each PV panel nor the total of panels in series or parallel. (d) Every piece of equipment is a USA-based cost, without adaptation regardless of where the equipment is deployed.
 
@@ -457,7 +444,7 @@ Let us consider $\nu$Z versus HOMER Pro since ESBMC and CPAchecker do not find a
 
 Regarding the processing time, both solved all the case studies in less than two minutes, which shows a significant advance concerning the other tools mentioned here. HOMER Pro solves the seven benchmarks three times faster than PVz, in counterpart to the performance, HOMER Pro does not return the optimum global cost, just an approximation, in our scenario, we find that this discrepancy is around 5\% ( financially, this variation is US \$ 450 dollars) upwards or downwards. We took the seven benchmarks to obtain at these numbers, so we removed the third benchmark since HOMER Pro did not find a solution. The average price (LCC) was made by removing the benchmark with higher cost and lower cost.
 
-Those issues are not easy to address without deployment in the field, i.e., using real systems. However, we decided to use the simulator PVsyst to validate the optimal sizing obtained, as shown in Table~\ref{tab2}. PVsyst has a pre-sizing feature, which presents a minimum recommended sizing of PV panels and batteries (only) without using manufacturers' data or models. This feature was used as a reference mainly with HOMER Pro, where there are \textcolor{blue}{only power and capacities specification, without equipment brands or models. PVsyst was used with the} PVz synthesis sizing solutions, where brands and models were selected from PVsyst database. Each simulation performed by PVsyst took $4$ seconds. We could not validate the case study $3$ with PVsyst, because there is a limitation of battery autonomy of $24$ h minimum, and only our synthesis technique can perform the optimal sizing with this configuration.
+Those issues are not easy to address without deployment in the field, i.e., using real systems. However, we decided to use the simulator PVsyst to validate the optimal sizing obtained, as shown in Table~\ref{tab2}. PVsyst has a pre-sizing feature, which presents a minimum recommended sizing of PV panels and batteries (only) without using manufacturers' data or models. This feature was used as a reference mainly with HOMER Pro, where there are only power and capacities specification, without equipment brands or models. PVsyst was used with the PVz synthesis sizing solutions, where brands and models were selected from PVsyst database. Each simulation performed by PVsyst took $4$ seconds. We could not validate the case study $3$ with PVsyst, because there is a limitation of battery autonomy of $24$ h minimum, and only our synthesis technique can perform the optimal sizing with this configuration.
 %
 \begin{table*}
 \centering
@@ -492,6 +479,18 @@ Case Study 7 & \makecell{P= 4,263 W\\B= 1,384 Ah\\(minimum)} & \makecell{NA\\The
 
 In general, the comparisons among our synthesis approach, the optimization software HOMER Pro, and the deployed systems, with validation through PVsyst, show that the PVz synthesis solution is sound and complete, which answers \textit{EG1} and {EG3}.
 
+\begin{tcolorbox}
+\textcolor{blue}{EG1 findings (soundness): our automated synthesis technique, using different engines, found the optimal sizing and all with the same sizing; Simulation tool validated this optimal sizing.}
+\end{tcolorbox}
+
+\begin{tcolorbox}
+\textcolor{blue}{EG2 findings (performance): our technique with optimization engine presents better performance (obtain the sizing, accurate and with less than 1s); ESBMC (without optimization engine) and CPAchecker were not able to obtain the sizing.}
+\end{tcolorbox}
+
+\begin{tcolorbox}
+\textcolor{blue}{EG3 findings (comparison): our technique with optimization engine is comparable with optimization commercial tool to obtain the PV  sizing; as an advantage, our technique presents detailed information from each PV system equipment and with price adjusted for the site of deployment.}
+\end{tcolorbox}
+
 Related to the cost analysis performed by the tools, HOMER Pro does not use the real cost for PV systems deployed in Brazil; therefore, the optimal solution presented tends to be cheaper than the one presented by PVz. However, considering that the goal is to present an optimal stand-alone PV sizing that is feasible and closer to the real market prices, thus the synthesis technique used by PVz is more precise.
 
 It must be highlighted that HOMER Pro suggests a value in kW for the inverters that reflex every case study's maximum load. However, this value does not correlate with commercial equipment. In opposite, the PVz synthesis tool presents inverters that are commercial and can be obtained off the shelf. Moreover, PVz is the only tool in this study that considers surge power demands from the houses. This feature is a strong advantage of the PVz method. Finally, HOMER Pro does not include charge controllers as specific PV system equipment in its mathematical model. Only our synthesis tool presents a commercial charge controller. Thus, to summarize, the formal synthesis method from PVz presents more reliable results than HOMER Pro.
@@ -508,12 +507,10 @@ It is worth highlighting some points of attention: (i) To increase the technique
 
 %------------------------------------
 \section{Conclusions} 
+\label{sec:Conclusions}
 %------------------------------------
-
-\textcolor{red}{we should connect our contributions with the experimental results (EG1, EG2 and EG3).}
-
-We developed and implemented a new tool, named PVz, and demonstrate that it is efficient for obtaining optimal sizing of equipment for solar photovoltaic systems with higher performance for precision and verification time than past synthesis tools. Our technique withstood an exhaustive data load and concluded all case studies by delivering the optimal solution with no exceptions. The same has not happened to ESBMC and CPAchecker, which are state-of-the-art in software verification. Furthermore, PVz showed to be close to market tools like HOMER Pro in terms of commercial items for composing the sizing of equipment. 
-We guarantee all benchmarks' correctness with the algorithms and methods developed in this work since all three verifiers could find the optimal solution. Besides, we built the tool to process equipment data on a much larger scale and always focused on the electrical system's best solution. Furthermore, our advances are complemented by the extension of the CEGIS synthesis method implemented in the proposed tool. Lastly, we will apply the knowledge developed in this article to real riverside communities.
+We developed and implemented a new tool, named PVz, and demonstrate that it is efficient for obtaining optimal sizing of equipment for solar PV systems with higher performance for precision and verification time than past synthesis tools. Our technique withstood an exhaustive data load and concluded all case studies by delivering the optimal solution with no exceptions. The same has not happened to ESBMC and CPAchecker, which are state-of-the-art in software verification. Furthermore, PVz showed to be close to market tools like HOMER Pro in terms of commercial items for composing the sizing of equipment. 
+We guarantee all benchmarks' correctness with the algorithms and methods developed in this work since all three verifiers could find the optimal solution. This solution was validated through a commercial simulation tool with satisfying results. Besides, we built the tool to process equipment data on a much larger scale and always focused on the electrical system's best solution. Furthermore, our advances are complemented by the extension of the CEGIS synthesis method implemented in the proposed tool. Lastly, we will apply the knowledge developed in this article to real riverside communities.
 
 
 % use section* for acknowledgment
