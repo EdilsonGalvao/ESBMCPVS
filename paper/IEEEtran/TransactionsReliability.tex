@@ -292,7 +292,9 @@ We performed all experiments on a dedicated Intel Xeon CPU E5-4617 ($6$-cores an
 
 For HOMER Pro and PVsyst, we have used an Intel Core i5-$4210$ ($4$-cores) with $1.7$ GHz and $4$ GB RAM under Windows 10. For comparative issues, the indication would be to use the same hardware configuration for the experiments. However, because of the operational system and availability of machines at the laboratory, we used different configurations, which is less favorable to HOMER Pro. We perform the experiments with a predefined \textit{timeout} of $200,000$ seconds (55.5 hours).
 
-We evaluated three state-of-the-art verifiers to compare the proposed approach effectiveness and efficiency, Z3\footnote{Command-line: \$ dotnet run TC-ID} version 4.8.9 with $\nu$Z as optimization engine, ESBMC\footnote{Command-line: \$ esbmc filename.c -\phantom{}-incremental-bmc -\phantom{}-boolector} v6.0.0~\cite{esbmc2018} with the Boolector 3.0.1 solver~\cite{Brummayer}, and CPAchecker\footnote{Command-line: \$ scripts/cpa.sh -heap 64000m -config config/bmc-incremental.properties -spec config/specification/sv-comp-reachability.spc file.c} v2.0~\cite{Beyer2011} with MathSAT 5.6.5~\cite{mathsat5}. All the scripts, tools, benchmarks, and general instructions for the experimental process can be reach online.\footnote{\url{http://bit.ly/PVzGuide12}}
+We evaluated three state-of-the-art verifiers to compare the proposed approach effectiveness and efficiency, Z3\footnote{Command-line: \$ dotnet run TC-ID} version 4.8.9 with $\nu$Z as optimization engine, ESBMC\footnote{Command-line: \$ esbmc filename.c -\phantom{}-incremental-bmc -\phantom{}-boolector} v6.0.0~\cite{esbmc2018} with the Boolector 3.0.1 solver~\cite{Brummayer}, and CPAchecker\footnote{Command-line: \$ scripts/cpa.sh -heap 64000m -config config/bmc-incremental.properties -spec config/specification/sv-comp-reachability.spc file.c} v2.0~\cite{Beyer2011} with MathSAT 5.6.5~\cite{mathsat5}. 
+
+\noindent \textbf{Availability of data and tools.} All the scripts, tools, benchmarks, and general instructions for the experimental process are available online.\footnote{\url{http://bit.ly/PVzGuide12}}
 
 %---------------------------------------------------------------------------
 \subsection{Description of Benchmarks}
@@ -480,15 +482,15 @@ Case Study 7 & \makecell{P= 4,263 W\\B= 1,384 Ah\\(minimum)} & \makecell{NA\\The
 In general, the comparisons among our synthesis approach, the optimization software HOMER Pro, and the deployed systems, with validation through PVsyst, show that the PVz synthesis solution is sound and complete, which answers \textit{EG1} and {EG3}.
 
 \begin{tcolorbox}
-EG1 main findings (soundness): our automated synthesis technique, using different engines, found the optimal sizing and all with the same sizing; the Simulation tool validated this optimal sizing, thus demonstrating the soundness of our approach.
+\textbf{EG1 main findings (soundness)}: our automated synthesis technique, using different engines, found the optimal sizing and all with the same sizing; the Simulation tool validated this optimal sizing, thus demonstrating the soundness of our approach.
 \end{tcolorbox}
 
 \begin{tcolorbox}
-EG2 main findings (performance): our technique with optimization engine presents better performance (obtain the sizing, accurate and with less than 1s) than other existing approaches. In particular, ESBMC (without optimization engine) and CPAchecker, which are state-of-the-art tools, could not obtain the sizing.
+\textbf{EG2 main findings (performance)}: our technique with optimization engine presents better performance (obtain the sizing, accurate and with less than 1s) than other existing approaches. In particular, ESBMC (without optimization engine) and CPAchecker, which are state-of-the-art tools, could not obtain the sizing.
 \end{tcolorbox}
 
 \begin{tcolorbox}
-EG3 main findings (comparison): our technique with optimization engine is comparable with optimization commercial tool to obtain the PV  sizing; as an advantage, our technique presents detailed information from each PV system equipment and with the price adjusted for the site of deployment.
+\textbf{EG3 main findings (comparison)}: our technique with optimization engine is comparable with optimization commercial tool to obtain the PV  sizing; as an advantage, our technique presents detailed information from each PV system equipment and with the price adjusted for the site of deployment.
 \end{tcolorbox}
 
 Related to the cost analysis performed by the tools, HOMER Pro does not use the real cost for PV systems deployed in Brazil; therefore, the optimal solution presented tends to be cheaper than the one presented by PVz. However, considering that the goal is to present an optimal stand-alone PV sizing that is feasible and closer to the real market prices, thus the synthesis technique used by PVz is more precise.
