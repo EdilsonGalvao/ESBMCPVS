@@ -145,7 +145,7 @@ formal synthesis\sep software verification\sep model checking\sep solar photovol
 \maketitle
 
 \section{Introduction}
-Recent studies on global energy indicate that $789$ million people have no access to electricity, which is $10$\% of the world population \citep{Energyprogressreport}. From $2010$ until $2018$, the effort to reduce the number of people without electricity access increased, and the results are positive. Quantitatively the result was a decrease from $1.2$ billion to $0.84$ billion people without electrical energy. Out of this total, renewable energy solutions are responsible for $136$ million people receiving basic energy service as shown in \cite{Energyprogressreport}. However, lack of access to clean and affordable energy is considered a core dimension of poverty \citep{Hussein2012}; and a direct impact is a low Human Development Index (HDI) \citep{Coelho}. Note that increased access to energy allows economic growth and poverty alleviation as demonstrated by \cite{Karekesi}. 
+Recent studies on global energy indicate that $789$ million people have no access to electricity, which is $10$\% of the world population~\citep{Energyprogressreport}. From $2010$ until $2018$, the effort to reduce the number of people without electricity access increased, and the results are positive. Quantitatively the result was a decrease from $1.2$ billion to $0.84$ billion people without electrical energy. Out of this total, renewable energy solutions are responsible for $136$ million people receiving basic energy service as shown in \cite{Energyprogressreport}. However, lack of access to clean and affordable energy is considered a core dimension of poverty~\citep{Hussein2012}; and a direct impact is a low Human Development Index (HDI)~\citep{Coelho}. Note that increased access to energy allows economic growth and poverty alleviation as demonstrated by~\cite{Karekesi}. 
  
 Decentralized or distributed systems, more notably solar photovoltaic (PV) in stand-alone and mini-grid systems, are indicated to be the lowest-cost solution for $75$\% of the connections required in the world~\citep{Hussein2012}. Thus, this highlight can be ratified by analyzing the result of renewable energy reported by the global bank, where $17.3$\% of global energy is based on wind and solar energy~\citep{Energyprogressreport}. 
 
@@ -178,7 +178,7 @@ For the \textbf{output} data and a more straightforward reading of this work, we
 \begin{center}
 \fbox{\includegraphics[width=0.38\textwidth]{TraditonalVsAutoFlow.png}}
 \end{center}
-\caption{Comparative image of the traditional method versus the proposed method.}
+%
 \label{fig:optimization}
 \end{figure}
   
@@ -195,7 +195,7 @@ The essence behind program synthesis is to automatically build a $P$ program tha
 \begin{center}
 \fbox{\includegraphics[width=0.47\textwidth]{fig2_rev2.jpg}}
 \end{center}
-	\caption{CEGIS in PV system sizing.}
+%	\caption{CEGIS in PV system sizing.}
 	\label{Counter-Example-Guided-Inductive-Synthesis}
 \end{figure}
 
@@ -222,19 +222,20 @@ A PV system is illustrated in Fig.\ref{fig:blockdiagram}. It employs the PV gene
 \begin{figure}[ht]
 \fbox{\includegraphics[width=0.47\textwidth]{blockdiagramPVS2_rev.png}}
 \centering
-\caption{Block diagram for a typical stand-alone PV system~\citep{Hansen}.}
+%\caption{Block diagram for a typical stand-alone PV system~\citep{Hansen}.}
 \label{fig:blockdiagram} 
 \end{figure}
  
 The sizing check phase can ensure that the system meets the sizing steps related to the critical period method (worst month) for solar photovoltaic design~\citep{Pinho}. The adoption of MPPT (Maximum Power Point Tracking) charge controller is based on the improvements in energy generation and the availability in the market. 
- 
+
 At this paper, we adopted a higher-level explanation about PV sizing, whose process is detailed online.\footnote{\href{https://cutt.ly/Dz1Ua6Q}{https://cutt.ly/Dz1Ua6Q}} 
 Fig.~\ref{fig:flow} illustrates an overview of the steps that must be taken to size a stand-alone PV system.
+
 %
 \begin{figure}[ht]
 \fbox{\includegraphics[width=0.47\textwidth]{flowchart.png}}
 \centering
-\caption{High level description of stand-alone PV system sizing process.}
+%\caption{High level description of stand-alone PV system sizing process.}
 \label{fig:flow} 
 \end{figure}
  
@@ -406,7 +407,7 @@ In this study, there is no validation by field deployment of the sized systems. 
 
 Table~\ref{Tab:Tcr} shows the result of both approaches described in Section~\ref{sec:SolversandStateSpace}. This table is split into four important columns, read from left to right: Column 01 describes all benchmarks with their respective specifications. Columns 02, 03, and 04 refer to the reduced approach that proves the system's correctness. Columns 05, 06, and 07 refer to the expanded approach, proving the commercial analysis tool's robustness. Finally, the last column refers to the simulation of the photovoltaic system using HOMER Pro.
 
-\textbf{Reduced approach:} Traditional software verifiers, e.g., ESBMC \citep{esbmc2018} and CPAchecker \citep{Beyer2011}, face difficulties in solving optimization problems. However, they can be solid allies for detecting the optimal solution. The strategy of this approach is to reduce state-space exploration. The reduction in the state space was due to the reduction in the number of electrical equipment combinations as described in Section~\ref{sec:SolversandStateSpace}. The \textit{Expanded} methodology includes $93,347$ arrangements as possible solutions for the photovoltaic system.
+\textbf{Reduced approach:} Traditional software verifiers, e.g., ESBMC~\citep{esbmc2018} and CPAchecker~\citep{Beyer2011}, face difficulties in solving optimization problems. However, they can be solid allies for detecting the optimal solution. The strategy of this approach is to reduce state-space exploration. The reduction in the state space was due to the reduction in the number of electrical equipment combinations as described in Section~\ref{sec:SolversandStateSpace}. The \textit{Expanded} methodology includes $93,347$ arrangements as possible solutions for the photovoltaic system.
 In contrast, in this approach, we reduce the number of arrangements to $24$ only. In this approach, all verifiers above will solve the proposed photovoltaic systems and compute their respective results. Using this approach, we were able to avoid timeout and memory-out problems. Thus, we can prove the technique's efficiency when the results are convergent to the same specification. In other words, each test case should have the same result when analyzed by the three SMT solvers.
 
 Analyzing column number 2 of Table~\ref{Tab:Tcr}, we can observe that all benchmarks returned SAT as a response. This result implies that there is a correct solution for each proposed case. Column 3 for the ESBMC and column 4 for the CPAchecker confirm that the results are convergent with the tool proposed here in search of a solution. However, the existence of a valid solution does not confirm that the proposed solution is the optimal solution. To confirm that PVz converges towards equipment specification, we must analyze the lines after SAT: NTP, NBT, controllers, inverters, and LCC. In the case of equality of the three tools, which we have successfully achieved, it can be inferred that the algorithm is sound. This outcome means that the program works correctly and brings accurate results as an answer. In other words, that the EG1 objective was successfully achieved. In the case of a difference between the results obtained, an inconsistency was developed.
@@ -452,90 +453,19 @@ It must be highlighted that HOMER Pro suggests a value in kW for the inverters t
 %
 \begin{landscape}
 \begin{table}
-\caption{Comparative result table between state-of-the-art tools.}
+%\caption{Comparative result table between state-of-the-art tools.}
 \label{Tab:Tcr}
 \centering
 \resizebox{\columnwidth}{!}{%
 \footnotesize
 \begin{tabular}{|c||c|c|c||c|c|c||c|}
 \hline
-Tools & \makecell{Microsoft Z3 \\($\nu$Z 4.8.9)}& \makecell{ESBMC 6.2.0 \\(Boolector 3.0.1)}& \makecell{CPAchecker 2.0\\(MathSAT 5.6.6)}& \makecell{Microsoft Z3 \\($\nu$Z 4.8.9)}& \makecell{ESBMC 6.2.0 \\(Boolector 3.0.1)}& \makecell{CPAchecker 2.0\\(MathSAT 5.6.6)}& HOMER Pro 3.13.1\\
-\hline
-Test Case & \multicolumn{3}{|c|}{Reduced Approach}  & \multicolumn{3}{|c|}{Expanded Approach} & \makecell{Simulation}\\
-\hline
-\makecell{\textbf{Case Study 1}\\Peak:342W\\Surge:342W \\E:3,900Wh/day\\Autonomy:48h}&
-\makecell{SAT (0,008 min) \\NTP:4$\times$425w (2S-2P)\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
-\makecell{SAT (0,033 min) \\NTP:4$\times$425w (2S-2P)\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
-\makecell{SAT (143,32 min) \\NTP:4$\times$425w (2S-2P)\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
-\makecell{SAT (1,38 min) \\NTP:4$\times$425w (2S-2P)\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
-\makecell{MO} & 
-\makecell{MO} & 
-\makecell{(Time: 0.33 min)\\2.53 kW of PV\\NBT:12$\times$83.4Ah (2S-6P)\\0.351kW inverter\\LCC: US\$ 7,808.04} \\
 
-\hline
-\makecell{\textbf{Case Study 2}\\Peak:814W\\Surge:980W\\E:4,880Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,003 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (0,05 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (143,35 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (1,48 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{MO} & 
-\makecell{MO} &
-\makecell{(Time: 0.18 min)\\3.71 kW of PV\\NBT:20$\times$83.4Ah (2S-10P)\\0.817kW inverter\\LCC: US\$ 12,861.75} \\
-
-\hline
-\makecell{\textbf{Case Study 3}\\Peak:815W\\Surge:980W\\E:4,880Wh/day\\Autonomy:12h} & 
-\makecell{SAT (0,003 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (0,05 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (164,46 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (1,67 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{MO} & 
-\makecell{MO} & 
-\makecell{NA}\\
-
-\hline
-\makecell{\textbf{Case Study 4}\\Peak:253W\\Surge:722W\\E:3,600Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,003 min) \\NTP:4$\times$395w (2S-2P)\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
-\makecell{SAT (0,05 min) \\NTP:4$\times$395w (2S-2P)\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
-\makecell{SAT (144,7 min) \\NTP:4$\times$395w (2S-2P)\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
-\makecell{SAT (1,42 min) \\NTP:4$\times$395w (2S-2P)\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
-\makecell{MO} & 
-\makecell{MO} &
-\makecell{(Time: 0.23 min)\\2.42 kW of PV\\NBT:12$\times$83.4Ah (2S-6P)\\0.254kW inverter\\LCC: US\$ 7,677.95} \\
-
-\hline
-\makecell{\textbf{Case Study 5}\\Peak:263W\\Surge:732W\\E:2,500Wh/day\\Autonomy:48h} &
-\makecell{SAT (0,003 min) \\NTP:4$\times$330w (2S-2P)\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
-\makecell{SAT (0,033 min) \\NTP:4$\times$330w (2S-2P)\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
-\makecell{SAT (154,60 min) \\NTP:4$\times$330w (2S-2P)\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
-\makecell{SAT (1,51 min) \\NTP:4$\times$330w (2S-2P)\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
-\makecell{MO} & 
-\makecell{MO} &
-\makecell{(Time: 0.18 min)\\1.59 kW of PV\\NBT:10$\times$83.4Ah (2S-5P)\\0.268kW inverter\\LCC: US\$ 6,175.57}\\
-
-\hline
-\makecell{\textbf{Case Study 6}\\Peak:322W\\Surge:896W\\E:4,300Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,003 min) \\NTP:6$\times$330w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} &
-\makecell{SAT (0,05 min) \\NTP:6$\times$330w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} & 
-\makecell{SAT (153,42 min) \\NTP:6$\times$330w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} & 
-\makecell{SAT (1,38 min) \\NTP:6$\times$330w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} &
-\makecell{MO} & 
-\makecell{MO} &
-\makecell{(Time: 0.22 min)\\3.15 kW of PV\\NBT:14$\times$83.4Ah (2S-7P)\\0.328kW inverter\\LCC: US\$ 9,112.45}\\
-
-\hline
-\makecell{\textbf{Case Study 7}\\Peak:1,586W\\Surge:2,900W\\E:14,000Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,003 min) \\NTP:20$\times$330w (10S-2P)\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
-\makecell{SAT (0,016 min) \\NTP:20$\times$330w (10S-2P)\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
-\makecell{SAT (130,08 min) \\NTP:20$\times$330w (10S-2P)\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
-\makecell{SAT (1,73 min) \\NTP:20$\times$330w (10S-2P)\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
-\makecell{MO} & 
-\makecell{MO} &
-\makecell{(Time: 0.20 min)\\12.5 kW of PV\\NBT:66$\times$83.4Ah (2S-33P)\\1.60kW inverter\\LCC: US\$ 41,878.11} \\
 
 \hline
 \end{tabular}
 }
-\\Legend: MO = memory out; TO = time out; E = energy; NTP = total number of panels, NBT = total number of batteries, S = in series; P = in parallel, LCC = Life Cycle Cost; NA = not available.
+%\\Legend: MO = memory out; TO = time out; E = energy; NTP = total number of panels, NBT = total number of batteries, S = in series; P = in parallel, LCC = Life Cycle Cost; NA = not available.
 \end{table}
 \end{landscape}
 \quad
@@ -544,32 +474,15 @@ Test Case & \multicolumn{3}{|c|}{Reduced Approach}  & \multicolumn{3}{|c|}{Expan
 %
 \begin{table*}
 \centering
-\caption{Optimal sizing validation with PVsyst.}
+%\caption{Optimal sizing validation with PVsyst.}
 \label{tab2}
 \begin{scriptsize}
 \begin{tabular}{c|c|c|c|c}
 \hline
 \hline
-Case Study & \makecell{PVsyst\\(pre-sizing)}& \makecell{Field\\deployed\\validation}& \makecell{Formal synthesis\\sizing\\validation}& \makecell{HOMER Pro\\sizing\\validation}\\
-\hline
-\hline
-Case Study 1 & \makecell{P= 1,166 W\\B= 381 Ah\\(minimum)} & \makecell{Not correct sizing \\Avail. $<$ 95\%\\(91.06\%)} & \makecell{No error found \\100\% of avail.} & \makecell{No error found\\Panels oversized in 2.16 $\times$\\Batteries oversized in 1.39 $\times$}\\
-\hline
-Case Study 2 & \makecell{P= 1,482 W\\B= 478 Ah\\(minimum)} & \makecell{NA\\There exists no real PV system\\available for comparison} & \makecell{No error found \\95.76\% of avail.} & \makecell{No error found\\Panels oversized in 2.6 $\times$\\Batteries oversized in 1.74 $\times$}\\
-\hline
-Case Study 3 & \makecell{Not possible to \\simulate\\(autonomy $<$ 24h)} & \makecell{NA\\There exists no real PV system\\available for comparison} & \makecell{Only technique that\\produced solution} & \makecell{NA\\(autonomy $<$ 24h)}\\
-\hline
-Case Study 4 & \makecell{P= 1,078 W\\B= 354 Ah\\(minimum)} & \makecell{No error found \\95.76\% of avail.} & \makecell{No error found \\98.10\% of avail.} & \makecell{No error found\\Panels oversized in 2.24 $\times$\\Batteries oversized in 1.41 $\times$}\\
-\hline
-Case Study 5 & \makecell{P= 823 W\\B= 268 Ah\\(minimum)} & \makecell{No error found \\100\% of avail.} & \makecell{No error found \\100\% of avail.} & \makecell{No error found\\Panels oversized in 1.93 $\times$\\Batteries oversized in 1.56 $\times$}\\
-\hline
-Case Study 6 & \makecell{P= 1,299 W\\B= 421 Ah\\(minimum)} & \makecell{Not correct sizing \\Avail. $<$ 95\%\\(85.65\%)} & \makecell{No error found \\100\% of avail.} & \makecell{No error found\\Panels oversized in 2.42 $\times$\\Batteries oversized in 1.38 $\times$}\\
-\hline
-Case Study 7 & \makecell{P= 4,263 W\\B= 1,384 Ah\\(minimum)} & \makecell{NA\\There exists no real PV system\\available for comparison} & \makecell{No error found \\98.37\% of avail.} & \makecell{No error found\\Panels oversized in 2.9 $\times$\\Batteries oversized in 1.99 $\times$}\\
-\hline
-\hline
+
 \end{tabular}
-\\NA = not available for validation; B = batteries capacity; P = panels power; Avail.= Availability (requirement of 95\% or greater).
+%\\NA = not available for validation; B = batteries capacity; P = panels power; Avail.= Availability (requirement of 95\% or greater).
 \end{scriptsize}
 \end{table*}
 
@@ -609,7 +522,7 @@ The authors would like to thank the financial support received by Coordenação 
 \bibliographystyle{cas-model2-names}
 
 % Loading bibliography database
-\bibliography{cas-refs}
+%\bibliography{cas-refs}
 %\bibliographystyle{IEEEtran}
 
 %
