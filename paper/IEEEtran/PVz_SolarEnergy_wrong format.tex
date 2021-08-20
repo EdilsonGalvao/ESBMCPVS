@@ -1,13 +1,5 @@
-\documentclass[review]{elsarticle}
-
-\usepackage{lineno,hyperref}
-\modulolinenumbers[1]
-\linenumbers
-
-\usepackage{numcompress}\bibliographystyle{model4-names}\biboptions{authoryear}
-
 %\documentclass[a4paper,donotrepeattitle,fleqn]{cas-dc}
-%\documentclass[a4paper,fleqn]{cas-dc}
+\documentclass[a4paper,fleqn]{cas-dc}
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
 \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
@@ -22,7 +14,7 @@
 \usepackage{tcolorbox}
 %\usepackage[numbers]{natbib}
 %
-%\usepackage{natbib}
+\usepackage{natbib}
 %\bibliographystyle{abbrvnat}
 %
 %\usepackage{numcompress}\bibliographystyle{model4-names}
@@ -40,14 +32,13 @@
 %%%
 
 \begin{document}
-\begin{frontmatter}
-%\let\WriteBookmarks\relax
-%\def\floatpagepagefraction{1}
-%\def\textpagefraction{.001}
-%\shorttitle{Multi-core Synthesis of Solar PV systems.}
-%\shortauthors{E. Galvão, A. Trindade and L. Cordeiro.}
+\let\WriteBookmarks\relax
+\def\floatpagepagefraction{1}
+\def\textpagefraction{.001}
+\shorttitle{Multi-core Synthesis of Solar PV systems.}
+\shortauthors{E. Galvão, A. Trindade and L. Cordeiro.}
 
-\title {Multi-core synthesis and maximum satisfiability for optimal sizing of solar photovoltaic systems.}                      
+\title [mode = title]{Multi-core synthesis and maximum satisfiability for optimal sizing of solar photovoltaic systems.}                      
 %\tnotemark[1,2]
 
 %\tnotetext[1]{This document is the results of the research
@@ -57,42 +48,31 @@
 %   to fill through the whole text width and overflow into
 %   another line in the footnotes area of the first page.}
 
-\author[mymainaddress]{Alessandro Trindade\corref{mycorrespondingauthor}}
-\cortext[mycorrespondingauthor]{Corresponding author}
-\ead{alessandrotrindade@ufam.edu.br}
-%\ead[url]{www.elsevier.com}
-
-\author[mysecondaryaddress]{Lucas Cordeiro}
-
-%
-%\address[mymainaddress]{Federal University of Amazonas, Av. Rodrigo Octávio, 6200, Coroado I, 69077-000 Manaus-AM-Brazil}
-%\address[mysecondaryaddress]{University of Manchester, School of Computer Science, Kilburn Building, Manchester M13 9PL}
-%
-%
-%
-%\author[1]{Edilson Galvão}
-%\author[1]{Alessandro Trindade}[orcid=0000-0001-8262-2919]
-%\ead{alessandrotrindade@ufam.edu.br} 
-%\cormark[1]
-%\author[2]{Lucas Cordeiro}[orcid=0000-0002-6235-4272]
+\author[1]{Edilson Galvão}
+\author[1]{Alessandro Trindade}[orcid=0000-0001-8262-2919]
+\ead{alessandrotrindade@ufam.edu.br} 
+\cormark[1]
+\author[2]{Lucas Cordeiro}[orcid=0000-0002-6235-4272]
 
 % Corresponding author indication
 
-%\affiliation[1]{organization={Federal University of Amazonas, Department of Electricity},
-%            addressline={Av. General Rodrigo Octavio, 1200 - Coroado I}, 
-%            city={Manaus},
-%            postcode={69077-000}, 
-%            state={Amazonas},
-%            country={Brazil}}
-%\cortext[1]{Corresponding author}
-%\affiliation[2]{organization={The University of Manchester, Department of Computer Science},
-%            addressline={Oxford Rd}, 
-%            city={Manchester},
-%            postcode={M13 9PL}, 
-%            country={United Kingdom}}
-%
+\affiliation[1]{organization={Federal University of Amazonas, Department of Electricity},
+            addressline={Av. General Rodrigo Octavio, 1200 - Coroado I}, 
+            city={Manaus},
+            postcode={69077-000}, 
+            state={Amazonas},
+            country={Brazil}}
+\cortext[1]{Corresponding author}
+\affiliation[2]{organization={The University of Manchester, Department of Computer Science},
+            addressline={Oxford Rd}, 
+            city={Manchester},
+            postcode={M13 9PL}, 
+            country={United Kingdom}}
+
 %\address[1]{Federal University of Amazonas, Department of Electricity, Av. General Rodrigo Octavio, 1200 - Coroado I, Manaus - AM, Brazil}
 %\address[2]{The University of Manchester, Department of Computer Science, Oxford Rd, Manchester M13 9PL, United Kingdom}
+
+  
 
 %\cormark[1]
 %\fnmark[1]
@@ -160,12 +140,11 @@ Energy consumption forecasting growth for the world is $1.3$\% until $2040$, and
 %\item Research highlights item 3
 %\end{highlights}
 
-\begin{keyword}
+\begin{keywords}
 formal synthesis\sep software verification\sep model checking\sep solar photovoltaic systems
 %quadrupole exciton \sep polariton \sep \WGM \sep \BEC
-\end{keyword}
+\end{keywords}
 
-\end{frontmatter}
 
 \maketitle
 
@@ -354,7 +333,9 @@ $F_{obj} \leftarrow N_{TP}*Panel_{Cost} \, + \, N_{TB}*Battery_{Cost} \, + Contr
 \label{base_opt_code2}
 \end{algorithm}
 
-To choose the best option, the system uses as input a list of \textbf{seventy} equipment from \textbf{twelve} different manufacturers, where each technical information required was found in a datasheet provided by the equipment factory. To calculate Eq.~\eqref{eq:LCC} value, it was necessary to convert the amounts to US dollars based on the exchange rate of the day. To simplify understanding about this type of data, a report has been created that condensates general information required to perform tests over this tool, and it is available online\footnote{\label{note1}\href{https://cutt.ly/Vz1Uw84}{https://cutt.ly/Vz1Uw84}}.
+To choose the best option, the system uses as input a list of \textbf{seventy} equipment from \textbf{twelve} 
+different manufacturers, where each technical information required was found in a datasheet provided by the equipment factory. To calculate Eq.~\eqref{eq:LCC} value,
+it was necessary to convert the amounts to US dollars based on the exchange rate of the day. To simplify understanding about this type of data, a report has been created that condensates general information required to perform tests over this tool, and it is available online.\footnote{\label{note1}\href{https://cutt.ly/Vz1Uw84}{https://cutt.ly/Vz1Uw84}}
 
 Algorithm~\ref{base_opt_code} retrieves the information described above based on arguments provided by the \textit{solve} function and creates an internal context. This context is responsible for verifying whether all equations are described in Algorithm~\ref{base_opt_code2}, specified in lines 06, 08, 11, 15 are satisfiable. Besides, the \textit{assume} method is called to ensure that the restrictions described in lines 07, 10, 12 and 14 are met.
 
@@ -629,7 +610,7 @@ The authors would like to thank the financial support received by Coordenação 
 
 %% Loading bibliography style file
 %\bibliographystyle{model1-num-names}
-%\bibliographystyle{cas-model2-names}
+\bibliographystyle{cas-model2-names}
 
 % Loading bibliography database
 \bibliography{cas-refs}
