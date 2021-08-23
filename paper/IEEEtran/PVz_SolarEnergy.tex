@@ -1,8 +1,8 @@
 \documentclass[review]{elsarticle}
 
 \usepackage{lineno,hyperref}
-\modulolinenumbers[1]
-\linenumbers
+\modulolinenumbers[5]
+%\linenumbers
 
 \usepackage{numcompress}\bibliographystyle{model4-names}\biboptions{authoryear}
 
@@ -10,7 +10,9 @@
 %\documentclass[a4paper,fleqn]{cas-dc}
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
-\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{makecell}
+\usepackage{algorithmic,algorithm2e}
+%\usepackage[ruled,vlined,linesnumbered]{algorithmic,algorithm2e}
 \usepackage{lscape}
 %From Table
 %\usepackage{makecell}
@@ -27,8 +29,6 @@
 %
 %\usepackage{numcompress}\bibliographystyle{model4-names}
 %\biboptions{authoryear}
-
-
 %%%Author definitions
 %\def\tsc#1{\csdef{#1}{\textsc{\lowercase{#1}}\xspace}}
 %\tsc{WGM}
@@ -40,7 +40,7 @@
 %%%
 
 \begin{document}
-\begin{frontmatter}
+%\begin{frontmatter}
 %\let\WriteBookmarks\relax
 %\def\floatpagepagefraction{1}
 %\def\textpagefraction{.001}
@@ -67,8 +67,8 @@
 \author[mysecondaryaddress]{Lucas Cordeiro}
 
 %
-\address[mymainaddress]{Federal University of Amazonas, Av. Rodrigo Octávio, 6200, Coroado I, 69077-000 Manaus-AM-Brazil}
-\address[mysecondaryaddress]{University of Manchester, School of Computer Science, Kilburn Building, Manchester M13 9PL}
+\address[mymainaddress]{Federal University of Amazonas, Av. Rodrigo Octávio, 6200, 69077-000 Manaus-AM-Brazil}
+\address[mysecondaryaddress]{University of Manchester, Kilburn Building, Manchester M13 9PL}
 %
 %
 %
@@ -167,7 +167,7 @@ formal synthesis\sep software verification\sep model checking\sep solar photovol
 %quadrupole exciton \sep polariton \sep \WGM \sep \BEC
 \end{keyword}
 
-\end{frontmatter}
+%\end{frontmatter}
 
 \maketitle
 
@@ -203,7 +203,7 @@ For the \textbf{output} data and a more straightforward reading of this work, we
 
 \begin{figure}[ht]
 \begin{center}
-\fbox{\includegraphics[width=0.38\textwidth]{TraditonalVsAutoFlow.png}}
+\fbox{\includegraphics[width=0.5\textwidth]{TraditonalVsAutoFlow.png}}
 \end{center}
 \caption{Comparative image of the traditional method versus the proposed method.}
 \label{fig:optimization}
@@ -220,7 +220,7 @@ The essence behind program synthesis is to automatically build a $P$ program tha
 %
 \begin{figure}[ht]
 \begin{center}
-\fbox{\includegraphics[width=0.47\textwidth]{fig2_rev2.jpg}}
+\fbox{\includegraphics[width=0.7\textwidth]{fig2_rev2.jpg}}
 \end{center}
 	\caption{CEGIS in PV system sizing.}
 	\label{Counter-Example-Guided-Inductive-Synthesis}
@@ -247,7 +247,7 @@ In summary, our proposed technique is based on CEGIS and aims to synthesize the 
 A PV system is illustrated in Fig.\ref{fig:blockdiagram}. It employs the PV generator (\textit{panel or an array}), a semiconductor device that can convert solar energy into DC electricity. We hold \textit{batteries}, where power can be stored and used for night hours or rainy days. The use of batteries demands the use of a \textit{charge controller}~\citep{Hansen}. The PV arrays produce direct current (DC), and as our homes use alternating current (AC), thus an \textit{inverter} is required (DC/AC converter)and therefore, when the PV system contains an AC load, a DC/AC conversion is required. The \textit{AC load} govern the behavior of the PV system.
 %
 \begin{figure}[ht]
-\fbox{\includegraphics[width=0.47\textwidth]{blockdiagramPVS2_rev.png}}
+\fbox{\includegraphics[width=0.6\textwidth]{blockdiagramPVS2_rev.png}}
 \centering
 \caption{Block diagram for a typical stand-alone PV system~\citep{Hansen}.}
 \label{fig:blockdiagram} 
@@ -259,7 +259,7 @@ At this paper, we adopted a higher-level explanation about PV sizing, whose proc
 Fig.~\ref{fig:flow} illustrates an overview of the steps that must be taken to size a stand-alone PV system.
 %
 \begin{figure}[ht]
-\fbox{\includegraphics[width=0.47\textwidth]{flowchart.png}}
+\fbox{\includegraphics[width=0.7\textwidth]{flowchart.png}}
 \centering
 \caption{High level description of stand-alone PV system sizing process.}
 \label{fig:flow} 
@@ -331,7 +331,6 @@ The representation of the problem through nodes decreases the complexity of proc
 \SetAlgoLined
 \KwResult{Returns the possible cost of the F combination of equipment.}
  Initialize internal arrays and variables\;
- 
 \SetKwFunction{FMain}{Solve}
 \SetKwProg{Fn}{Function}{:}{}
 \Fn{\FMain{$F$}}{
@@ -348,7 +347,7 @@ Enforce electrical compatibility in Step xii of Fig.~\ref{fig:flow} with stateme
 Define number of charge controllers: Step xiii of Fig.~\ref{fig:flow}\;
 Enforce electrical compatibilities in Step xiv of Fig.~\ref{fig:flow} with statement \textbf{assume} and define the inverter\;
 Non-deterministic variables hold feasible equipment and cost\;
-$F_{obj} \leftarrow N_{TP}*Panel_{Cost} \, + \, N_{TB}*Battery_{Cost} \, + Controller_{Cost} \, + \, Inverter_{Cost} \, + \, Installation_{Cost} \, + \, batrep_{Cost} \, + \, PWO\&M_{Cost}$
+$F_{obj} \leftarrow N_{TP}*Panel_{Cost} \, + \, N_{TB}*Battery_{Cost} \, + Controller_{Cost} \, + \, Inverter_{Cost} \, + \, Installation_{Cost} \, + \, batrep_{Cost} \, + \, PWO\&M_{Cost}$\;
 \KwRet\ isSatisfiable\;
 }
 \textbf{End Function}\;
@@ -356,7 +355,8 @@ $F_{obj} \leftarrow N_{TP}*Panel_{Cost} \, + \, N_{TB}*Battery_{Cost} \, + Contr
 \label{base_opt_code2}
 \end{algorithm}
 
-To choose the best option, the system uses as input a list of \textbf{seventy} equipment from \textbf{twelve} different manufacturers, where each technical information required was found in a datasheet provided by the equipment factory. To calculate Eq.~\eqref{eq:LCC} value, it was necessary to convert the amounts to US dollars based on the exchange rate of the day. To simplify understanding about this type of data, a report has been created that condensates general information required to perform tests over this tool, and it is available online\footnote{\label{note1}\href{https://cutt.ly/Vz1Uw84}{https://cutt.ly/Vz1Uw84}}.
+To choose the best option, the system uses as input a list of \textbf{seventy} equipment from \textbf{twelve} different manufacturers, where each technical information required was found in a datasheet provided by the equipment factory. To calculate Eq.~\ref{eq:LCC} value, it was necessary to convert the amounts to US dollars based on the exchange rate of the day. To simplify understanding about this type of data, a report has been created that condensates general information required to perform tests over this tool, and it is available online\footnote{\label{note1}\href{https://cutt.ly/Vz1Uw84}{https://cutt.ly/Vz1Uw84}}.
+
 
 Algorithm~\ref{base_opt_code} retrieves the information described above based on arguments provided by the \textit{solve} function and creates an internal context. This context is responsible for verifying whether all equations are described in Algorithm~\ref{base_opt_code2}, specified in lines 06, 08, 11, 15 are satisfiable. Besides, the \textit{assume} method is called to ensure that the restrictions described in lines 07, 10, 12 and 14 are met.
 
@@ -565,9 +565,9 @@ Test Case & \multicolumn{3}{|c|}{Reduced Approach}  & \multicolumn{3}{|c|}{Expan
 \end{landscape}
 \quad
 
-
 %
-\begin{table*}
+\begin{landscape}
+\begin{table}
 \centering
 \caption{Optimal sizing validation with PVsyst.}
 \label{tab2}
@@ -596,7 +596,8 @@ Case Study 7 & \makecell{P= 4,263 W\\B= 1,384 Ah\\(minimum)} & \makecell{NA\\The
 \end{tabular}
 \\NA = not available for validation; B = batteries capacity; P = panels power; Avail.= Availability (requirement of 95\% or greater).
 \end{scriptsize}
-\end{table*}
+\end{table}
+\end{landscape}
 
 The synthesis technique used by PVz presents a more detailed solution and closer to commercial conditions than the given by HOMER Pro. PVz method provides details of every component of a PV system solution, with complete electrical information from the manufacturer datasheet, including the model, nominal current, and voltage or power. In this respect, even the manufacturer's name can be cited (in Table~\ref{Tab:Tcr}, which we removed to avoid unauthorized advertising). Moreover, the validation through PVsyst, using the PV sizing produced by HOMER Pro and by PVz, shows that our results are best fitted and not oversized as HOMER Pro results, mainly concerning PV panels power.
 
