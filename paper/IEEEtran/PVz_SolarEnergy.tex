@@ -481,80 +481,87 @@ It must be highlighted that HOMER Pro suggests a value in kW for the inverters t
 \centering
 \resizebox{\columnwidth}{!}{%
 \footnotesize
-\begin{tabular}{|c||c|c|c||c|c|c||c|}
+\begin{tabular}{|c|c|c|c|c||c|c|c||c|}
 \hline
-Tools & \makecell{Microsoft Z3 \\($\nu$Z 4.8.9)}& \makecell{ESBMC 6.2.0 \\(Boolector 3.0.1)}& \makecell{CPAchecker 2.0\\(MathSAT 5.6.6)}& \makecell{Microsoft Z3 \\($\nu$Z 4.8.9)}& \makecell{ESBMC 6.2.0 \\(Boolector 3.0.1)}& \makecell{CPAchecker 2.0\\(MathSAT 5.6.6)}& HOMER Pro 3.13.1\\
+Tools & \makecell{Electric\\Settings}& \makecell{Microsoft Z3 \\($\nu$Z 4.8.9)}& \makecell{ESBMC 6.2.0 \\(Boolector 3.0.1)}& \makecell{CPAchecker 2.0\\(Math5.6.6)}& \makecell{Microsoft Z3 \\($\nu$Z 4.8.9)}& \makecell{ESBMC 6.2.0 \\(Boolector 3.0.1)}& \makecell{CPAchecker 2.0\\(Math5.6.6)}& HOMER Pro 3.13.1\\
 \hline
-Test Case & \multicolumn{3}{|c|}{Reduced Approach}  & \multicolumn{3}{|c|}{Expanded Approach} & \makecell{Simulation}\\
+\multicolumn{2}{|c|}{Test Case} & \multicolumn{3}{|c|}{Reduced Approach}  & \multicolumn{3}{|c|}{Expanded Approach} & \makecell{Simulation}\\
 \hline
 \makecell{\textbf{Case Study 1}\\Peak:342W\\Surge:342W \\E:3,900Wh/day\\Autonomy:48h}&
-\makecell{SAT (0,008 min) \\NTP:4$\times$425w (2S-2P)\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
-\makecell{SAT (0,033 min) \\NTP:4$\times$425w (2S-2P)\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
-\makecell{SAT (143,32 min) \\NTP:4$\times$425w (2S-2P)\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
-\makecell{SAT (1,38 min) \\NTP:4$\times$425w (2S-2P)\\NBT:8$\times$220Ah\\Controller 30A/100V\\Inverter 400W/24V\\LCC: US\$ 8,992.58} &
+\makecell{SAT\\NTP\\NBT\\Controller\\Inverter\\LCC}&
+\makecell{(0,008 min) \\4$\times$425w(2S-2P)\\8$\times$220Ah\\30A/100V\\400W/24V\\US\$ 8,992.58} &
+\makecell{(0,033 min) \\4$\times$425w(2S-2P)\\8$\times$220Ah\\30A/100V\\400W/24V\\US\$ 8,992.58} &
+\makecell{(143,32 min) \\4$\times$425w(2S-2P)\\8$\times$220Ah\\30A/100V\\400W/24V\\US\$ 8,992.58} &
+\makecell{(1,38 min) \\4$\times$425w(2S-2P)\\8$\times$220Ah\\30A/100V\\400W/24V\\US\$ 8,992.58} &
 \makecell{MO} & 
 \makecell{MO} & 
-\makecell{(Time: 0.33 min)\\2.53 kW of PV\\NBT:12$\times$83.4Ah (2S-6P)\\0.351kW inverter\\LCC: US\$ 7,808.04} \\
+\makecell{(Time: 0.33 min)\\2.53 kW of PV\\12$\times$83.4Ah (2S-6P)\\0.351kW \\US\$ 7,808.04} \\
 
 \hline
 \makecell{\textbf{Case Study 2}\\Peak:814W\\Surge:980W\\E:4,880Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,003 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (0,05 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (143,35 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (1,48 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
+\makecell{SAT\\NTP\\NBT\\Controller\\Inverter\\LCC}&
+\makecell{(0,003 min)\\6$\times$355w(3S-2P)\\10$\times$220Ah\\40A/150V\\1200W/24V\\US\$ 10,028.34} &
+\makecell{(0,05 min)\\6$\times$355w(3S-2P)\\10$\times$220Ah\\40A/150V\\1200W/24V\\US\$ 10,028.34} &
+\makecell{(143,35 min)\\6$\times$355w(3S-2P)\\10$\times$220Ah\\40A/150V\\1200W/24V\\US\$ 10,028.34} &
+\makecell{(1,48 min)\\6$\times$355w(3S-2P)\\10$\times$220Ah\\40A/150V\\1200W/24V\\US\$ 10,028.34} &
 \makecell{MO} & 
 \makecell{MO} &
-\makecell{(Time: 0.18 min)\\3.71 kW of PV\\NBT:20$\times$83.4Ah (2S-10P)\\0.817kW inverter\\LCC: US\$ 12,861.75} \\
+\makecell{(Time: 0.18 min)\\3.71 kW of PV\\20$\times$83.4Ah (2S-10P)\\0.817kW\\US\$ 12,861.75} \\
 
 \hline
 \makecell{\textbf{Case Study 3}\\Peak:815W\\Surge:980W\\E:4,880Wh/day\\Autonomy:12h} & 
-\makecell{SAT (0,003 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (0,05 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (164,46 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
-\makecell{SAT (1,67 min) \\NTP:6$\times$355w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 1200W/24V\\LCC: US\$ 10,028.34} &
+\makecell{SAT\\NTP\\NBT\\Controller\\Inverter\\LCC}&
+\makecell{(0,003 min)\\6$\times$355w(3S-2P)\\10$\times$220Ah\\40A/150V\\1200W/24V\\US\$ 10,028.34} &
+\makecell{(0,05 min)\\6$\times$355w(3S-2P)\\10$\times$220Ah\\40A/150V\\1200W/24V\\US\$ 10,028.34} &
+\makecell{(164,46 min)\\6$\times$355w(3S-2P)\\10$\times$220Ah\\40A/150V\\1200W/24V\\US\$ 10,028.34} &
+\makecell{(1,67 min)\\6$\times$355w(3S-2P)\\10$\times$220Ah\\40A/150V\\1200W/24V\\US\$ 10,028.34} &
 \makecell{MO} & 
 \makecell{MO} & 
 \makecell{NA}\\
 
 \hline
 \makecell{\textbf{Case Study 4}\\Peak:253W\\Surge:722W\\E:3,600Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,003 min) \\NTP:4$\times$395w (2S-2P)\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
-\makecell{SAT (0,05 min) \\NTP:4$\times$395w (2S-2P)\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
-\makecell{SAT (144,7 min) \\NTP:4$\times$395w (2S-2P)\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
-\makecell{SAT (1,42 min) \\NTP:4$\times$395w (2S-2P)\\NBT:8$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,883.62} &
+\makecell{SAT\\NTP\\NBT\\Controller\\Inverter\\LCC}&
+\makecell{(0,003 min)\\4$\times$395w(2S-2P)\\8$\times$220Ah\\20A/100V\\280W/24V\\US\$ 8,883.62} &
+\makecell{(0,05 min)\\4$\times$395w(2S-2P)\\8$\times$220Ah\\20A/100V\\280W/24V\\US\$ 8,883.62} &
+\makecell{(144,7 min)\\4$\times$395w(2S-2P)\\8$\times$220Ah\\20A/100V\\280W/24V\\US\$ 8,883.62} &
+\makecell{(1,42 min)\\4$\times$395w(2S-2P)\\8$\times$220Ah\\20A/100V\\280W/24V\\US\$ 8,883.62} &
 \makecell{MO} & 
 \makecell{MO} &
-\makecell{(Time: 0.23 min)\\2.42 kW of PV\\NBT:12$\times$83.4Ah (2S-6P)\\0.254kW inverter\\LCC: US\$ 7,677.95} \\
+\makecell{(Time: 0.23 min)\\2.42 kW of PV\\12$\times$83.4Ah (2S-6P)\\0.254kW\\US\$ 7,677.95} \\
 
 \hline
 \makecell{\textbf{Case Study 5}\\Peak:263W\\Surge:732W\\E:2,500Wh/day\\Autonomy:48h} &
-\makecell{SAT (0,003 min) \\NTP:4$\times$330w (2S-2P)\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
-\makecell{SAT (0,033 min) \\NTP:4$\times$330w (2S-2P)\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
-\makecell{SAT (154,60 min) \\NTP:4$\times$330w (2S-2P)\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
-\makecell{SAT (1,51 min) \\NTP:4$\times$330w (2S-2P)\\NBT:6$\times$220Ah\\Controller 20A/100V\\Inverter 280W/24V\\LCC: US\$ 8,119.74} &
+\makecell{SAT\\NTP\\NBT\\Controller\\Inverter\\LCC}&
+\makecell{(0,003 min)\\4$\times$330w(2S-2P)\\6$\times$220Ah\\20A/100V\\280W/24V\\US\$ 8,119.74} &
+\makecell{(0,033 min)\\4$\times$330w(2S-2P)\\6$\times$220Ah\\20A/100V\\280W/24V\\US\$ 8,119.74} &
+\makecell{(154,60 min)\\4$\times$330w(2S-2P)\\6$\times$220Ah\\20A/100V\\280W/24V\\US\$ 8,119.74} &
+\makecell{(1,51 min)\\4$\times$330w(2S-2P)\\6$\times$220Ah\\20A/100V\\280W/24V\\US\$ 8,119.74} &
 \makecell{MO} & 
 \makecell{MO} &
-\makecell{(Time: 0.18 min)\\1.59 kW of PV\\NBT:10$\times$83.4Ah (2S-5P)\\0.268kW inverter\\LCC: US\$ 6,175.57}\\
+\makecell{(Time: 0.18 min)\\1.59 kW of PV\\10$\times$83.4Ah (2S-5P)\\0.268kW\\US\$ 6,175.57}\\
 
 \hline
 \makecell{\textbf{Case Study 6}\\Peak:322W\\Surge:896W\\E:4,300Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,003 min) \\NTP:6$\times$330w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} &
-\makecell{SAT (0,05 min) \\NTP:6$\times$330w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} & 
-\makecell{SAT (153,42 min) \\NTP:6$\times$330w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} & 
-\makecell{SAT (1,38 min) \\NTP:6$\times$330w (3S-2P)\\NBT:10$\times$220Ah\\Controller 40A/150V\\Inverter 400W/24V\\LCC: US\$ 9,587.01} &
+\makecell{SAT\\NTP\\NBT\\Controller\\Inverter\\LCC}&
+\makecell{(0,003 min)\\6$\times$330w(3S-2P)\\10$\times$220Ah\\40A/150V\\400W/24V\\US\$ 9,587.01} &
+\makecell{(0,05 min)\\6$\times$330w(3S-2P)\\10$\times$220Ah\\40A/150V\\400W/24V\\US\$ 9,587.01} & 
+\makecell{(153,42 min)\\6$\times$330w(3S-2P)\\10$\times$220Ah\\40A/150V\\400W/24V\\US\$ 9,587.01} & 
+\makecell{(1,38 min)\\6$\times$330w(3S-2P)\\10$\times$220Ah\\40A/150V\\400W/24V\\US\$ 9,587.01} &
 \makecell{MO} & 
 \makecell{MO} &
-\makecell{(Time: 0.22 min)\\3.15 kW of PV\\NBT:14$\times$83.4Ah (2S-7P)\\0.328kW inverter\\LCC: US\$ 9,112.45}\\
+\makecell{(Time: 0.22 min)\\3.15 kW of PV\\14$\times$83.4Ah (2S-7P)\\0.328kW\\US\$ 9,112.45}\\
 
 \hline
 \makecell{\textbf{Case Study 7}\\Peak:1,586W\\Surge:2,900W\\E:14,000Wh/day\\Autonomy:48h} & 
-\makecell{SAT (0,003 min) \\NTP:20$\times$330w (10S-2P)\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
-\makecell{SAT (0,016 min) \\NTP:20$\times$330w (10S-2P)\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
-\makecell{SAT (130,08 min) \\NTP:20$\times$330w (10S-2P)\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
-\makecell{SAT (1,73 min) \\NTP:20$\times$330w (10S-2P)\\NBT:30$\times$220Ah\\Controller 100A/400V\\Inverter 1600W/24V\\LCC: US\$ 18,408.27}  &
+\makecell{SAT\\NTP\\NBT\\Controller\\Inverter\\LCC}&
+\makecell{(0,003 min)\\20$\times$330w(10S-2P)\\30$\times$220Ah\\100A/400V\\1600W/24V\\US\$ 18,408.27}  &
+\makecell{(0,016 min)\\20$\times$330w(10S-2P)\\30$\times$220Ah\\100A/400V\\1600W/24V\\US\$ 18,408.27}  &
+\makecell{(130,08 min)\\20$\times$330w(10S-2P)\\30$\times$220Ah\\100A/400V\\1600W/24V\\US\$ 18,408.27}  &
+\makecell{(1,73 min)\\20$\times$330w(10S-2P)\\30$\times$220Ah\\100A/400V\\1600W/24V\\US\$ 18,408.27}  &
 \makecell{MO} & 
 \makecell{MO} &
-\makecell{(Time: 0.20 min)\\12.5 kW of PV\\NBT:66$\times$83.4Ah (2S-33P)\\1.60kW inverter\\LCC: US\$ 41,878.11} \\
+\makecell{(Time: 0.20 min)\\12.5 kW of PV\\66$\times$83.4Ah (2S-33P)\\1.60kW\\US\$ 41,878.11} \\
 
 \hline
 \end{tabular}
@@ -653,3 +660,4 @@ The authors would like to thank the financial support received by Coordenação 
 %\endbio
 
 \end{document}
+
